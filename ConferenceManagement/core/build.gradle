@@ -24,6 +24,9 @@ dependencies {
         hibernateVersion = '5.4.2.Final'
         hikariVersion = '2.7.7'
         jaxbapiVersion = '2.3.0'
+
+        caffeineVersion = '2.6.1'
+        lombokVersion = '1.18.12'
     }
 
 
@@ -56,6 +59,11 @@ dependencies {
 
         compile group: 'javax.xml.bind', name: 'jaxb-api', version: "$jaxbapiVersion"
 
+        compile group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: "$caffeineVersion"
 
+        //compile group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
+
+        compileOnly "org.projectlombok:lombok:${lombokVersion}"
+        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     }
 }

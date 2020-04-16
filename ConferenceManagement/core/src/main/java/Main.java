@@ -1,3 +1,4 @@
+import domain.User;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ui.Console;
 
@@ -12,6 +13,7 @@ public class Main {
                 );
 
         Console console = context.getBean(Console.class);
+        console.run();
 
         System.out.println("bye");
     }
