@@ -1,6 +1,6 @@
 package repo;
 
-import domain.User;
+import domain.CMSUser;
 
-public interface UserRepository extends JPARepository<User, Long> {
+public interface UserRepository extends JPARepository<CMSUser, Long> {
 }
