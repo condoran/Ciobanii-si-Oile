@@ -11,6 +11,7 @@ import repo.ReviewRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProposalServiceImpl implements ProposalService{
@@ -24,6 +25,11 @@ public class ProposalServiceImpl implements ProposalService{
     private ReviewRepository reviewRepository;
 
     @Override
+    public Optional<Proposal> getProposalById(Long proposalId) {
+        return proposalRepository.findById(proposalId);
+    }
+
+    @Override
     public List<Proposal> getAll() {
         return proposalRepository.findAll();
     }
@@ -34,8 +40,8 @@ public class ProposalServiceImpl implements ProposalService{
     }
 
     @Override
-    public void delete(Long id) {
-        proposalRepository.deleteById(id);
+    public void delete(Long proposalId) {
+        proposalRepository.deleteById(proposalId);
     }
 
     @Override

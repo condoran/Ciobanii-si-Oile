@@ -16,6 +16,11 @@ public class ConferenceServiceImpl implements ConferenceService {
     private ConferenceRepository conferenceRepository;
 
     @Override
+    public Optional<Conference> getConferenceById(Long conferenceId) {
+        return conferenceRepository.findById(conferenceId);
+    }
+
+    @Override
     public List<Conference> getAll() {
         return conferenceRepository.findAll();
     }
@@ -26,14 +31,14 @@ public class ConferenceServiceImpl implements ConferenceService {
     }
 
     @Override
-    public void delete(Long id) {
-        conferenceRepository.deleteById(id);
+    public void delete(Long conferenceId) {
+        conferenceRepository.deleteById(conferenceId);
     }
 
     @Override
     @Transactional
-    public Optional<Conference> postponeBiddingDeadline(Long id, Date newBiddingDate) {
-        Conference conference = conferenceRepository.findById(id).orElse(null);
+    public Optional<Conference> postponeBiddingDeadline(Long conferenceId, Date newBiddingDate) {
+        Conference conference = conferenceRepository.findById(conferenceId).orElse(null);
         if(conference == null)
             return Optional.empty();
 
@@ -43,8 +48,8 @@ public class ConferenceServiceImpl implements ConferenceService {
 
     @Override
     @Transactional
-    public Optional<Conference> postponeFullPaperDeadline(Long id, Date newFullPaperDate) {
-        Conference conference = conferenceRepository.findById(id).orElse(null);
+    public Optional<Conference> postponeFullPaperDeadline(Long conferenceId, Date newFullPaperDate) {
+        Conference conference = conferenceRepository.findById(conferenceId).orElse(null);
         if(conference == null)
             return Optional.empty();
 
@@ -54,8 +59,8 @@ public class ConferenceServiceImpl implements ConferenceService {
 
     @Override
     @Transactional
-    public Optional<Conference> postponeAbstractPaperDeadline(Long id, Date newAbstractDate) {
-        Conference conference = conferenceRepository.findById(id).orElse(null);
+    public Optional<Conference> postponeAbstractPaperDeadline(Long conferenceId, Date newAbstractDate) {
+        Conference conference = conferenceRepository.findById(conferenceId).orElse(null);
         if(conference == null)
             return Optional.empty();
 
@@ -65,8 +70,8 @@ public class ConferenceServiceImpl implements ConferenceService {
 
     @Override
     @Transactional
-    public Optional<Conference> postponeConference(Long id, Date newStartDate, Date newEndDate) {
-        Conference conference = conferenceRepository.findById(id).orElse(null);
+    public Optional<Conference> postponeConference(Long conferenceId, Date newStartDate, Date newEndDate) {
+        Conference conference = conferenceRepository.findById(conferenceId).orElse(null);
         if(conference == null)
             return Optional.empty();
 

@@ -22,6 +22,6 @@ public class Proposal implements Serializable {
     private String keywords;
     private String topics;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     private List<CMSUser> authors;
 }

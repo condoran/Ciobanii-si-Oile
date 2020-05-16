@@ -16,6 +16,16 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
+    public Optional<CMSUser> getUserByUsername(String username) {
+        return userRepository.findAll().stream().filter(user -> user.getUsername().equals(username)).findFirst();
+    }
+
+    @Override
+    public Optional<CMSUser> getUserByEmailAddress(String emailAddress) {
+        return userRepository.findAll().stream().filter(user -> user.getEmailAddress().equals(emailAddress)).findFirst();
+    }
+
+    @Override
     public List<CMSUser> getAllUsers() {
         return userRepository.findAll();
     }
@@ -43,12 +53,12 @@ public class UserServiceImpl implements UserService {
         cmsUser.setPersonalWebsite(newCMSUser.getPersonalWebsite());
         cmsUser.setConferences(cmsUser.getConferences());
 
-        return null;
+        return cmsUser;
     }
 
     @Override
-    public void delete(long id) {
-        userRepository.deleteById(id);
+    public void delete(long userId) {
+        userRepository.deleteById(userId);
     }
 
     @Override

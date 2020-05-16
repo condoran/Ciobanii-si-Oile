@@ -6,12 +6,18 @@ import org.springframework.stereotype.Service;
 import repo.SectionRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SectionServiceImpl implements SectionService{
 
     @Autowired
     private SectionRepository sectionRepository;
+
+    @Override
+    public Optional<Section> getSectionById(Long sectionId) {
+        return sectionRepository.findById(sectionId);
+    }
 
     @Override
     public List<Section> getAll() {
@@ -24,7 +30,7 @@ public class SectionServiceImpl implements SectionService{
     }
 
     @Override
-    public void delete(Long id) {
-        sectionRepository.deleteById(id);
+    public void delete(Long sectionId) {
+        sectionRepository.deleteById(sectionId);
     }
 }

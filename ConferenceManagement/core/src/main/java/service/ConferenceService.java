@@ -7,17 +7,20 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ConferenceService {
+
+    Optional<Conference> getConferenceById(Long conferenceId);
+
     List<Conference> getAll();
 
     Conference save(Conference conference);
 
-    void delete(Long id);
+    void delete(Long conferenceId);
 
-    Optional<Conference> postponeBiddingDeadline(Long id, Date newBiddingDate);
+    Optional<Conference> postponeBiddingDeadline(Long conferenceId, Date newBiddingDate);
 
-    Optional<Conference> postponeFullPaperDeadline(Long id, Date newFullPaperDate);
+    Optional<Conference> postponeFullPaperDeadline(Long conferenceId, Date newFullPaperDate);
 
-    Optional<Conference> postponeAbstractPaperDeadline(Long id, Date newAbstractDate);
+    Optional<Conference> postponeAbstractPaperDeadline(Long conferenceId, Date newAbstractDate);
 
-    Optional<Conference> postponeConference(Long id, Date newStartDate, Date newEndDate);
+    Optional<Conference> postponeConference(Long conferenceId, Date newStartDate, Date newEndDate);
 }

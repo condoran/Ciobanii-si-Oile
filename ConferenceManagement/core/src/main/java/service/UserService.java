@@ -7,13 +7,18 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
+
+    Optional<CMSUser> getUserByUsername(String username);
+
+    Optional<CMSUser> getUserByEmailAddress(String emailAddress);
+
     List<CMSUser> getAllUsers();
 
     CMSUser save(CMSUser CMSUser);
 
     CMSUser update(CMSUser newCMSUser);
 
-    void delete(long id);
+    void delete(long userId);
 
     Optional<CMSUser> getChair();
 

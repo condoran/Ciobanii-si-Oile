@@ -2,21 +2,22 @@ package domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = "emailAddress"),
+        @UniqueConstraint(columnNames = "username")
+})
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
 public class CMSUser implements Serializable {
     @Id
-    @Generated
+    @GeneratedValue
     private Long id;
 
     private String username;

@@ -1,4 +1,5 @@
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import ui.Console;
 //import ui.Console;
 
 public class Main {
@@ -11,8 +12,8 @@ public class Main {
                         "config"
                 );
 
-//        Console console = context.getBean(Console.class);
-//        console.run();
+        Console console = context.getBean(Console.class);
+        console.run();
 
         System.out.println("bye");
     }
