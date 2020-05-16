@@ -1,0 +1,13 @@
+.menu{
+  position: absolute;
+  top: 0;
+  height: 50px;
+  width: 100%;
+  background-color: lightgray;
+  margin:0;
+  overflow: hidden;
+}
+div{ margin: 0;}
+.logoFull{
+  height: 80px;
+}
