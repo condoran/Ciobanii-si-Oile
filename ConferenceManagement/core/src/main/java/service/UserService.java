@@ -1,11 +1,28 @@
 package service;
 
-import domain.User;
+
+import domain.CMSUser;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
-    List<User> getAll();
+    List<CMSUser> getAllUsers();
 
-    void save(User user);
+    CMSUser save(CMSUser CMSUser);
+
+    CMSUser update(CMSUser newCMSUser);
+
+    void delete(long id);
+
+    Optional<CMSUser> getChair();
+
+    List<CMSUser> getCoChairs();
+
+    List<CMSUser> getPCMembers();
+
+    List<CMSUser> getAuthors();
+
+    List<CMSUser> getSCMembers();
+
 }
