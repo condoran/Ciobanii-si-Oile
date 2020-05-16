@@ -10,4 +10,13 @@
   background-color: lightgray;
   width:auto;
   text-align: center;
+
+}
+input{
+  border-radius: 15px;
+  padding: 8px;
+  margin: 10px;
+}
+button{
+  border-radius: 10px;
 }
