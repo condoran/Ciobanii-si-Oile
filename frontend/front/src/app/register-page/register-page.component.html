@@ -1,1 +1,8 @@
-<p>register-page works!</p>
+<div class="container">
+  <label>Username</label><br>
+  <input type="text" #userInput/>
+  <br>
+  <label>Password</label><br>
+  <input type="password" #passInput><br>
+  <button (click)="register(userInput.value,passInput.value)">Register!</button>
+</div>
