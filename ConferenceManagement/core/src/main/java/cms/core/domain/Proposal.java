@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 
@@ -21,6 +22,8 @@ public class Proposal implements Serializable {
     private String name;
     private String keywords;
     private String topics;
+    private File abstractPaper;
+    private File fullPaper;
 
     @ManyToMany
     private List<CMSUser> authors;
