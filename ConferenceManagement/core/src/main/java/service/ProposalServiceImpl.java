@@ -5,11 +5,12 @@ import domain.Proposal;
 import domain.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import repo.BiddingRepository;
 import repo.ProposalRepository;
 import repo.ReviewRepository;
 
-import javax.transaction.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
