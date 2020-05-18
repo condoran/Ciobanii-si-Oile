@@ -40,18 +40,18 @@ public class UserServiceImpl implements UserService {
     public CMSUser update(CMSUser newCMSUser) {
         CMSUser cmsUser = userRepository.findById(newCMSUser.getId()).orElse(newCMSUser);
 
-        cmsUser.setAffiliation(cmsUser.getAffiliation());
-        cmsUser.setEmailAddress(newCMSUser.getEmailAddress());
-        cmsUser.setChair(newCMSUser.isChair());
-        cmsUser.setCoChair(newCMSUser.isCoChair());
-        cmsUser.setPCMember(newCMSUser.isPCMember());
-        cmsUser.setSCMember(newCMSUser.isSCMember());
-        cmsUser.setAuthor(newCMSUser.isAuthor());
-        cmsUser.setName(newCMSUser.getName());
-        cmsUser.setUsername(newCMSUser.getUsername());
-        cmsUser.setPassword(newCMSUser.getPassword());
-        cmsUser.setPersonalWebsite(newCMSUser.getPersonalWebsite());
-        cmsUser.setConferences(cmsUser.getConferences());
+//        cmsUser.setAffiliation(cmsUser.getAffiliation());
+//        cmsUser.setEmailAddress(newCMSUser.getEmailAddress());
+//        cmsUser.setChair(newCMSUser.isChair());
+//        cmsUser.setCoChair(newCMSUser.isCoChair());
+//        cmsUser.setPCMember(newCMSUser.isPCMember());
+//        cmsUser.setSCMember(newCMSUser.isSCMember());
+//        cmsUser.setAuthor(newCMSUser.isAuthor());
+//        cmsUser.setName(newCMSUser.getName());
+//        cmsUser.setUsername(newCMSUser.getUsername());
+//        cmsUser.setPassword(newCMSUser.getPassword());
+//        cmsUser.setPersonalWebsite(newCMSUser.getPersonalWebsite());
+//        cmsUser.setConferences(cmsUser.getConferences());
 
         return cmsUser;
     }
@@ -73,12 +73,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<CMSUser> getPCMembers() {
-        return userRepository.findAll().stream().filter(CMSUser::isPCMember).collect(Collectors.toList());
+        return userRepository.findAll();
+        //.stream().filter(CMSUser::isPCMember).collect(Collectors.toList());
     }
 
     @Override
     public List<CMSUser> getAuthors() {
-        return userRepository.findAll().stream().filter(CMSUser::isAuthor).collect(Collectors.toList());
+        return userRepository.findAll();
+                //.stream().filter(CMSUser::isAuthor).collect(Collectors.toList());
     }
 
     @Override

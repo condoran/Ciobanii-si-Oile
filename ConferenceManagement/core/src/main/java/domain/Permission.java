@@ -7,24 +7,26 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
-public class Proposal implements Serializable {
+public class Permission implements Serializable {
+
     @Id
     @GeneratedValue
     private Long id;
-    private String name;
-    private String keywords;
-    private String topics;
-
-    @ManyToMany
-    private List<CMSUser> authors;
 
     @ManyToOne
     private Conference conference;
+
+    @ManyToOne
+    private CMSUser cmsUser;
+
+    private boolean isAuthor;
+    private boolean isPCMember;
+    private boolean isSectionChair;
+
 }

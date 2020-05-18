@@ -3,10 +3,12 @@ package ui;
 import domain.CMSUser;
 import domain.Conference;
 import domain.Proposal;
+import domain.Section;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import service.ConferenceService;
 import service.ProposalService;
+import service.SectionService;
 import service.UserService;
 
 import java.util.ArrayList;
@@ -24,13 +26,26 @@ public class Console {
     @Autowired
     private ConferenceService conferenceService;
 
+    @Autowired
+    private SectionService sectionService;
+
     public void run(){
 //        CMSUser cmsUser = CMSUser.builder()
 //                .name("tim")
 //                .affiliation("adsfsdf")
 //                .emailAddress("tim@yahoo.com")
-//                .isPCMember(true)
 //                .build();
+//        userService.save(cmsUser);
+//        Section section = Section.builder()
+//                .speakers(Arrays.asList(cmsUser))
+//                .build();
+//        sectionService.save(section);
+//        userService.save(cmsUser);
+//        Proposal proposal = Proposal.builder()
+//                .keywords("politicieni")
+//                .authors(Arrays.asList(cmsUser))
+//                .build();
+//        proposalService.save(proposal);
 //        userService.save(cmsUser);
 //        Conference conference = Conference.builder()
 //                .name("conf")

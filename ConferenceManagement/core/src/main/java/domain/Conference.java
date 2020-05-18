@@ -38,8 +38,8 @@ public class Conference implements Serializable {
     @OneToOne
     private CMSUser secondCoChair;
 
-    @ManyToMany(mappedBy = "conferences")
-    private List<CMSUser> PCMembers;
+//    @ManyToMany(mappedBy = "conferences")
+//    private List<CMSUser> PCMembers;
 
     @OneToMany(mappedBy = "conference")
     private List<Section> sections;

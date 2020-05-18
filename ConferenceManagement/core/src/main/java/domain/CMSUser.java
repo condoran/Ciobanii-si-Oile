@@ -28,13 +28,13 @@ public class CMSUser implements Serializable {
     private String personalWebsite;
     private boolean isChair;
     private boolean isCoChair;
-    private boolean isAuthor;
-    private boolean isPCMember;
     private boolean isSCMember;
-    private boolean isSectionChair;
-
-    @ManyToMany
-    private List<Conference> conferences;
+//    private boolean isAuthor;
+//    private boolean isPCMember;
+//    private boolean isSectionChair;
+//
+//    @ManyToMany
+//    private List<Conference> conferences;
 
 
 }
