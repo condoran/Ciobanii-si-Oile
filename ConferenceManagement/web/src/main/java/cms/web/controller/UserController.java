@@ -21,13 +21,13 @@ public class UserController {
     @Autowired
     private UserConverter userConverter;
 
-    @RequestMapping(value = "/users/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/getUsers", method = RequestMethod.GET)
     List<UserDTO> getUsers(){
         List<CMSUser> users = userService.getAllUsers();
         return new ArrayList<>(userConverter.convertModelsToDtos(users));
     }
     
-    @RequestMapping(value = "/users/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/saveUser", method = RequestMethod.POST)
     UserDTO saveUser(@RequestBody UserDTO userDTO){
         return userConverter.convertModelToDto(userService.save(userConverter.convertDtoToModel(userDTO)));
     }

@@ -13,6 +13,7 @@ import cms.core.repo.ReviewRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProposalServiceImpl implements ProposalService{
@@ -36,6 +37,12 @@ public class ProposalServiceImpl implements ProposalService{
     }
 
     @Override
+    public List<Proposal> getAllByConferenceId(Long conferenceId) {
+        return proposalRepository.findAll().stream().filter(proposal -> proposal.getConference().getId().equals(conferenceId))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Proposal save(Proposal proposal) {
         return proposalRepository.save(proposal);
     }
@@ -53,6 +60,10 @@ public class ProposalServiceImpl implements ProposalService{
         proposal.setKeywords(newProposal.getKeywords());
         proposal.setName(newProposal.getName());
         proposal.setTopics(newProposal.getTopics());
+        proposal.setAuthors(newProposal.getAuthors());
+        proposal.setAbstractPaper(newProposal.getAbstractPaper());
+        proposal.setFullPaper(newProposal.getFullPaper());
+        proposal.setConference(newProposal.getConference());
 
         return proposal;
     }

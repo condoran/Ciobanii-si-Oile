@@ -7,6 +7,7 @@ import cms.core.repo.SectionRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SectionServiceImpl implements SectionService{
@@ -22,6 +23,12 @@ public class SectionServiceImpl implements SectionService{
     @Override
     public List<Section> getAll() {
         return sectionRepository.findAll();
+    }
+
+    @Override
+    public List<Section> getAllByConferenceId(Long conferenceId) {
+        return sectionRepository.findAll().stream().filter(section -> section.getConference().getId() == conferenceId)
+                .collect(Collectors.toList());
     }
 
     @Override

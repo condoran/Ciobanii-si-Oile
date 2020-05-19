@@ -27,6 +27,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<CMSUser> getUserById(Long userId) {
+        return userRepository.findAll().stream().filter(user -> user.getId().equals(userId)).findFirst();
+    }
+
+    @Override
     public List<CMSUser> getAllUsers() {
         return userRepository.findAll();
     }
@@ -67,18 +72,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<CMSUser> getCoChairs() {
         return userRepository.findAll().stream().filter(CMSUser::isCoChair).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<CMSUser> getPCMembers() {
-        return userRepository.findAll();
-        //.stream().filter(CMSUser::isPCMember).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<CMSUser> getAuthors() {
-        return userRepository.findAll();
-                //.stream().filter(CMSUser::isAuthor).collect(Collectors.toList());
     }
 
     @Override

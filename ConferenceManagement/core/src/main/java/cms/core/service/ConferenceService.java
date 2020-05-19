@@ -1,6 +1,8 @@
 package cms.core.service;
 
+import cms.core.domain.CMSUser;
 import cms.core.domain.Conference;
+import cms.core.domain.Section;
 
 import java.util.Date;
 import java.util.List;
@@ -11,6 +13,10 @@ public interface ConferenceService {
     Optional<Conference> getConferenceById(Long conferenceId);
 
     List<Conference> getAll();
+
+    List<CMSUser> getPCMembersForConference(Long conferenceId);
+
+    List<Section> getSectionsForConference(Long conferenceId);
 
     Conference save(Conference conference);
 

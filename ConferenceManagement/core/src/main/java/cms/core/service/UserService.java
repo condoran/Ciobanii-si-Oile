@@ -12,6 +12,8 @@ public interface UserService {
 
     Optional<CMSUser> getUserByEmailAddress(String emailAddress);
 
+    Optional<CMSUser> getUserById(Long userId);
+
     List<CMSUser> getAllUsers();
 
     CMSUser save(CMSUser CMSUser);
@@ -23,10 +25,6 @@ public interface UserService {
     Optional<CMSUser> getChair();
 
     List<CMSUser> getCoChairs();
-
-    List<CMSUser> getPCMembers();
-
-    List<CMSUser> getAuthors();
 
     List<CMSUser> getSCMembers();
 
