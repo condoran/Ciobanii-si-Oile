@@ -1,9 +1,11 @@
 package cms.core.service;
 
+import cms.core.domain.CMSUser;
 import cms.core.domain.Section;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import cms.core.repo.SectionRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,4 +42,29 @@ public class SectionServiceImpl implements SectionService{
     public void delete(Long sectionId) {
         sectionRepository.deleteById(sectionId);
     }
+
+    @Override
+    @Transactional
+    public Optional<Section> updateSectionChair(Long sectionID, CMSUser futureChair) {
+        Optional<Section> section = sectionRepository.findById(sectionID);
+        if(section.isEmpty()){
+            return Optional.empty();
+        }
+
+        section.get().setSectionChair(futureChair);
+        return section;
+    }
+
+    @Override
+    public Optional<Section> updateSectionSpeakers(Long sectionID, List<CMSUser> speakers) {
+        Optional<Section> section = sectionRepository.findById(sectionID);
+        if(section.isEmpty()){
+            return Optional.empty();
+        }
+
+        section.get().setSpeakers(speakers);
+        return section;
+    }
+
+
 }

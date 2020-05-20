@@ -1,5 +1,6 @@
 package cms.core.service;
 
+import cms.core.domain.CMSUser;
 import cms.core.domain.Section;
 
 import java.util.List;
@@ -16,4 +17,8 @@ public interface SectionService {
     Section save(Section section);
 
     void delete(Long sectionId);
+
+    Optional<Section> updateSectionChair(Long sectionID, CMSUser futureChair);
+
+    Optional<Section> updateSectionSpeakers(Long sectionID, List<CMSUser> speakers);
 }
