@@ -12,4 +12,11 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  register(username: string, password: string) {
+    if (username === '' || password === '') {
+      alert('BAAAA!');
+    }
+    // trimite in spate altfel !
+    console.log(username, password);
+  }
 }
