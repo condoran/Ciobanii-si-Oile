@@ -10,6 +10,7 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import {UserService} from './shared/user.service';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
+import { ConferenceComponent } from './conference/conference.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {FormsModule} from '@angular/forms';
     MenuComponent,
     MainPageComponent,
     LoginPageComponent,
-    RegisterPageComponent
+    RegisterPageComponent,
+    ConferenceComponent
   ],
   imports: [
     BrowserModule,

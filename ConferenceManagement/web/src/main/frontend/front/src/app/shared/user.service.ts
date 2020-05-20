@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {User} from './user.model';
 import {Observable} from 'rxjs';
-import {Conference} from "./conference.model";
+import {Conference} from './conference.model';
 
 
 @Injectable()
@@ -18,7 +18,7 @@ export class UserService {
       .post<User>(this.userUrl + '/checkUser', [username, password]);
   }
 
-  getConferencesForPCMember(username: string):Observable<Conference[]>{
+  getConferencesForPCMember(username: string): Observable<Conference[]>{
     return this.httpClient
       .post<Conference[]>(this.userUrl + '/getConferencesForPCMember', username);
   }

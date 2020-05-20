@@ -1,8 +1,11 @@
-<app-menu></app-menu>
+
 <div class="container">
+  <div class="innerContainer">
   <img src="assets/fullLogo.png" class="bigLogo"><br>
   <input type="text" placeholder="Username" #userInput/>
   <br>
   <input type="password" #passInput placeholder="Password"><br>
   <button (click)="login(userInput.value,passInput.value)">Login!</button>
+
+  </div>
 </div>
