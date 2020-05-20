@@ -51,6 +51,7 @@ public class UserController {
 
     @RequestMapping(value = "/user/getConferencesForPCMember", method = RequestMethod.POST)
     List<ConferenceDTO> getConferencesForPCMember(@RequestBody String username){
+        System.out.println("in getConferencesForPCMember" + username);
         return conferenceConverter.convertModelsToDtos(userService.getConferencesForPCMember(username));
     }
 

@@ -23,6 +23,9 @@ export class LoginPageComponent implements OnInit {
       .subscribe(result => this.user = result);
 
     console.log(this.user);
+
+    this.userService.getConferencesForPCMember(username)
+      .subscribe(conference => console.log(conference));
     //todo: go to another page
   }
 }

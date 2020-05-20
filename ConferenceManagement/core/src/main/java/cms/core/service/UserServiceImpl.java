@@ -39,6 +39,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Conference> getConferencesForPCMember(String username) {
+        System.out.println("innnn getConferencesForPCMember" + username);
         return permissionRepository.findAll().stream()
                 .filter(permission -> permission.getCmsUser().getUsername().equals(username))
                 .filter(Permission::isPCMember)
