@@ -11,19 +11,13 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) {
   }
-  login(username: string, password: string): Observable<Array<string>>{
-    const list: Array<string> = [username, password];
-    return this.httpClient.post<Array<string>>(this.userUrl + '/checkUser' , list);
-  }
-  // @ts-ignore
-  // @ts-ignore
-  login2(username: string, password: string): Observable<User>{
-    const body = {username: 'ion', password: '1234'};
-    const list: Array<string> = [username, password];
-    // return this.httpClient.post<User>(this.userUrl + '/checkUser2' , list);
+
+  login(username: string, password: string): Observable<User>{
     return this.httpClient
-      .post<User>(this.userUrl + '/checkUser', [username, body]);
+      .post<User>(this.userUrl + '/checkUser', [username, password]);
   }
+
+  // getConferencesForPCMember(username: string):
   // getBooks(): Observable<Book[]> {
   //   return this.httpClient
   //     .get<Array<Book>>(this.booksUrl);

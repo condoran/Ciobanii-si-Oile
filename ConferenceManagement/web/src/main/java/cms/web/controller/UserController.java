@@ -39,7 +39,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/checkUser", method = RequestMethod.POST)
-    UserDTO checkUser(@RequestBody String username, @RequestBody String password){
+    UserDTO checkUser(@RequestBody String[] args){
+        String username = args[0];
+        String password = args[1];
         Optional<CMSUser> cmsUser = userService.getUserByUsername(username);
         if(cmsUser.isEmpty() || !cmsUser.get().getPassword().equals(password)){
             return null;
@@ -51,13 +53,5 @@ public class UserController {
     List<ConferenceDTO> getConferencesForPCMember(@RequestBody String username){
         return conferenceConverter.convertModelsToDtos(userService.getConferencesForPCMember(username));
     }
-    ///
-    @RequestMapping(value = "/user/checkUser2", method = RequestMethod.POST)
-    UserDTO checkUser2(@RequestBody String[] x){
-        Optional<CMSUser> cmsUser = userService.getUserByUsername(x[0]);
-        if(cmsUser.isEmpty() || !cmsUser.get().getPassword().equals(x[1])){
-            return null;
-        }
-        return userConverter.convertModelToDto(cmsUser.get());
-    }
+
 }
