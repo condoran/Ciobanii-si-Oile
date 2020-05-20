@@ -22,7 +22,7 @@ export class UserService {
     const list: Array<string> = [username, password];
     // return this.httpClient.post<User>(this.userUrl + '/checkUser2' , list);
     return this.httpClient
-      .post<User>(this.userUrl + '/checkUser', {username, password});
+      .post<User>(this.userUrl + '/checkUser', [username, body]);
   }
   // getBooks(): Observable<Book[]> {
   //   return this.httpClient
