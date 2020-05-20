@@ -15,6 +15,8 @@ public class ReviewConverter extends BaseConverter<Review, ReviewDTO>{
 
     @Override
     public Review convertDtoToModel(ReviewDTO reviewDTO) {
+        if(reviewDTO == null)
+            return null;
         return Review.builder()
                 .id(reviewDTO.getId())
                 .CMSUser(userConverter.convertDtoToModel(reviewDTO.getUser()))
@@ -26,6 +28,8 @@ public class ReviewConverter extends BaseConverter<Review, ReviewDTO>{
 
     @Override
     public ReviewDTO convertModelToDto(Review review) {
+        if(review == null)
+            return null;
         return ReviewDTO.builder()
                 .id(review.getId())
                 .user(userConverter.convertModelToDto(review.getCMSUser()))

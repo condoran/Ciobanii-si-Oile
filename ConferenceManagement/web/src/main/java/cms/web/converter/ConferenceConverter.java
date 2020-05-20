@@ -16,6 +16,8 @@ public class ConferenceConverter extends BaseConverter<Conference, ConferenceDTO
 
     @Override
     public Conference convertDtoToModel(ConferenceDTO conferenceDTO) {
+        if(conferenceDTO == null)
+            return null;
         return Conference.builder()
                 .id(conferenceDTO.getId())
                 .name(conferenceDTO.getName())
@@ -35,6 +37,8 @@ public class ConferenceConverter extends BaseConverter<Conference, ConferenceDTO
 
     @Override
     public ConferenceDTO convertModelToDto(Conference conference) {
+        if(conference == null)
+            return null;
         return ConferenceDTO.builder()
                 .id(conference.getId())
                 .name(conference.getName())

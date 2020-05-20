@@ -15,6 +15,8 @@ public class ProposalConverter extends BaseConverter<Proposal, ProposalDTO>{
 
     @Override
     public Proposal convertDtoToModel(ProposalDTO proposalDTO) {
+        if(proposalDTO == null)
+            return null;
         return Proposal.builder()
                 .id(proposalDTO.getId())
                 .name(proposalDTO.getName())
@@ -29,6 +31,8 @@ public class ProposalConverter extends BaseConverter<Proposal, ProposalDTO>{
 
     @Override
     public ProposalDTO convertModelToDto(Proposal proposal) {
+        if(proposal == null)
+            return null;
         return ProposalDTO.builder()
                 .id(proposal.getId())
                 .name(proposal.getName())

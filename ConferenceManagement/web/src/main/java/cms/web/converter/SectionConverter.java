@@ -16,6 +16,8 @@ public class SectionConverter extends BaseConverter<Section, SectionDTO>{
 
     @Override
     public Section convertDtoToModel(SectionDTO sectionDTO) {
+        if(sectionDTO == null)
+            return null;
         return Section.builder()
                 .id(sectionDTO.getId())
                 .sectionChair(userConverter.convertDtoToModel(sectionDTO.getChair()))
@@ -26,6 +28,8 @@ public class SectionConverter extends BaseConverter<Section, SectionDTO>{
 
     @Override
     public SectionDTO convertModelToDto(Section section) {
+        if(section == null)
+            return null;
         return SectionDTO.builder()
                 .id(section.getId())
                 .chair(userConverter.convertModelToDto(section.getSectionChair()))

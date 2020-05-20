@@ -14,6 +14,8 @@ public class BiddingConverter extends BaseConverter<BiddingResult, BiddingDTO>{
     private UserConverter userConverter;
     @Override
     public BiddingResult convertDtoToModel(BiddingDTO biddingDTO) {
+        if(biddingDTO == null)
+            return null;
         return BiddingResult.builder()
                 .id(biddingDTO.getId())
                 .proposal(proposalConverter.convertDtoToModel(biddingDTO.getProposal()))
@@ -24,6 +26,8 @@ public class BiddingConverter extends BaseConverter<BiddingResult, BiddingDTO>{
 
     @Override
     public BiddingDTO convertModelToDto(BiddingResult biddingResult) {
+        if(biddingResult == null)
+            return null;
         return BiddingDTO.builder()
                 .id(biddingResult.getId())
                 .proposal(proposalConverter.convertModelToDto(biddingResult.getProposal()))

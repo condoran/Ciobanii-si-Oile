@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,8 +23,8 @@ public class Section implements Serializable {
     @OneToOne
     private CMSUser sectionChair;
 
-    @OneToMany
-    private List<CMSUser> speakers;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<CMSUser> speakers = new ArrayList<>();
 
     @ManyToOne
     private Conference conference;

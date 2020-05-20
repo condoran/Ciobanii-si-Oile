@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 public class UserConverter extends BaseConverter<CMSUser, UserDTO> {
     @Override
     public CMSUser convertDtoToModel(UserDTO userDTO) {
+        if(userDTO == null)
+            return null;
         return CMSUser.builder()
                 .id(userDTO.getId())
                 .affiliation(userDTO.getAffiliation())
@@ -24,6 +26,8 @@ public class UserConverter extends BaseConverter<CMSUser, UserDTO> {
 
     @Override
     public UserDTO convertModelToDto(CMSUser user) {
+        if(user == null)
+            return null;
         return UserDTO.builder()
                 .id(user.getId())
                 .affiliation(user.getAffiliation())
