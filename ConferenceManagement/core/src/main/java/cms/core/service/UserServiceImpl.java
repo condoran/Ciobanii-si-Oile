@@ -1,6 +1,9 @@
 package cms.core.service;
 
 import cms.core.domain.CMSUser;
+import cms.core.domain.Conference;
+import cms.core.domain.Permission;
+import cms.core.repo.PermissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +19,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PermissionRepository permissionRepository;
+
     @Override
     public Optional<CMSUser> getUserByUsername(String username) {
         return userRepository.findAll().stream().filter(user -> user.getUsername().equals(username)).findFirst();
@@ -29,6 +35,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<CMSUser> getUserById(Long userId) {
         return userRepository.findAll().stream().filter(user -> user.getId().equals(userId)).findFirst();
+    }
+
+    @Override
+    public List<Conference> getConferencesForPCMember(String username) {
+        return permissionRepository.findAll().stream()
+                .filter(permission -> permission.getCmsUser().getUsername().equals(username))
+                .filter(Permission::isPCMember)
+                .map(Permission::getConference)
+                .collect(Collectors.toList());
     }
 
     @Override

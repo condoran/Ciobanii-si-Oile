@@ -2,7 +2,9 @@ package cms.web.controller;
 
 import cms.core.domain.CMSUser;
 import cms.core.service.UserService;
+import cms.web.converter.ConferenceConverter;
 import cms.web.converter.UserConverter;
+import cms.web.dto.ConferenceDTO;
 import cms.web.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -20,6 +23,9 @@ public class UserController {
 
     @Autowired
     private UserConverter userConverter;
+
+    @Autowired
+    private ConferenceConverter conferenceConverter;
 
     @RequestMapping(value = "/user/getUsers", method = RequestMethod.GET)
     List<UserDTO> getUsers(){
@@ -30,5 +36,19 @@ public class UserController {
     @RequestMapping(value = "/user/saveUser", method = RequestMethod.POST)
     UserDTO saveUser(@RequestBody UserDTO userDTO){
         return userConverter.convertModelToDto(userService.save(userConverter.convertDtoToModel(userDTO)));
+    }
+
+    @RequestMapping(value = "/user/checkUser", method = RequestMethod.POST)
+    UserDTO checkUser(@RequestBody String username, @RequestBody String password){
+        Optional<CMSUser> cmsUser = userService.getUserByUsername(username);
+        if(cmsUser.isEmpty() || !cmsUser.get().getPassword().equals(password)){
+            return null;
+        }
+        return userConverter.convertModelToDto(cmsUser.get());
+    }
+
+    @RequestMapping(value = "/user/getConferencesForPCMember", method = RequestMethod.POST)
+    List<ConferenceDTO> getConferencesForPCMember(@RequestBody String username){
+        return conferenceConverter.convertModelsToDtos(userService.getConferencesForPCMember(username));
     }
 }
