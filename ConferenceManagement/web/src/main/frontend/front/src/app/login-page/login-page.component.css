@@ -8,8 +8,9 @@
 
 input
 {
-  border-radius: 7px;
-  margin: 7px;
+  border-radius: 15px;
+  padding: 8px;
+  margin: 10px;
 }
 
 input:focus
@@ -27,4 +28,7 @@ input:focus
 
 }
 .innerContainer{
+}
+button{
+  border-radius: 10px;
 }

@@ -1,5 +1,5 @@
 .menu{
-  position: absolute;
+  /*position: absolute;*/
   top: 0;
   height: 50px;
   width: 100%;
@@ -29,4 +29,9 @@ div{ margin: 0;}
   color: blue;
   height: 100%;
 
+}
+.container {
+  margin-left: 10%;
+  margin-right: 10%;
+  width: 80%;
 }

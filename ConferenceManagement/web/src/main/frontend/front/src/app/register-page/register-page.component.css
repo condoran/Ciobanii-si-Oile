@@ -10,6 +10,7 @@
   background-color: lightgray;
   width:auto;
   text-align: center;
+  margin-top:15%;
 
 }
 input{
@@ -19,4 +20,9 @@ input{
 }
 button{
   border-radius: 10px;
+}
+
+input:focus
+{
+  outline: none;
 }

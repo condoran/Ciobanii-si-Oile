@@ -1,8 +1,19 @@
 <div class="container">
   <br>
+  <label>Author</label>
+  <input type="checkbox"  checked #userInput/>
+  <br>
+  <br>
+  <input type="text" placeholder="Name" #name/>
+  <br>
+  <br>
   <input type="text" placeholder="Username" #userInput/>
   <br>
-<br>
-  <input type="password" #passInput placeholder="Password"><br>
+  <br>
+  <input type="password" #passInput placeholder="Password">
+  <br>
+  <br>
+  <input type="text" placeholder="Email" #email/>
+  <br>
   <button (click)="register(userInput.value,passInput.value)">Register!</button>
 </div>

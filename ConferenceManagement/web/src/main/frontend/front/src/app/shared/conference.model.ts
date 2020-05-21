@@ -1,9 +1,9 @@
-import {User} from "./user.model";
-import {Section} from "./section.model";
+import {User} from './user.model';
+import {Section} from './section.model';
 
 export class Conference {
-  id:number;
-  name:string;
+  id: number;
+  name: string;
   password: string;
   startDate: Date;
   endDate: Date;
@@ -12,7 +12,7 @@ export class Conference {
   fullPaperDeadline: Date;
   biddingDeadline: Date;
   chair: User;
-  fistCoChair:User;
-  secondCoChair:User;
-  sections:Section[];
+  fistCoChair: User;
+  secondCoChair: User;
+  sections: Section[];
 }
