@@ -8,7 +8,7 @@ import {Conference} from '../shared/conference.model';
   styleUrls: ['./conference-list.component.css']
 })
 export class ConferenceListComponent implements OnInit {
-  private conferences: Conference[];
+  conferences: Conference[];
   constructor(private conferenceService: ConferenceService) { }
 
   ngOnInit(): void {
