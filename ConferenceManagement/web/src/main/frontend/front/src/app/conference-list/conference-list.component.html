@@ -1,0 +1,11 @@
+<h1>
+  Conferences:
+</h1>
+
+<ol  >
+  <li *ngFor="let conference of conferences ">
+      {{conference.name}}
+      {{conference.startDate.getDate()}}
+  </li>
+
+</ol>
