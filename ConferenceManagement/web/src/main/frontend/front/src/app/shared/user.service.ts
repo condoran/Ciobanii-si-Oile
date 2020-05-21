@@ -1,16 +1,18 @@
-// @ts-ignore
+
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {User} from './user.model';
 import {Observable} from 'rxjs';
 import {Conference} from './conference.model';
+import {CookieService} from "ngx-cookie-service";
 
 
 @Injectable()
 export class UserService {
   private userUrl = 'http://localhost:8080/user';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,
+              private cookieService: CookieService) {
   }
 
   login(username: string, password: string): Observable<User>{

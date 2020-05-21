@@ -13,6 +13,7 @@ import {FormsModule} from '@angular/forms';
 import { ConferenceComponent } from './conference/conference.component';
 import { ConferenceListComponent } from './conference-list/conference-list.component';
 import {ConferenceService} from './shared/conference.service';
+import {CookieService} from "ngx-cookie-service";
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import {ConferenceService} from './shared/conference.service';
     HttpClientModule,
     FormsModule
   ],
-  providers: [UserService, ConferenceService],
+  providers: [UserService, ConferenceService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
