@@ -14,5 +14,5 @@ export class Conference {
   chair: User;
   fistCoChair: User;
   secondCoChair: User;
-  sections: Section[];
+  sections: number[];
 }

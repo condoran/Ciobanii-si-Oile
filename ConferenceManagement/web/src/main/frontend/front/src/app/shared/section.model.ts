@@ -4,6 +4,6 @@ import {Conference} from "./conference.model";
 export class Section {
   id:number;
   chair:User;
-  speakers:User[];
+  speakers:number[];
   conference:Conference;
 }
