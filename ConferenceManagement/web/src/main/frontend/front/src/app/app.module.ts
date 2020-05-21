@@ -13,6 +13,7 @@ import {FormsModule} from '@angular/forms';
 import { ConferenceComponent } from './conference/conference.component';
 import { ConferenceListComponent } from './conference-list/conference-list.component';
 import {ConferenceService} from './shared/conference.service';
+import { ConferenceInfoPageComponent } from './conference-info-page/conference-info-page.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {ConferenceService} from './shared/conference.service';
     LoginPageComponent,
     RegisterPageComponent,
     ConferenceComponent,
-    ConferenceListComponent
+    ConferenceListComponent,
+    ConferenceInfoPageComponent
   ],
   imports: [
     BrowserModule,
