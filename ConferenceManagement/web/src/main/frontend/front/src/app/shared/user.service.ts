@@ -18,6 +18,11 @@ export class UserService {
       .post<User>(this.userUrl + '/checkUser', [username, password]);
   }
 
+  //registerAuthor(name:string, username: string, password: string, email: string): Observable<User>{
+    //return this.httpClient
+    //  .post<User>()(this.userUrl + '')
+  //}
+
   getConferencesForPCMember(username: string): Observable<Conference[]>{
     return this.httpClient
       .post<Conference[]>(this.userUrl + '/getConferencesForPCMember', username);

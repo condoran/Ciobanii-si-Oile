@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from "../shared/user.service";
+import {Router} from "@angular/router";
+
 
 @Component({
   selector: 'app-register-page',
@@ -7,15 +10,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService: UserService,
+              private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  register(username: string, password: string) {
-    if (username === '' || password === '') { alert('BAAAA!'); }
+  registerAuthor(name:string, username: string, password: string, email: string) {
+    if (username === '' || password === '' || name === '' || email === '') { alert('All fields must be filled!'); }
     // trimite in spate altfel !
     console.log(username, password);
+  }
+
+  registerPCMember(name:string, username: string, password: string, email: string, affiliation: string, website: string) {
+    if (username === '' || password === '' || name === '' || email === '' || affiliation === '' || website === '') { alert('All fields must be filled!'); }
+    // trimite in spate altfel !
+    console.log(username, password);
+  }
+
+  showRegisterForm(x) {
+    if(x === 0){
+      document.getElementById("register_author").style.display='block';
+      document.getElementById("register_pcmember").style.display='none';
+    }
+    else{
+      document.getElementById("register_author").style.display='none';
+      document.getElementById("register_pcmember").style.display='block';
+    }
   }
 
 }

@@ -1,23 +1,46 @@
 
 <div class="container">
   <br>
-  <input type="radio"  checked name="user" value="author"/><label>Author</label>
-  <input type="radio"  #userInput name="user" value="pcmember"/><label>PC Member</label>
+  <input type="radio" (click)="showRegisterForm(0)" checked name="user" value="author"/><label>Author</label>
+  <input type="radio" (click)="showRegisterForm(1)" #userInput name="user" value="pcmember"/><label>PC Member</label>
   <br>
-  <br>
-  <input type="text" placeholder="Name" #name/>
-  <br>
-  <br>
-  <input type="text" placeholder="Username" #userInput/>
-  <br>
-  <br>
-  <input type="password" #passInput placeholder="Password">
-  <br>
-  <br>
-  <input type="text" placeholder="Email" #email/>
-  <br>
-  <div id="PCMemberInput">
 
+  <div id="register_author">
+    <br>
+    <input type="text" placeholder="Name" #name/>
+    <br>
+    <br>
+    <input type="text" placeholder="Username" #userInput/>
+    <br>
+    <br>
+    <input type="password" #passInput placeholder="Password">
+    <br>
+    <br>
+    <input type="text" placeholder="Email" #email/>
+    <br>
+
+    <button (click)="registerAuthor(name.value, userInput.value,passInput.value, email.value)">Register!</button>
   </div>
-  <button (click)="register(userInput.value,passInput.value)">Register!</button>
+  <div id="register_pcmember" style="display: none">
+    <br>
+    <input type="text" placeholder="Name" #name/>
+    <br>
+    <br>
+    <input type="text" placeholder="Username" #userInput/>
+    <br>
+    <br>
+    <input type="password" #passInput placeholder="Password">
+    <br>
+    <br>
+    <input type="text" placeholder="Email" #email/>
+    <br>
+    <br>
+    <input type="text" placeholder="Affiliation" #affiliation/>
+    <br>
+    <br>
+    <input type="text" placeholder="Personal Website" #website/>
+    <br>
+
+    <button (click)="registerPCMember(name.value, userInput.value,passInput.value, email.value, affiliation.value, website.value)">Register!</button>
+  </div>
 </div>
