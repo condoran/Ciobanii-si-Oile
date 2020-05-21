@@ -14,6 +14,9 @@ export class ConferenceListComponent implements OnInit {
   ngOnInit(): void {
     this.conferenceService.getConferences()
       .subscribe(conferences => this.conferences = conferences);
+
+    // @ts-ignore
+    console.log(Date.parse(this.conferences[0].startDate))
   }
 
 }

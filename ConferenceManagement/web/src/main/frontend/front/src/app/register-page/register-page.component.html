@@ -1,7 +1,8 @@
+
 <div class="container">
   <br>
-  <label>Author</label>
-  <input type="checkbox"  checked #userInput/>
+  <input type="radio"  checked name="user" value="author"/><label>Author</label>
+  <input type="radio"  #userInput name="user" value="pcmember"/><label>PC Member</label>
   <br>
   <br>
   <input type="text" placeholder="Name" #name/>
@@ -15,5 +16,8 @@
   <br>
   <input type="text" placeholder="Email" #email/>
   <br>
+  <div id="PCMemberInput">
+
+  </div>
   <button (click)="register(userInput.value,passInput.value)">Register!</button>
 </div>

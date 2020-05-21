@@ -17,4 +17,5 @@ export class RegisterPageComponent implements OnInit {
     // trimite in spate altfel !
     console.log(username, password);
   }
+
 }

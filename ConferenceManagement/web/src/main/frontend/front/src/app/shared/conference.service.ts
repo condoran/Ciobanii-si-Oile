@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {User} from './user.model';
 import {Observable} from 'rxjs';
 import {Conference} from './conference.model';
+import {map} from "rxjs/operators";
 
 
 @Injectable()

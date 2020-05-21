@@ -2,10 +2,10 @@
   Conferences:
 </h1>
 
-<ol  >
+<ol  class="conferences">
   <li *ngFor="let conference of conferences ">
       {{conference.name}}
-      {{conference.startDate.getDate()}}
+      {{conference.startDate | date:'dd-MM-yyyy'}}
   </li>
 
 </ol>
