@@ -9,7 +9,7 @@ import {ConferenceComponent} from './conference/conference.component';
 
 const routes: Routes = [
   {path: 'login-page', component: LoginPageComponent},
-  {path: 'main-page', component: MainPageComponent},
+  {path: '', component: MainPageComponent},
   {path: 'register-page', component: RegisterPageComponent},
   {path: 'conference-list-page', component: ConferenceListComponent},
   {path: 'conference/:conferenceID', component: ConferenceComponent}
