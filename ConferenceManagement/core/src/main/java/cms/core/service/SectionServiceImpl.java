@@ -23,6 +23,11 @@ public class SectionServiceImpl implements SectionService{
     }
 
     @Override
+    public List<Section> getSectionsByIDs(List<Long> sectionsIDs) {
+        return sectionRepository.findAllById(sectionsIDs);
+    }
+
+    @Override
     public List<Section> getAll() {
         return sectionRepository.findAll();
     }

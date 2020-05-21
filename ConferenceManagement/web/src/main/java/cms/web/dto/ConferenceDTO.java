@@ -28,6 +28,6 @@ public class ConferenceDTO implements Serializable {
     private UserDTO chair;
     private UserDTO firstCoChair;
     private UserDTO secondCoChair;
-    private List<SectionDTO> sections;
+    private List<Long> sectionsIDs;
 
 }

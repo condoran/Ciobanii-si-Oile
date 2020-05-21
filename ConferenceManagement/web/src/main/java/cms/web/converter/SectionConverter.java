@@ -1,9 +1,13 @@
 package cms.web.converter;
 
 import cms.core.domain.Section;
+import cms.core.service.UserService;
 import cms.web.dto.SectionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class SectionConverter extends BaseConverter<Section, SectionDTO>{
@@ -14,6 +18,9 @@ public class SectionConverter extends BaseConverter<Section, SectionDTO>{
     @Autowired
     private ConferenceConverter conferenceConverter;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public Section convertDtoToModel(SectionDTO sectionDTO) {
         if(sectionDTO == null)
@@ -21,7 +28,7 @@ public class SectionConverter extends BaseConverter<Section, SectionDTO>{
         return Section.builder()
                 .id(sectionDTO.getId())
                 .sectionChair(userConverter.convertDtoToModel(sectionDTO.getChair()))
-                .speakers(userConverter.convertDtosToModel(sectionDTO.getSpeakers()))
+                .speakers(userService.getUsersByIDs(sectionDTO.getSpeakersIDs()))
                 .conference(conferenceConverter.convertDtoToModel(sectionDTO.getConference()))
                 .build();
     }
@@ -33,8 +40,15 @@ public class SectionConverter extends BaseConverter<Section, SectionDTO>{
         return SectionDTO.builder()
                 .id(section.getId())
                 .chair(userConverter.convertModelToDto(section.getSectionChair()))
-                .speakers(userConverter.convertModelsToDtos(section.getSpeakers()))
+                .speakersIDs(userConverter.convertModelsToIDs(section.getSpeakers()))
                 .conference(conferenceConverter.convertModelToDto(section.getConference()))
                 .build();
     }
+
+    public List<Long> convertModelsToIDs(List<Section> models) {
+        return models.stream()
+                .map(Section::getId)
+                .collect(Collectors.toList());
+    }
+
 }

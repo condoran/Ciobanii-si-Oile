@@ -1,6 +1,7 @@
 package cms.web.converter;
 
 import cms.core.domain.Proposal;
+import cms.core.service.UserService;
 import cms.web.dto.ProposalDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,9 @@ public class ProposalConverter extends BaseConverter<Proposal, ProposalDTO>{
     @Autowired
     private ConferenceConverter conferenceConverter;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public Proposal convertDtoToModel(ProposalDTO proposalDTO) {
         if(proposalDTO == null)
@@ -24,7 +28,7 @@ public class ProposalConverter extends BaseConverter<Proposal, ProposalDTO>{
                 .keywords(proposalDTO.getKeywords())
                 .abstractPaper(null)
                 .fullPaper(null)
-                .authors(userConverter.convertDtosToModel(proposalDTO.getAuthors()))
+                .authors(userService.getUsersByIDs(proposalDTO.getAuthorsIDs()))
                 .conference(conferenceConverter.convertDtoToModel(proposalDTO.getConference()))
                 .build();
     }
@@ -38,7 +42,7 @@ public class ProposalConverter extends BaseConverter<Proposal, ProposalDTO>{
                 .name(proposal.getName())
                 .topics(proposal.getTopics())
                 .keywords(proposal.getKeywords())
-                .authors(userConverter.convertModelsToDtos(proposal.getAuthors()))
+                .authorsIDs(userConverter.convertModelsToIDs(proposal.getAuthors()))
                 .conference(conferenceConverter.convertModelToDto(proposal.getConference()))
                 .build();
     }

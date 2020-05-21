@@ -38,6 +38,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<CMSUser> getUsersByIDs(List<Long> usersIDs) {
+        return userRepository.findAllById(usersIDs);
+    }
+
+    @Override
     public List<Conference> getConferencesForPCMember(String username) {
         System.out.println("innnn getConferencesForPCMember" + username);
         return permissionRepository.findAll()

@@ -29,6 +29,12 @@ public class SectionController {
         return sectionConverter.convertModelToDto(sectionService.save(sectionConverter.convertDtoToModel(sectionDTO)));
     }
 
+    @RequestMapping(value = "section/getSectionsByIDs", method = RequestMethod.POST)
+    List<SectionDTO> getSectionsByIDs(@RequestBody List<Long> sectionsIDs){
+        List<Section> sections = sectionService.getSectionsByIDs(sectionsIDs);
+        return new ArrayList<>(sectionConverter.convertModelsToDtos(sections));
+    }
+
     @RequestMapping(value = "section/getSectionsForConference", method = RequestMethod.GET)
     List<SectionDTO> getSectionsForConference(@RequestParam Long conferenceID){
         List<Section> sections = sectionService.getAllByConferenceId(conferenceID);

@@ -1,6 +1,8 @@
 package cms.web.converter;
 
 import cms.core.domain.Conference;
+import cms.core.service.SectionService;
+import cms.core.service.SectionServiceImpl;
 import cms.web.dto.ConferenceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,6 +15,9 @@ public class ConferenceConverter extends BaseConverter<Conference, ConferenceDTO
 
     @Autowired
     private SectionConverter sectionConverter;
+
+    @Autowired
+    private SectionService sectionService;
 
     @Override
     public Conference convertDtoToModel(ConferenceDTO conferenceDTO) {
@@ -31,7 +36,7 @@ public class ConferenceConverter extends BaseConverter<Conference, ConferenceDTO
                 .chair(userConverter.convertDtoToModel(conferenceDTO.getChair()))
                 .firstCoChair(userConverter.convertDtoToModel(conferenceDTO.getFirstCoChair()))
                 .secondCoChair(userConverter.convertDtoToModel(conferenceDTO.getSecondCoChair()))
-                .sections(sectionConverter.convertDtosToModel(conferenceDTO.getSections()))
+                .sections(sectionService.getSectionsByIDs(conferenceDTO.getSectionsIDs()))
                 .build();
     }
 
@@ -52,7 +57,7 @@ public class ConferenceConverter extends BaseConverter<Conference, ConferenceDTO
                 .chair(userConverter.convertModelToDto(conference.getChair()))
                 .firstCoChair(userConverter.convertModelToDto(conference.getFirstCoChair()))
                 .secondCoChair(userConverter.convertModelToDto(conference.getSecondCoChair()))
-                .sections(sectionConverter.convertModelsToDtos(conference.getSections()))
+                .sectionsIDs(sectionConverter.convertModelsToIDs(conference.getSections()))
                 .build();
     }
 }

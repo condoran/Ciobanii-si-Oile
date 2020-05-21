@@ -15,6 +15,8 @@ public interface UserService {
 
     Optional<CMSUser> getUserById(Long userId);
 
+    List<CMSUser> getUsersByIDs(List<Long> usersIDs);
+
     List<Conference> getConferencesForPCMember(String username);
 
     List<CMSUser> getAllUsers();

@@ -29,6 +29,12 @@ public class UserController {
         List<CMSUser> users = userService.getAllUsers();
         return new ArrayList<>(userConverter.convertModelsToDtos(users));
     }
+
+    @RequestMapping(value = "/user/getUsersByIDs", method = RequestMethod.POST)
+    List<UserDTO> getUsersByIDs(@RequestBody List<Long> usersIDs){
+        List<CMSUser> users = userService.getUsersByIDs(usersIDs);
+        return new ArrayList<>(userConverter.convertModelsToDtos(users));
+    }
     
     @RequestMapping(value = "/user/saveUser", method = RequestMethod.POST)
     UserDTO saveUser(@RequestBody UserDTO userDTO){
@@ -48,6 +54,11 @@ public class UserController {
 
     @RequestMapping(value = "/user/getConferencesForPCMember", method = RequestMethod.POST)
     List<ConferenceDTO> getConferencesForPCMember(@RequestBody String username){
+        return conferenceConverter.convertModelsToDtos(userService.getConferencesForPCMember(username));
+    }
+
+    @RequestMapping(value = "/user/getConferencesForPCMember2", method = RequestMethod.GET)
+    List<ConferenceDTO> getConferencesForPCMember2(@RequestParam String username){
         return conferenceConverter.convertModelsToDtos(userService.getConferencesForPCMember(username));
     }
 

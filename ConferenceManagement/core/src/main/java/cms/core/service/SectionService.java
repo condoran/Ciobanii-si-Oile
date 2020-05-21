@@ -10,6 +10,8 @@ public interface SectionService {
 
     Optional<Section> getSectionById(Long sectionId);
 
+    List<Section> getSectionsByIDs(List<Long> sectionsIDs);
+
     List<Section> getAll();
 
     List<Section> getAllByConferenceId(Long conferenceId);

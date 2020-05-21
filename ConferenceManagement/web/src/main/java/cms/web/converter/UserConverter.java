@@ -1,8 +1,12 @@
 package cms.web.converter;
 
 import cms.core.domain.CMSUser;
+import cms.core.domain.Section;
 import cms.web.dto.UserDTO;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class UserConverter extends BaseConverter<CMSUser, UserDTO> {
@@ -40,5 +44,11 @@ public class UserConverter extends BaseConverter<CMSUser, UserDTO> {
                 .personalWebsite(user.getPersonalWebsite())
                 .username(user.getUsername())
                 .build();
+    }
+
+    public List<Long> convertModelsToIDs(List<CMSUser> models) {
+        return models.stream()
+                .map(CMSUser::getId)
+                .collect(Collectors.toList());
     }
 }
