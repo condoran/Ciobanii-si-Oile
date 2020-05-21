@@ -22,7 +22,7 @@ import {ConferenceService} from './shared/conference.service';
     LoginPageComponent,
     RegisterPageComponent,
     ConferenceComponent,
-    ConferenceListComponent
+    ConferenceListComponent,
   ],
   imports: [
     BrowserModule,
