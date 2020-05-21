@@ -18,10 +18,12 @@ export class UserService {
       .post<User>(this.userUrl + '/checkUser', [username, password]);
   }
 
-  //registerAuthor(name:string, username: string, password: string, email: string): Observable<User>{
-    //return this.httpClient
-    //  .post<User>()(this.userUrl + '')
-  //}
+  register(name:string, username: string, password: string, email: string): Observable<User>{
+    let user: User = new User(null, username, name, email, null, password, null, null, null, null);
+
+    return this.httpClient
+      .post<User>(this.userUrl + '/saveUser', user);
+  }
 
   getConferencesForPCMember(username: string): Observable<Conference[]>{
     return this.httpClient

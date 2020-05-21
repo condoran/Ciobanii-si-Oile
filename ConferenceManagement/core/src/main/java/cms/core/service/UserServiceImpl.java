@@ -4,6 +4,8 @@ import cms.core.domain.CMSUser;
 import cms.core.domain.Conference;
 import cms.core.domain.Permission;
 import cms.core.repo.PermissionRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +18,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
+    public static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Autowired
     private UserRepository userRepository;
 
@@ -60,6 +64,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public CMSUser save(CMSUser CMSUser) {
+        logger.trace("save Service - method entered CMSUser={}", CMSUser);
         return userRepository.save(CMSUser);
     }
 

@@ -6,6 +6,8 @@ import cms.web.converter.ConferenceConverter;
 import cms.web.converter.UserConverter;
 import cms.web.dto.ConferenceDTO;
 import cms.web.dto.UserDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,8 @@ import java.util.Optional;
 
 @RestController
 public class UserController {
+    public static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @Autowired
     private UserService userService;
 
@@ -38,6 +42,12 @@ public class UserController {
     
     @RequestMapping(value = "/user/saveUser", method = RequestMethod.POST)
     UserDTO saveUser(@RequestBody UserDTO userDTO){
+        logger.trace("saveUser Controller -method entered userDTO{}", userDTO);
+        Optional<CMSUser> user1 = userService.getUserByUsername(userDTO.getUsername());
+        Optional<CMSUser> user2 = userService.getUserByEmailAddress(userDTO.getEmailAddress());
+        if(user1.isPresent() || user2.isPresent()){
+            return null;
+        }
         return userConverter.convertModelToDto(userService.save(userConverter.convertDtoToModel(userDTO)));
     }
 
