@@ -2,10 +2,34 @@
   Conferences:
 </h1>
 
+<div class="container">
+
+    <div class="conference" *ngFor="let conference of conferences ">
+        <div class="conferenceName">
+          {{conference.name}}
+        </div>
+        {{conference.startDate | date:'dd-MM-yyyy'}}
+
+        <div class="details">
+          <button [routerLink]="'/conference-page'">Show Details</button>
+        </div>
+    </div>
+
+</div>
+
+<!--
 <ol  class="conferences">
   <li *ngFor="let conference of conferences ">
-      {{conference.name}}
-      {{conference.startDate | date:'dd-MM-yyyy'}}
-  </li>
+      <div class="conference">
+        <div class="conferenceName">
+        {{conference.name}}
+        </div>
+        {{conference.startDate | date:'dd-MM-yyyy'}}
 
+        <div class="details">
+         <a routerLink="">Show Details</a>
+        </div>
+      </div>
+  </li>
 </ol>
+-->
