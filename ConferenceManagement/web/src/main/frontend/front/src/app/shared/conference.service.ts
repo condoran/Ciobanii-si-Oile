@@ -18,6 +18,10 @@ export class ConferenceService {
     return this.httpClient
       .get<Conference[]>(this.conferenceUrl + '/getConferences');
   }
+
+  getConference(conferenceID: number): Observable<Conference>{
+    return this.getConferences().pipe(map(conferences => conferences.find(conference => conference.id === conferenceID)));
+  }
   /*login(username: string, password: string): Observable<User>{
     return this.httpClient
       .post<User>(this.conferenceUrl + '/checkUser', [username, password]);

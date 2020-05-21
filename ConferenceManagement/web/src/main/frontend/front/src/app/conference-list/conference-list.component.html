@@ -5,6 +5,8 @@
 <div class="container">
 
     <div class="conference" *ngFor="let conference of conferences ">
+      <!--[class.selected]="conference === selectedConference"
+      (click)="onSelect(conference)"-->
         <div class="conferenceName">
           {{conference.name}}
         </div>
@@ -12,25 +14,9 @@
         {{conference.startDate | date:'dd-MM-yyyy'}}
 
         <div class="details">
-          <button [routerLink]="'/conference-page'" class="myButton">Show Details</button>
+          <button (click)="goToConferenceDetails(conference.id)">Show Details</button>
         </div>
     </div>
 
 </div>
 
-<!--
-<ol  class="conferences">
-  <li *ngFor="let conference of conferences ">
-      <div class="conference">
-        <div class="conferenceName">
-        {{conference.name}}
-        </div>
-        {{conference.startDate | date:'dd-MM-yyyy'}}
-
-        <div class="details">
-         <a routerLink="">Show Details</a>
-        </div>
-      </div>
-  </li>
-</ol>
--->

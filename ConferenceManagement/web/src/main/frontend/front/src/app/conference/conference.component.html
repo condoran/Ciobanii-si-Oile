@@ -1,7 +1,9 @@
-<div class="container">
-  <h1>Name</h1>
+<div class="container" *ngIf="conference">
+  <h1>Conference {{conference.name}} Details:</h1>
   <br>
-  <p>start date :</p>
-  <p>end date :</p>
-  <p>call for papers</p>
+  <div>
+    {{conference.callForPapers}}
+  </div>
+
+  <button (click)="goBack()">Back</button>
 </div>
