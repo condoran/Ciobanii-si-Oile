@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: 'main-page', component: MainPageComponent},
   {path: 'register-page', component: RegisterPageComponent},
   {path: 'conference-list-page', component: ConferenceListComponent},
-  {path: 'conference-page', component: ConferenceComponent}
+  {path: 'conference-page/:id', component: ConferenceComponent}
 ];
 
 @NgModule({
