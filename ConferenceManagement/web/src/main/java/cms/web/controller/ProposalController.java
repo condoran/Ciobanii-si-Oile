@@ -25,8 +25,14 @@ public class ProposalController {
     private ProposalConverter proposalConverter;
 
     @RequestMapping(value = "/proposal/getProposals", method = RequestMethod.GET)
-    List<ProposalDTO> getUsers(){
+    List<ProposalDTO> getProposals(){
         List<Proposal> proposals = proposalService.getAll();
+        return new ArrayList<>(proposalConverter.convertModelsToDtos(proposals));
+    }
+
+    @RequestMapping(value = "/proposal/getProposalsForConference", method = RequestMethod.POST)
+    List<ProposalDTO> getProposalsForConference(@RequestBody Long conferenceID){
+        List<Proposal> proposals = proposalService.getAllByConferenceId(conferenceID);
         return new ArrayList<>(proposalConverter.convertModelsToDtos(proposals));
     }
 
