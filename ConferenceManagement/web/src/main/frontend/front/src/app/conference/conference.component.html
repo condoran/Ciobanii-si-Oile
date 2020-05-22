@@ -1,9 +1,17 @@
 <div class="container" *ngIf="conference">
   <h1>Conference {{conference.name}} Details:</h1>
+  <hr>
   <br>
   <div>
     {{conference.callForPapers}}
+    <br/>
+    <br/>
+    <label>Start Date: </label>{{conference.startDate | date:'dd-MM-yyyy'}}
+    <input *ngIf="user.isChair === true" [(ngModel)]="conference.startDate"><br/>
+    <label>End Date: </label>{{conference.endDate | date:'dd-MM-yyyy'}}
+    <input *ngIf="user.isChair === true || user.isCoChair" [(ngModel)]="conference.endDate"><br/>
   </div>
-
+  <hr>
   <button (click)="goBack()">Back</button>
+  <button *ngIf="user.isChair === true || user.isCoChair" (click)="updateConference()">Update Deadlines</button>
 </div>

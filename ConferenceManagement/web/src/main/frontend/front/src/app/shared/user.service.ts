@@ -31,6 +31,10 @@ export class UserService {
     return this.httpClient
       .post<Conference[]>(this.userUrl + '/getConferencesForPCMember', username);
   }
+
+  getUserByUsername(username: string): Observable<User>{
+    return this.httpClient.post<User>(this.userUrl + '/getUserByUsername', username);
+  }
   // getBooks(): Observable<Book[]> {
   //   return this.httpClient
   //     .get<Array<Book>>(this.booksUrl);

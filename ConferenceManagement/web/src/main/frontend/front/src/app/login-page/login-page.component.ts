@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UserService} from '../shared/user.service';
 import {User} from '../shared/user.model';
 import {Router} from "@angular/router";
+import {MenuComponent} from "../menu/menu.component";
 
 @Component({
   selector: 'app-login-page',
@@ -11,7 +12,8 @@ import {Router} from "@angular/router";
 export class LoginPageComponent implements OnInit {
 
   constructor(private userService: UserService,
-              private router: Router) { }
+              private router: Router,
+              private menuComponent: MenuComponent) { }
 
   private user: User;
   private logInStatus: boolean;
@@ -31,7 +33,8 @@ export class LoginPageComponent implements OnInit {
           alert("Invalid username or password!");
         }
         else {
-          sessionStorage.setItem("username", username)
+          sessionStorage.setItem("username", username);
+          this.menuComponent.ngOnInit();
           this.router.navigate([""]);
         }
       });
