@@ -6,6 +6,7 @@ import {Location} from "@angular/common";
 import {switchMap} from "rxjs/operators";
 import {UserService} from "../shared/user.service";
 import {User} from "../shared/user.model";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-conference',
@@ -16,6 +17,8 @@ export class ConferenceComponent implements OnInit {
 
   @Input() conference: Conference;
   user: User;
+  isChair: string;
+  isCoChair: string;
 
   constructor(private conferenceService: ConferenceService,
               private route: ActivatedRoute,
@@ -25,9 +28,13 @@ export class ConferenceComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.pipe(switchMap((params: Params) => this.conferenceService.getConference(+params['conferenceID'])))
       .subscribe(conference => this.conference = conference);
+    this.isChair = sessionStorage.getItem('isChair');
+    this.isCoChair = sessionStorage.getItem('isCoChair');
+  }
 
+  getUser(): void{
     this.userService.getUserByUsername(sessionStorage.getItem('username')).subscribe(user => {this.user = user;
-      console.log(user)});
+      console.log(this.user)});
   }
 
   goBack(): void{
@@ -36,6 +43,10 @@ export class ConferenceComponent implements OnInit {
 
   updateConference(): void{
     console.log(this.conference.startDate);
+    var date1 = (<HTMLInputElement>document.getElementById("startDate")).value;
+    var date2 = (<HTMLInputElement>document.getElementById("endDate")).value;
+    this.conference.startDate = new Date(date1);
+    this.conference.endDate = new Date(date2);
     this.conferenceService.updateConference(this.conference).subscribe( _ => this.goBack());
   }
 

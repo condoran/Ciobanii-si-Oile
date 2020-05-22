@@ -15,9 +15,9 @@ export class UserService {
               private cookieService: CookieService) {
   }
 
-  login(username: string, password: string): Observable<boolean>{
+  login(username: string, password: string): Observable<User>{
     return this.httpClient
-      .post<boolean>(this.userUrl + '/checkUser', [username, password]);
+      .post<User>(this.userUrl + '/checkUser', [username, password]);
   }
 
   register(name: string, username: string, password: string, email: string): Observable<User>{

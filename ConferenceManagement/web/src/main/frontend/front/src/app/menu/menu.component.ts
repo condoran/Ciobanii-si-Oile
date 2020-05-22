@@ -17,6 +17,8 @@ export class MenuComponent implements OnInit {
 
   logout(): void{
     sessionStorage.removeItem('username');
+    sessionStorage.removeItem('isChair');
+    sessionStorage.removeItem('isCoChair');
     this.ngOnInit();
   }
 

@@ -28,12 +28,14 @@ export class LoginPageComponent implements OnInit {
 
     this.userService.login(username, password)
       .subscribe(result => {
-        this.logInStatus = result;
-        if(this.logInStatus === false){
+        this.user = result;
+        if(this.user === null){
           alert("Invalid username or password!");
         }
         else {
           sessionStorage.setItem("username", username);
+          sessionStorage.setItem("isChair", String(result['chair']));
+          sessionStorage.setItem("isCoChair", String(result['coChair']));
           this.menuComponent.ngOnInit();
           this.router.navigate([""]);
         }
