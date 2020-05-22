@@ -52,14 +52,11 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/checkUser", method = RequestMethod.POST)
-    UserDTO checkUser(@RequestBody String[] args){
+    boolean checkUser(@RequestBody String[] args){
         String username = args[0];
         String password = args[1];
         Optional<CMSUser> cmsUser = userService.getUserByUsername(username);
-        if(cmsUser.isEmpty() || !cmsUser.get().getPassword().equals(password)){
-            return null;
-        }
-        return userConverter.convertModelToDto(cmsUser.get());
+        return cmsUser.isPresent() && cmsUser.get().getPassword().equals(password);
     }
 
     @RequestMapping(value = "/user/getConferencesForPCMember", method = RequestMethod.POST)

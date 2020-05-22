@@ -18,7 +18,7 @@ export class ConferenceListComponent implements OnInit {
   ngOnInit(): void {
     this.conferenceService.getConferences()
       .subscribe(conferences => this.conferences = conferences);
-
+      console.log("sessionStorage:" + sessionStorage.getItem("username"));
   }
 
   onSelect(conference: Conference): void{
