@@ -69,4 +69,12 @@ public class UserController {
         return conferenceConverter.convertModelsToDtos(userService.getConferencesForPCMember(username));
     }
 
+    @RequestMapping(value = "/user/getUserByUsername", method = RequestMethod.POST)
+    UserDTO getUserByUsername(@RequestBody String username){
+        Optional<CMSUser> user = userService.getUserByUsername(username);
+        if(user.isEmpty())
+            return null;
+        return userConverter.convertModelToDto(user.get());
+    }
+
 }
