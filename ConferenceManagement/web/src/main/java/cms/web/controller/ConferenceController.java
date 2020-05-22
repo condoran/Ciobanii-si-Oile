@@ -8,13 +8,11 @@ import cms.web.converter.UserConverter;
 import cms.web.dto.ConferenceDTO;
 import cms.web.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ConferenceController {
@@ -37,5 +35,16 @@ public class ConferenceController {
     List<UserDTO> getConferencePCMembers(@RequestParam Long conferenceID){
         List<CMSUser> PCMembers = conferenceService.getPCMembersForConference(conferenceID);
         return new ArrayList<>(userConverter.convertModelsToDtos(PCMembers));
+    }
+
+    @RequestMapping(value = "conference/postponeConference", method = RequestMethod.POST)
+    ConferenceDTO postponeConference(@RequestBody ConferenceDTO conferenceDTO){
+        Optional<Conference> updatedConference =
+                conferenceService.postponeConference(conferenceDTO.getId(), conferenceDTO.getStartDate(), conferenceDTO.getEndDate());
+
+        if(updatedConference.isEmpty()){
+            return null;
+        }
+        return conferenceConverter.convertModelToDto(updatedConference.get());
     }
 }
