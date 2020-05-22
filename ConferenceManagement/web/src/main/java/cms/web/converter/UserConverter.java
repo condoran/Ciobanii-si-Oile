@@ -32,6 +32,7 @@ public class UserConverter extends BaseConverter<CMSUser, UserDTO> {
     public UserDTO convertModelToDto(CMSUser user) {
         if(user == null)
             return null;
+
         return UserDTO.builder()
                 .id(user.getId())
                 .affiliation(user.getAffiliation())

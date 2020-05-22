@@ -29,6 +29,7 @@ export class LoginPageComponent implements OnInit {
     this.userService.login(username, password)
       .subscribe(result => {
         this.user = result;
+        console.log(result);
         if(this.user === null){
           alert("Invalid username or password!");
         }

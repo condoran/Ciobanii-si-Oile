@@ -24,6 +24,7 @@ public class Conference implements Serializable {
     private String name;
     private Date startDate;
     private Date endDate;
+    @Column(length = 3000)
     private String callForPapers;
     private Date abstractPaperDeadline;
     private Date fullPaperDeadline;

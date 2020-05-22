@@ -16,4 +16,6 @@
   <hr>
   <button (click)="goBack()">Back</button>
   <button *ngIf="isChair === 'true' || isCoChair === 'true'" (click)="updateConference()">Update Deadlines</button>
+  <button (click)="goToProposals()">See Proposals</button>
+  <button *ngIf="isLoggedIn !== null" (click)="goToCreateProposal()">Create Proposal</button>
 </div>

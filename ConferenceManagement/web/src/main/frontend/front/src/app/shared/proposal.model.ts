@@ -6,6 +6,5 @@ export class Proposal {
   name:string;
   keywords:string;
   topics:string;
-  authors:number[];
   conference:Conference;
 }

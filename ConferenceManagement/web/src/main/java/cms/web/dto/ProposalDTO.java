@@ -17,6 +17,5 @@ public class ProposalDTO implements Serializable {
     private String name;
     private String keywords;
     private String topics;
-    private List<Long> authorsIDs;
     private ConferenceDTO conference;
 }

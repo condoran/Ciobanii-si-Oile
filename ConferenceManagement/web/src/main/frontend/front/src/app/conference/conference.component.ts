@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Conference} from "../shared/conference.model";
 import {ConferenceService} from "../shared/conference.service";
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {switchMap} from "rxjs/operators";
 import {UserService} from "../shared/user.service";
@@ -19,9 +19,11 @@ export class ConferenceComponent implements OnInit {
   user: User;
   isChair: string;
   isCoChair: string;
+  isLoggedIn: string;
 
   constructor(private conferenceService: ConferenceService,
               private route: ActivatedRoute,
+              private router: Router,
               private location: Location,
               private userService: UserService) { }
 
@@ -30,6 +32,7 @@ export class ConferenceComponent implements OnInit {
       .subscribe(conference => this.conference = conference);
     this.isChair = sessionStorage.getItem('isChair');
     this.isCoChair = sessionStorage.getItem('isCoChair');
+    this.isLoggedIn = sessionStorage.getItem('username');
   }
 
   getUser(): void{
@@ -39,6 +42,14 @@ export class ConferenceComponent implements OnInit {
 
   goBack(): void{
     this.location.back();
+  }
+
+  goToCreateProposal(): void{
+    this.router.navigate(["conference/", this.conference.id,"newProposal"]);
+  }
+
+  goToProposals(): void{
+    this.router.navigate(["conference/", this.conference.id,"proposals"]);
   }
 
   updateConference(): void{

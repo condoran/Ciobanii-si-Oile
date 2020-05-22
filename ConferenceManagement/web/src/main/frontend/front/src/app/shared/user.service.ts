@@ -11,8 +11,7 @@ import {CookieService} from "ngx-cookie-service";
 export class UserService {
   private userUrl = 'http://localhost:8080/user';
 
-  constructor(private httpClient: HttpClient,
-              private cookieService: CookieService) {
+  constructor(private httpClient: HttpClient) {
   }
 
   login(username: string, password: string): Observable<User>{

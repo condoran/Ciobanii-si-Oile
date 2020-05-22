@@ -13,7 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Data
 @Builder
-public class BiddingResult implements Serializable {
+public class Bidding implements Serializable {
     @Id
     @GeneratedValue
     private Long id;

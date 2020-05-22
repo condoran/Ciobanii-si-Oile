@@ -13,6 +13,9 @@ import {FormsModule} from '@angular/forms';
 import { ConferenceComponent } from './conference/conference.component';
 import { ConferenceListComponent } from './conference-list/conference-list.component';
 import {ConferenceService} from './shared/conference.service';
+import { ProposalListComponent } from './proposal-list/proposal-list.component';
+import {ProposalService} from "./shared/proposal.service";
+import { ProposalNewComponent } from './proposal-new/proposal-new.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,8 @@ import {ConferenceService} from './shared/conference.service';
     RegisterPageComponent,
     ConferenceComponent,
     ConferenceListComponent,
+    ProposalListComponent,
+    ProposalNewComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +35,7 @@ import {ConferenceService} from './shared/conference.service';
     HttpClientModule,
     FormsModule
   ],
-  providers: [UserService, ConferenceService],
+  providers: [UserService, ConferenceService, ProposalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

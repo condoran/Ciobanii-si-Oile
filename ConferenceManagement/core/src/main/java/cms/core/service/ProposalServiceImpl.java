@@ -1,8 +1,10 @@
 package cms.core.service;
 
-import cms.core.domain.BiddingResult;
+import cms.core.domain.Bidding;
 import cms.core.domain.Proposal;
+import cms.core.domain.ProposalAuthor;
 import cms.core.domain.Review;
+import cms.core.repo.ProposalAuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +28,9 @@ public class ProposalServiceImpl implements ProposalService{
     @Autowired
     private ReviewRepository reviewRepository;
 
+    @Autowired
+    private ProposalAuthorRepository proposalAuthorRepository;
+
     @Override
     public Optional<Proposal> getProposalById(Long proposalId) {
         return proposalRepository.findById(proposalId);
@@ -38,7 +43,8 @@ public class ProposalServiceImpl implements ProposalService{
 
     @Override
     public List<Proposal> getAllByConferenceId(Long conferenceId) {
-        return proposalRepository.findAll().stream().filter(proposal -> proposal.getConference().getId().equals(conferenceId))
+        return proposalRepository.findAll().stream().filter(proposal ->
+            proposal.getConference().getId().equals(conferenceId))
                 .collect(Collectors.toList());
     }
 
@@ -60,7 +66,6 @@ public class ProposalServiceImpl implements ProposalService{
         proposal.setKeywords(newProposal.getKeywords());
         proposal.setName(newProposal.getName());
         proposal.setTopics(newProposal.getTopics());
-        proposal.setAuthors(newProposal.getAuthors());
         proposal.setAbstractPaper(newProposal.getAbstractPaper());
         proposal.setFullPaper(newProposal.getFullPaper());
         proposal.setConference(newProposal.getConference());
@@ -69,8 +74,8 @@ public class ProposalServiceImpl implements ProposalService{
     }
 
     @Override
-    public BiddingResult bidProposal(BiddingResult biddingResult) {
-        return biddingRepository.save(biddingResult);
+    public Bidding bidProposal(Bidding bidding) {
+        return biddingRepository.save(bidding);
     }
 
     @Override

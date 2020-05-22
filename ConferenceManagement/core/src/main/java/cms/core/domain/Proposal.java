@@ -25,10 +25,7 @@ public class Proposal implements Serializable {
     private String topics;
     private File abstractPaper;
     private File fullPaper;
-
-    @ManyToMany
-    private List<CMSUser> authors = new ArrayList<>();
-
+    
     @ManyToOne
     private Conference conference;
 }

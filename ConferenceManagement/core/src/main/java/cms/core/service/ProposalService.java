@@ -1,6 +1,6 @@
 package cms.core.service;
 
-import cms.core.domain.BiddingResult;
+import cms.core.domain.Bidding;
 import cms.core.domain.Proposal;
 import cms.core.domain.Review;
 
@@ -21,7 +21,7 @@ public interface ProposalService {
 
     Proposal update(Proposal newProposal);
 
-    BiddingResult bidProposal(BiddingResult biddingResult);
+    Bidding bidProposal(Bidding bidding);
 
     Review reviewProposal(Review review);
 }
