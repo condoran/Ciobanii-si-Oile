@@ -1,9 +1,6 @@
 package cms.core.service;
 
-import cms.core.domain.Bidding;
-import cms.core.domain.Proposal;
-import cms.core.domain.ProposalAuthor;
-import cms.core.domain.Review;
+import cms.core.domain.*;
 import cms.core.repo.ProposalAuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -81,5 +78,10 @@ public class ProposalServiceImpl implements ProposalService{
     @Override
     public Review reviewProposal(Review review) {
         return reviewRepository.save(review);
+    }
+
+    @Override
+    public ProposalAuthor addAuthorForProposal(ProposalAuthor proposalAuthor) {
+        return proposalAuthorRepository.save(proposalAuthor);
     }
 }

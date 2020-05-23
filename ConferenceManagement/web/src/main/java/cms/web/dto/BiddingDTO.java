@@ -15,5 +15,5 @@ public class BiddingDTO implements Serializable {
     private Long id;
     private UserDTO user;
     private ProposalDTO proposal;
-    private boolean accepted;
+    private Boolean accepted;
 }

@@ -9,4 +9,13 @@ export class Permission {
   isPCMember:boolean;
   isSectionChair:boolean;
 
+  constructor(id, conference, user, isAuthor, isPCMember, isSectionChair) {
+    this.id = id;
+    this.conference = conference;
+    this.user = user;
+    this.isAuthor = isAuthor;
+    this.isPCMember = isPCMember;
+    this.isSectionChair = isSectionChair;
+  }
+
 }

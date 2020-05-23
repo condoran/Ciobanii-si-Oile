@@ -1,8 +1,6 @@
 package cms.core.service;
 
-import cms.core.domain.Bidding;
-import cms.core.domain.Proposal;
-import cms.core.domain.Review;
+import cms.core.domain.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,4 +22,6 @@ public interface ProposalService {
     Bidding bidProposal(Bidding bidding);
 
     Review reviewProposal(Review review);
+
+    ProposalAuthor addAuthorForProposal(ProposalAuthor proposalAuthor);
 }

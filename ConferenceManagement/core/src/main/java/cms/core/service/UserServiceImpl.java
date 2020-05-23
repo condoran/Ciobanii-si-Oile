@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
         return permissionRepository.findAll()
                 .stream()
                 .filter(permission -> permission.getCmsUser().getUsername().equals(username))
-                .filter(Permission::isPCMember)
+                .filter(Permission::getIsPCMember)
                 .map(Permission::getConference)
                 .collect(Collectors.toList());
     }
@@ -75,9 +75,9 @@ public class UserServiceImpl implements UserService {
 
         cmsUser.setAffiliation(cmsUser.getAffiliation());
         cmsUser.setEmailAddress(newCMSUser.getEmailAddress());
-        cmsUser.setChair(newCMSUser.isChair());
-        cmsUser.setCoChair(newCMSUser.isCoChair());
-        cmsUser.setSCMember(newCMSUser.isSCMember());
+        cmsUser.setIsChair(newCMSUser.getIsChair());
+        cmsUser.setIsCoChair(newCMSUser.getIsCoChair());
+        cmsUser.setIsSCMember(newCMSUser.getIsSCMember());
         cmsUser.setName(newCMSUser.getName());
         cmsUser.setUsername(newCMSUser.getUsername());
         cmsUser.setPassword(newCMSUser.getPassword());
@@ -93,16 +93,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<CMSUser> getChair() {
-        return userRepository.findAll().stream().filter(CMSUser::isChair).findFirst();
+        return userRepository.findAll().stream().filter(CMSUser::getIsChair).findFirst();
     }
 
     @Override
     public List<CMSUser> getCoChairs() {
-        return userRepository.findAll().stream().filter(CMSUser::isCoChair).collect(Collectors.toList());
+        return userRepository.findAll().stream().filter(CMSUser::getIsCoChair).collect(Collectors.toList());
     }
 
     @Override
     public List<CMSUser> getSCMembers() {
-        return userRepository.findAll().stream().filter(CMSUser::isSCMember).collect(Collectors.toList());
+        return userRepository.findAll().stream().filter(CMSUser::getIsSCMember).collect(Collectors.toList());
     }
 }

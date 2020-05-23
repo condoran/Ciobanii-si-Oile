@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {LoginPageComponent} from "../login-page/login-page.component";
+import {UserService} from "../shared/user.service";
 
 @Component({
   selector: 'app-menu',
@@ -9,7 +10,7 @@ import {LoginPageComponent} from "../login-page/login-page.component";
 export class MenuComponent implements OnInit {
 
   isLogged: boolean;
-  constructor() { }
+  constructor(private userService : UserService) { }
 
   ngOnInit(): void {
     this.isLogged = sessionStorage.getItem('username') !== null;
@@ -19,6 +20,7 @@ export class MenuComponent implements OnInit {
     sessionStorage.removeItem('username');
     sessionStorage.removeItem('isChair');
     sessionStorage.removeItem('isCoChair');
+    this.userService.setCurrentUser(null);
     this.ngOnInit();
   }
 

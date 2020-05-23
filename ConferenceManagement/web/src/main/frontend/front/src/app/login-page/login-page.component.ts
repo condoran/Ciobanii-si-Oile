@@ -29,14 +29,16 @@ export class LoginPageComponent implements OnInit {
     this.userService.login(username, password)
       .subscribe(result => {
         this.user = result;
-        console.log(result);
         if(this.user === null){
           alert("Invalid username or password!");
         }
         else {
+          this.userService.setCurrentUser(this.user);
           sessionStorage.setItem("username", username);
-          sessionStorage.setItem("isChair", String(result['chair']));
-          sessionStorage.setItem("isCoChair", String(result['coChair']));
+          // sessionStorage.setItem("isChair", String(result['chair']));
+          // sessionStorage.setItem("isCoChair", String(result['coChair']));
+          sessionStorage.setItem("isChair", String(this.user.isChair));
+          sessionStorage.setItem("isCoChair", String(this.user.isCoChair));
           this.menuComponent.ngOnInit();
           this.router.navigate([""]);
         }

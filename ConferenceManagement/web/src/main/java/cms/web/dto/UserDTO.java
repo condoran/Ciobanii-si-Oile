@@ -19,7 +19,7 @@ public class UserDTO implements Serializable {
     private String affiliation;
     private String password;
     private String personalWebsite;
-    private boolean isChair;
-    private boolean isCoChair;
-    private boolean isSCMember;
+    private Boolean isChair;
+    private Boolean isCoChair;
+    private Boolean isSCMember;
 }

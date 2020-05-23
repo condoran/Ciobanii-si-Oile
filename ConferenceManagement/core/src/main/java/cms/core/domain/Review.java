@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -28,6 +25,7 @@ public class Review implements Serializable {
     private CMSUser CMSUser;
 
     private String qualifier;
+    @Column(length = 3000)
     private String recommendation;
 
 }

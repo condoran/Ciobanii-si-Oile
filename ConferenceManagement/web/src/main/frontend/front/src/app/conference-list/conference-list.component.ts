@@ -26,6 +26,7 @@ export class ConferenceListComponent implements OnInit {
   }
 
   goToConferenceDetails(conferenceID: number): void{
+    this.conferenceService.setCurrentConference(conferenceID);
     this.router.navigate(["conference/", conferenceID]);
   }
 

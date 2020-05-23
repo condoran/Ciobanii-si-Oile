@@ -24,6 +24,6 @@ public class Bidding implements Serializable {
     @ManyToOne
     private CMSUser CMSUser;
 
-    private boolean accepted;
+    private Boolean accepted;
 
 }

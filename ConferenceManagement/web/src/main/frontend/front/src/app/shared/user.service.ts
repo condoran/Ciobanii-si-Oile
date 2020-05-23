@@ -4,13 +4,13 @@ import {HttpClient} from '@angular/common/http';
 import {User} from './user.model';
 import {Observable} from 'rxjs';
 import {Conference} from './conference.model';
-import {CookieService} from "ngx-cookie-service";
 
 
 @Injectable()
 export class UserService {
   private userUrl = 'http://localhost:8080/user';
 
+  currentUser : User;
   constructor(private httpClient: HttpClient) {
   }
 
@@ -34,35 +34,9 @@ export class UserService {
   getUserByUsername(username: string): Observable<User>{
     return this.httpClient.post<User>(this.userUrl + '/getUserByUsername', username);
   }
-  // getBooks(): Observable<Book[]> {
-  //   return this.httpClient
-  //     .get<Array<Book>>(this.booksUrl);
-  // }
-  //
-  // getBook(id: number): Observable<Book> {
-  //   return this.getBooks()
-  //     .pipe(
-  //       map(books => books.find(book => book.id === id))
-  //     );
-  // }
-  //
-  // saveBook(book: Book): Observable<Book> {
-  //   console.log("saveBook", book);
-  //
-  //   return this.httpClient
-  //     .post<Book>(this.booksUrl, book);
-  // }
-  //
-  // update(book): Observable<Book> {
-  //   const url = `${this.booksUrl}/${book.id}`;
-  //   return this.httpClient
-  //     .put<Book>(url, book);
-  // }
-  //
-  // deleteBook(id: number): Observable<any> {
-  //   const url = `${this.booksUrl}/${id}`;
-  //   return this.httpClient
-  //     .delete(url);
-  // }
+
+  setCurrentUser(user: User){
+    this.currentUser = user;
+  }
 
 }

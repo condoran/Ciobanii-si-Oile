@@ -2,6 +2,7 @@ package cms.core.service;
 
 import cms.core.domain.CMSUser;
 import cms.core.domain.Conference;
+import cms.core.domain.Permission;
 import cms.core.domain.Section;
 
 import java.util.Date;
@@ -29,4 +30,6 @@ public interface ConferenceService {
     Optional<Conference> postponeAbstractPaperDeadline(Long conferenceId, Date newAbstractDate);
 
     Optional<Conference> postponeConference(Long conferenceId, Date newStartDate, Date newEndDate);
+
+    Permission saveOrUpdatePermission(Permission permission);
 }

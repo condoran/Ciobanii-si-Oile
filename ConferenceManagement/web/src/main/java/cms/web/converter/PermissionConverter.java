@@ -22,9 +22,9 @@ public class PermissionConverter extends BaseConverter<Permission, PermissionDTO
                 .id(permissionDTO.getId())
                 .cmsUser(userConverter.convertDtoToModel(permissionDTO.getUser()))
                 .conference(conferenceConverter.convertDtoToModel(permissionDTO.getConference()))
-                .isAuthor(permissionDTO.isAuthor())
-                .isPCMember(permissionDTO.isPCMember())
-                .isSectionChair(permissionDTO.isSectionChair())
+                .isAuthor(permissionDTO.getIsAuthor())
+                .isPCMember(permissionDTO.getIsPCMember())
+                .isSectionChair(permissionDTO.getIsSectionChair())
                 .build();
     }
 
@@ -36,9 +36,9 @@ public class PermissionConverter extends BaseConverter<Permission, PermissionDTO
                 .id(permission.getId())
                 .user(userConverter.convertModelToDto(permission.getCmsUser()))
                 .conference(conferenceConverter.convertModelToDto(permission.getConference()))
-                .isAuthor(permission.isAuthor())
-                .isPCMember(permission.isPCMember())
-                .isSectionChair(permission.isSectionChair())
+                .isAuthor(permission.getIsAuthor())
+                .isPCMember(permission.getIsPCMember())
+                .isSectionChair(permission.getIsSectionChair())
                 .build();
     }
 }

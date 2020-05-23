@@ -26,8 +26,8 @@ public class CMSUser implements Serializable {
     private String emailAddress;
     private String affiliation;
     private String personalWebsite;
-    private boolean isChair;
-    private boolean isCoChair;
-    private boolean isSCMember;
+    private Boolean isChair;
+    private Boolean isCoChair;
+    private Boolean isSCMember;
 
 }

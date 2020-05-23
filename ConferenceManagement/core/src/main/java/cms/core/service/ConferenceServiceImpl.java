@@ -37,7 +37,7 @@ public class ConferenceServiceImpl implements ConferenceService {
     public List<CMSUser> getPCMembersForConference(Long conferenceId) {
         return permissionRepository.findAll().stream()
                 .filter(permission -> permission.getConference().getId().equals(conferenceId))
-                .filter(Permission::isPCMember)
+                .filter(Permission::getIsPCMember)
                 .map(Permission::getCmsUser)
                 .collect(Collectors.toList());
     }
@@ -101,5 +101,30 @@ public class ConferenceServiceImpl implements ConferenceService {
         conference.setStartDate(newStartDate);
         conference.setEndDate(newEndDate);
         return Optional.of(conference);
+    }
+
+    @Override
+    @Transactional
+    public Permission saveOrUpdatePermission(Permission permission) {
+        Permission newPermission = permissionRepository.findAll().stream().
+                filter(permission1 -> permission1.getConference().getId().equals(permission.getConference().getId()) &&
+                        permission1.getCmsUser().getId().equals(permission.getCmsUser().getId()))
+                .findFirst().orElse(null);
+
+        if(newPermission == null){
+            permissionRepository.save(permission);
+            return permission;
+        }
+
+        if(permission.getIsPCMember() != null){
+            newPermission.setIsPCMember(permission.getIsPCMember());
+        }
+        if(permission.getIsAuthor() != null){
+            newPermission.setIsAuthor(permission.getIsAuthor());
+        }
+        if(permission.getIsSectionChair() != null){
+            newPermission.setIsSectionChair(permission.getIsSectionChair());
+        }
+        return newPermission;
     }
 }

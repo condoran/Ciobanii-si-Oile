@@ -30,6 +30,7 @@ export class ConferenceComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.pipe(switchMap((params: Params) => this.conferenceService.getConference(+params['conferenceID'])))
       .subscribe(conference => this.conference = conference);
+
     this.isChair = sessionStorage.getItem('isChair');
     this.isCoChair = sessionStorage.getItem('isCoChair');
     this.isLoggedIn = sessionStorage.getItem('username');

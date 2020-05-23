@@ -21,6 +21,7 @@ public class Conference implements Serializable {
     @GeneratedValue
     private Long id;
 
+    @Column(length = 500)
     private String name;
     private Date startDate;
     private Date endDate;

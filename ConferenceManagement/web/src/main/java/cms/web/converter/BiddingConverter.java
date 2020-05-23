@@ -20,7 +20,7 @@ public class BiddingConverter extends BaseConverter<Bidding, BiddingDTO>{
                 .id(biddingDTO.getId())
                 .proposal(proposalConverter.convertDtoToModel(biddingDTO.getProposal()))
                 .CMSUser(userConverter.convertDtoToModel(biddingDTO.getUser()))
-                .accepted(biddingDTO.isAccepted())
+                .accepted(biddingDTO.getAccepted())
                 .build();
     }
 
@@ -32,7 +32,7 @@ public class BiddingConverter extends BaseConverter<Bidding, BiddingDTO>{
                 .id(bidding.getId())
                 .proposal(proposalConverter.convertModelToDto(bidding.getProposal()))
                 .user(userConverter.convertModelToDto(bidding.getCMSUser()))
-                .accepted(bidding.isAccepted())
+                .accepted(bidding.getAccepted())
                 .build();
     }
 }

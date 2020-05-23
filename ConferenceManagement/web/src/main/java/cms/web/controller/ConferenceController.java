@@ -2,10 +2,13 @@ package cms.web.controller;
 
 import cms.core.domain.CMSUser;
 import cms.core.domain.Conference;
+import cms.core.domain.Permission;
 import cms.core.service.ConferenceService;
 import cms.web.converter.ConferenceConverter;
+import cms.web.converter.PermissionConverter;
 import cms.web.converter.UserConverter;
 import cms.web.dto.ConferenceDTO;
+import cms.web.dto.PermissionDTO;
 import cms.web.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,10 +28,22 @@ public class ConferenceController {
     @Autowired
     private UserConverter userConverter;
 
+    @Autowired
+    private PermissionConverter permissionConverter;
+
     @RequestMapping(value = "conference/getConferences", method = RequestMethod.GET)
     List<ConferenceDTO> getConferences(){
         List<Conference> conferences = conferenceService.getAll();
         return new ArrayList<>(conferenceConverter.convertModelsToDtos(conferences));
+    }
+
+    @RequestMapping(value = "conference/getConferenceByID", method = RequestMethod.POST)
+    ConferenceDTO getConferenceByID(@RequestBody Long conferenceID){
+        Optional<Conference> conference = conferenceService.getConferenceById(conferenceID);
+        if(conference.isEmpty())
+            return null;
+        return conferenceConverter.convertModelToDto(conference.get());
+
     }
 
     @RequestMapping(value = "conference/getConferencePCMembers", method = RequestMethod.GET)
@@ -46,5 +61,12 @@ public class ConferenceController {
             return null;
         }
         return conferenceConverter.convertModelToDto(updatedConference.get());
+    }
+
+    @RequestMapping(value = "conference/saveOrUpdatePermission", method = RequestMethod.POST)
+    PermissionDTO saveOrUpdatePermission(@RequestBody PermissionDTO permissionDTO){
+        Permission permission =
+                conferenceService.saveOrUpdatePermission(permissionConverter.convertDtoToModel(permissionDTO));
+        return permissionConverter.convertModelToDto(permission);
     }
 }

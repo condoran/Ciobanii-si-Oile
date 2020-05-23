@@ -25,8 +25,8 @@ public class Permission implements Serializable {
     @ManyToOne
     private CMSUser cmsUser;
 
-    private boolean isAuthor;
-    private boolean isPCMember;
-    private boolean isSectionChair;
+    private Boolean isAuthor;
+    private Boolean isPCMember;
+    private Boolean isSectionChair;
 
 }

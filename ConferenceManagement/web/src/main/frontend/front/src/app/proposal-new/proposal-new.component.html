@@ -1,1 +1,9 @@
-<p>proposal-new works!</p>
+<h2>Add a new proposal</h2>
+
+Name:<input type="text" #name/>
+<br/>
+Keywords<input type="text" #keywords/>
+<br/>
+Topics:<input type="text" #topics/>
+<br/>
+<button (click)="addProposal(name.value, keywords.value, topics.value)">Add Proposal</button>

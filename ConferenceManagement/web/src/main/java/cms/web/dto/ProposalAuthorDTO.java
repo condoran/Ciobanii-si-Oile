@@ -6,16 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
-public class PermissionDTO implements Serializable {
+public class ProposalAuthorDTO implements Serializable {
     private Long id;
-    private ConferenceDTO conference;
-    private UserDTO user;
-    private Boolean isAuthor;
-    private Boolean isPCMember;
-    private Boolean isSectionChair;
+    private UserDTO author;
+    private ProposalDTO proposal;
 }
