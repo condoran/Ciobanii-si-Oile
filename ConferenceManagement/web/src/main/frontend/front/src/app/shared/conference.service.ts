@@ -12,7 +12,7 @@ import {Permission} from "./permission.model";
 export class ConferenceService {
   private conferenceUrl = 'http://localhost:8080/conference';
 
-  currentConference: Conference;
+  static currentConference: Conference;
 
   constructor(private httpClient: HttpClient) {
   }
@@ -32,12 +32,12 @@ export class ConferenceService {
 
   setCurrentConference(conferenceID:number):void{
     if(conferenceID === -1){
-      this.currentConference = null;
+      ConferenceService.currentConference = null;
       return;
     }
     this.httpClient
       .post<Conference>(this.conferenceUrl + "/getConferenceByID", conferenceID)
-      .subscribe(conference => this.currentConference = conference);
+      .subscribe(conference => ConferenceService.currentConference = conference);
   }
 
   addPermission(permission: Permission) :Observable<Permission>{

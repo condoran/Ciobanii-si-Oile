@@ -10,7 +10,7 @@ import {Conference} from './conference.model';
 export class UserService {
   private userUrl = 'http://localhost:8080/user';
 
-  currentUser : User;
+  static currentUser : User;
   constructor(private httpClient: HttpClient) {
   }
 
@@ -36,7 +36,7 @@ export class UserService {
   }
 
   setCurrentUser(user: User){
-    this.currentUser = user;
+    UserService.currentUser = user;
   }
 
 }

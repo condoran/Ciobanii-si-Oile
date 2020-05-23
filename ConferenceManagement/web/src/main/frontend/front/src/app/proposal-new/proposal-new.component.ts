@@ -16,7 +16,6 @@ export class ProposalNewComponent implements OnInit {
 
   constructor(private conferenceService: ConferenceService,
               private proposalService: ProposalService,
-              private userService : UserService,
               private router: Router) { }
 
   ngOnInit(): void {
@@ -24,13 +23,14 @@ export class ProposalNewComponent implements OnInit {
 
   addProposal(name: string, keywords: string, topics: string) {
     this.proposalService.addProposal(name, keywords, topics,
-      this.conferenceService.currentConference)
+      ConferenceService.currentConference)
       .subscribe(proposal => {
-        this.proposalService.addAuthor(new ProposalAuthor(null, this.userService.currentUser,proposal));
-        this.conferenceService.addPermission(new Permission(null, this.conferenceService.currentConference,
-          this.userService.currentUser, true, null, null))
+        this.proposalService.addAuthor(new ProposalAuthor(null, UserService.currentUser,proposal));
+        this.conferenceService.addPermission(new Permission(null, ConferenceService.currentConference,
+          UserService.currentUser, true, null, null))
           .subscribe(permission => console.log(permission));
+        console.log(proposal);
       });
-    this.router.navigate(["conference/", this.conferenceService.currentConference.id]);
+    this.router.navigate(["conference/", ConferenceService.currentConference.id]);
   }
 }
