@@ -11,24 +11,10 @@
   font-size: 24px;
 
 }
-.proposalName{
-  border-bottom: 1px solid;
-  border-right: 1px solid;
-  border-color: black;
-  width:40%;
-  margin-bottom: 5%;
-  border-bottom-right-radius: 5px;
-}
-.details {
-  text-align: right;
-  margin-top: 5%;
-
-}
-
 
 .container {
   display: grid;
 
-  grid-template-columns: 40% 40%;
+  grid-template-columns: 45% 45%;
   justify-content: space-between;
 }

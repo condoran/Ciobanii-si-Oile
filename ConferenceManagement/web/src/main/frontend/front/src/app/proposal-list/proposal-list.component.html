@@ -5,14 +5,14 @@
 <div class="container">
 
   <div class="proposal" *ngFor="let proposal of proposals ">
-    <div class="proposalName">
-      {{proposal.name}}
-    </div>
-    <p>Keywords:</p>
+     <h2> {{proposal.name}} </h2><hr>
       {{proposal.keywords}}
-    <div class="details">
+    <br><br>
       {{proposal.topics}}
-    </div>
+    <hr>
+    <button>btn1</button>
+    <button>btn2</button>
+    <button>btn3</button>
   </div>
 
 </div>
