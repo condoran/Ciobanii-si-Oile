@@ -4,6 +4,7 @@ import cms.core.domain.CMSUser;
 import cms.core.domain.Conference;
 import cms.core.domain.Permission;
 import cms.core.service.ConferenceService;
+import cms.core.service.UserService;
 import cms.web.converter.ConferenceConverter;
 import cms.web.converter.PermissionConverter;
 import cms.web.converter.UserConverter;
@@ -26,6 +27,9 @@ public class ConferenceController {
     private ConferenceConverter conferenceConverter;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private UserConverter userConverter;
 
     @Autowired
@@ -39,8 +43,18 @@ public class ConferenceController {
 
     @RequestMapping(value = "conference/saveConference", method = RequestMethod.POST)
     ConferenceDTO saveConference(@RequestBody ConferenceDTO conferenceDTO){
-        Conference conference = conferenceService.save(conferenceConverter.convertDtoToModel(conferenceDTO));
-        return conferenceConverter.convertModelToDto(conference);
+        Conference conference = conferenceConverter.convertDtoToModel(conferenceDTO);
+        Optional<CMSUser> chairOptional = userService.getChair();
+        if(chairOptional.isEmpty()) {
+            return null;
+        }
+        conference.setChair(chairOptional.get());
+
+        List<CMSUser> coChairs = userService.getCoChairs();
+        conference.setFirstCoChair(coChairs.get(0));
+        conference.setSecondCoChair(coChairs.get(1));
+
+        return conferenceConverter.convertModelToDto(conferenceService.save(conference));
     }
 
     @RequestMapping(value = "conference/getConferenceByID", method = RequestMethod.POST)
