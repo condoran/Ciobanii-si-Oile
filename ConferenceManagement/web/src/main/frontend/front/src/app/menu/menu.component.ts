@@ -20,7 +20,8 @@ export class MenuComponent implements OnInit {
     sessionStorage.removeItem('username');
     sessionStorage.removeItem('isChair');
     sessionStorage.removeItem('isCoChair');
-    this.userService.setCurrentUser(null);
+    sessionStorage.removeItem('user');
+    sessionStorage.removeItem('conference');
     this.ngOnInit();
   }
 

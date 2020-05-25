@@ -31,6 +31,8 @@ export class ConferenceComponent implements OnInit {
     this.route.params.pipe(switchMap((params: Params) => this.conferenceService.getConference(+params['conferenceID'])))
       .subscribe(conference => this.conference = conference);
 
+    // console.log(JSON.parse(sessionStorage.getItem("conference")));
+    // console.log(ConferenceService.currentConference);
     this.isChair = sessionStorage.getItem('isChair');
     this.isCoChair = sessionStorage.getItem('isCoChair');
     this.isLoggedIn = sessionStorage.getItem('username');

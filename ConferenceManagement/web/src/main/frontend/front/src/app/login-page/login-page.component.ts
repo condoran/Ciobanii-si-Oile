@@ -33,10 +33,8 @@ export class LoginPageComponent implements OnInit {
           alert("Invalid username or password!");
         }
         else {
-          this.userService.setCurrentUser(this.user);
+          sessionStorage.setItem("user", JSON.stringify(this.user));
           sessionStorage.setItem("username", username);
-          // sessionStorage.setItem("isChair", String(result['chair']));
-          // sessionStorage.setItem("isCoChair", String(result['coChair']));
           sessionStorage.setItem("isChair", String(this.user.isChair));
           sessionStorage.setItem("isCoChair", String(this.user.isCoChair));
           this.menuComponent.ngOnInit();

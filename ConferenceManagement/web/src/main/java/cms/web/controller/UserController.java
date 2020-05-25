@@ -80,4 +80,14 @@ public class UserController {
         return userConverter.convertModelToDto(user.get());
     }
 
+    @RequestMapping(value = "/user/getUserByEmail", method = RequestMethod.POST)
+    UserDTO getUserByEmail(@RequestBody String email){
+        logger.trace("in getUserByEmail, controller, email = {}",  email);
+        Optional<CMSUser> user = userService.getUserByEmailAddress(email);
+        logger.trace("user = {}", user);
+        if(user.isEmpty())
+            return null;
+        return userConverter.convertModelToDto(user.get());
+    }
+
 }

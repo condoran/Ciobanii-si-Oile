@@ -10,7 +10,6 @@ import {Conference} from './conference.model';
 export class UserService {
   private userUrl = 'http://localhost:8080/user';
 
-  static currentUser : User;
   constructor(private httpClient: HttpClient) {
   }
 
@@ -35,8 +34,8 @@ export class UserService {
     return this.httpClient.post<User>(this.userUrl + '/getUserByUsername', username);
   }
 
-  setCurrentUser(user: User){
-    UserService.currentUser = user;
+  getUserByEmailAddress(emailAddress: string): Observable<User>{
+    return this.httpClient.post<User>(this.userUrl + '/getUserByEmail', emailAddress);
   }
 
 }

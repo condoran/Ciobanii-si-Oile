@@ -6,4 +6,14 @@ Keywords<input type="text" #keywords/>
 <br/>
 Topics:<input type="text" #topics/>
 <br/>
-<button (click)="addProposal(name.value, keywords.value, topics.value)">Add Proposal</button>
+<br/>
+<div *ngIf="wantToAddAuthor">
+  Please add your colleagues email addresses, you are author by default!
+  <br>
+  Author email: <input type="text" #emailAddress/>
+  <button (click)="addAuthor(emailAddress.value)">Add author</button>
+</div>
+
+<button *ngIf="wantToAddAuthor === false && proposal" (click)="wantToAddAuthor = true">Want to add author</button>
+<button *ngIf="!proposal" (click)="addProposal(name.value, keywords.value, topics.value)">Add Proposal</button>
+<button (click)="goBack()">Back</button>
