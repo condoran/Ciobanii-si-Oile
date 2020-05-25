@@ -1,12 +1,15 @@
 package cms.web.controller;
 
+import cms.core.domain.Bidding;
 import cms.core.domain.CMSUser;
 import cms.core.domain.Proposal;
 import cms.core.domain.ProposalAuthor;
 import cms.core.repo.ProposalRepository;
 import cms.core.service.ProposalService;
+import cms.web.converter.BiddingConverter;
 import cms.web.converter.ProposalAuthorConverter;
 import cms.web.converter.ProposalConverter;
+import cms.web.dto.BiddingDTO;
 import cms.web.dto.ProposalAuthorDTO;
 import cms.web.dto.ProposalDTO;
 import cms.web.dto.UserDTO;
@@ -26,6 +29,9 @@ public class ProposalController {
 
     @Autowired
     private ProposalAuthorConverter proposalAuthorConverter;
+
+    @Autowired
+    private BiddingConverter biddingConverter;
 
     @RequestMapping(value = "/proposal/getProposals", method = RequestMethod.GET)
     List<ProposalDTO> getProposals(){
@@ -60,5 +66,11 @@ public class ProposalController {
     @RequestMapping(value = "/proposal/getProposalsIDsForUser", method = RequestMethod.POST)
     List<Long> getProposalsIDsForUser(@RequestBody Long userID){
         return proposalService.getProposalsIDsForUser(userID);
+    }
+
+    @RequestMapping(value ="/proposal/bidProposal", method = RequestMethod.POST)
+    BiddingDTO bidProposal(@RequestBody BiddingDTO biddingDTO){
+        Bidding bidding = proposalService.bidProposal(biddingConverter.convertDtoToModel(biddingDTO));
+        return biddingConverter.convertModelToDto(bidding);
     }
 }
