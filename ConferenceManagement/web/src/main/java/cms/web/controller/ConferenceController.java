@@ -37,6 +37,12 @@ public class ConferenceController {
         return new ArrayList<>(conferenceConverter.convertModelsToDtos(conferences));
     }
 
+    @RequestMapping(value = "conference/saveConference", method = RequestMethod.POST)
+    ConferenceDTO saveConference(@RequestBody ConferenceDTO conferenceDTO){
+        Conference conference = conferenceService.save(conferenceConverter.convertDtoToModel(conferenceDTO));
+        return conferenceConverter.convertModelToDto(conference);
+    }
+
     @RequestMapping(value = "conference/getConferenceByID", method = RequestMethod.POST)
     ConferenceDTO getConferenceByID(@RequestBody Long conferenceID){
         Optional<Conference> conference = conferenceService.getConferenceById(conferenceID);
