@@ -15,6 +15,8 @@ public interface ProposalService {
 
     List<Long> getProposalsIDsForUser(Long userID);
 
+    List<Long> getUnbiddenIDs(Long userID);
+
     Proposal save(Proposal proposal);
 
     void delete(Long proposalId);

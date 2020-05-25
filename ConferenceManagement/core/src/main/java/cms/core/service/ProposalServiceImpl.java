@@ -53,6 +53,18 @@ public class ProposalServiceImpl implements ProposalService{
     }
 
     @Override
+    public List<Long> getUnbiddenIDs(Long userID) {
+        List<Long> allProposalsIDs = proposalRepository.findAll().stream()
+                .map(Proposal::getId)
+                .collect(Collectors.toList());
+        List<Long> biddenIDs = biddingRepository.findAll().stream()
+                .map(bidding -> bidding.getProposal().getId())
+                .collect(Collectors.toList());
+        return allProposalsIDs.stream().filter(id -> !biddenIDs.contains(id))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Proposal save(Proposal proposal) {
         return proposalRepository.save(proposal);
     }

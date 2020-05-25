@@ -73,4 +73,9 @@ public class ProposalController {
         Bidding bidding = proposalService.bidProposal(biddingConverter.convertDtoToModel(biddingDTO));
         return biddingConverter.convertModelToDto(bidding);
     }
+
+    @RequestMapping(value = "/proposal/getUnbiddenProposalsIDs", method = RequestMethod.POST)
+    List<Long> getUnbiddenProposalsIDs(@RequestBody Long userID) {
+        return proposalService.getUnbiddenIDs(userID);
+    }
 }
