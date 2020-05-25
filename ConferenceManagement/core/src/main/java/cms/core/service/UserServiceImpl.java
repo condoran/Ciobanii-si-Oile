@@ -3,7 +3,9 @@ package cms.core.service;
 import cms.core.domain.CMSUser;
 import cms.core.domain.Conference;
 import cms.core.domain.Permission;
+import cms.core.domain.ProposalAuthor;
 import cms.core.repo.PermissionRepository;
+import cms.core.repo.ProposalAuthorRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private PermissionRepository permissionRepository;
+
+    @Autowired
+    private ProposalAuthorRepository proposalAuthorRepository;
 
     @Override
     public Optional<CMSUser> getUserByUsername(String username) {
@@ -105,4 +110,18 @@ public class UserServiceImpl implements UserService {
     public List<CMSUser> getSCMembers() {
         return userRepository.findAll().stream().filter(CMSUser::getIsSCMember).collect(Collectors.toList());
     }
+
+    @Override
+    public Optional<Permission> getPermissionForUserInConference(long userID, long conferenceID) {
+        return permissionRepository.findAll().stream().filter(permission -> permission.getCmsUser().getId() == userID
+        && permission.getConference().getId() == conferenceID).findFirst();
+    }
+
+    @Override
+    public Optional<ProposalAuthor> getUserCanBeAuthorInProposal(long userID, long proposalID) {
+        return proposalAuthorRepository.findAll().stream().filter(proposalAuthor -> proposalAuthor.getUser().getId() == userID
+        && proposalAuthor.getProposal().getId() == proposalID).findFirst();
+    }
+
+
 }

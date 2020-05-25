@@ -4,6 +4,8 @@ import {HttpClient} from '@angular/common/http';
 import {User} from './user.model';
 import {Observable} from 'rxjs';
 import {Conference} from './conference.model';
+import {Permission} from "./permission.model";
+import {ProposalAuthor} from "./proposalAuthor.model";
 
 
 @Injectable()
@@ -36,6 +38,14 @@ export class UserService {
 
   getUserByEmailAddress(emailAddress: string): Observable<User>{
     return this.httpClient.post<User>(this.userUrl + '/getUserByEmail', emailAddress);
+  }
+
+  getPermissionForUserInConference(userID: number, conferenceID: number): Observable<Permission>{
+    return this.httpClient.post<Permission>(this.userUrl + '/getPermissionForUserInConference', [userID, conferenceID]);
+  }
+
+  getUserCanBeAuthorInProposal(userID: number, proposalID: number): Observable<boolean>{
+    return this.httpClient.post<boolean>(this.userUrl + "/getUserCanBeAuthorInProposal", [userID, proposalID]);
   }
 
 }

@@ -3,6 +3,8 @@ package cms.core.service;
 
 import cms.core.domain.CMSUser;
 import cms.core.domain.Conference;
+import cms.core.domain.Permission;
+import cms.core.domain.ProposalAuthor;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,5 +34,9 @@ public interface UserService {
     List<CMSUser> getCoChairs();
 
     List<CMSUser> getSCMembers();
+
+    Optional<Permission> getPermissionForUserInConference(long userID, long conferenceID);
+
+    Optional<ProposalAuthor> getUserCanBeAuthorInProposal(long userID, long proposalID);
 
 }

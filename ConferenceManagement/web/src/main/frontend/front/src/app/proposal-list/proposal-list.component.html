@@ -5,6 +5,7 @@
 <div class="container">
 
   <div class="proposal" *ngFor="let proposal of proposals ">
+    <input type="text" value="{{proposal.id}}" id="hidden">
     <div class="proposalName">
      <h2>Proposal {{proposal.name}} </h2>
     </div>
@@ -16,7 +17,7 @@
     </div>
     <hr>
     <div class="buttonsDiv">
-    <button (click)="goToUpdateProposal(proposal.id)">Update</button>
+    <button *ngIf="allowedToUpdate === true" (click)="goToUpdateProposal(proposal.id)">Update</button>
     </div>
   </div>
 

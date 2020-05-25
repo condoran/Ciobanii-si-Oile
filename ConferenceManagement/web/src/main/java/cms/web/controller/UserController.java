@@ -1,10 +1,16 @@
 package cms.web.controller;
 
 import cms.core.domain.CMSUser;
+import cms.core.domain.Permission;
+import cms.core.domain.ProposalAuthor;
 import cms.core.service.UserService;
 import cms.web.converter.ConferenceConverter;
+import cms.web.converter.PermissionConverter;
+import cms.web.converter.ProposalAuthorConverter;
 import cms.web.converter.UserConverter;
 import cms.web.dto.ConferenceDTO;
+import cms.web.dto.PermissionDTO;
+import cms.web.dto.ProposalAuthorDTO;
 import cms.web.dto.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +33,12 @@ public class UserController {
 
     @Autowired
     private ConferenceConverter conferenceConverter;
+
+    @Autowired
+    private PermissionConverter permissionConverter;
+
+    @Autowired
+    private ProposalAuthorConverter proposalAuthorConverter;
 
     @RequestMapping(value = "/user/getUsers", method = RequestMethod.GET)
     List<UserDTO> getUsers(){
@@ -88,6 +100,27 @@ public class UserController {
         if(user.isEmpty())
             return null;
         return userConverter.convertModelToDto(user.get());
+    }
+
+    @RequestMapping(value = "user/getPermissionForUserInConference", method = RequestMethod.POST)
+    PermissionDTO getPermissionForUserInConference(@RequestBody Long[] IDs){
+        Long userID = IDs[0];
+        Long conferenceID = IDs[1];
+        Optional<Permission> permission = userService.getPermissionForUserInConference(userID, conferenceID);
+
+        if(permission.isEmpty()){
+            return null;
+        }
+        return permissionConverter.convertModelToDto(permission.get());
+    }
+
+    @RequestMapping(value = "user/getUserCanBeAuthorInProposal", method = RequestMethod.POST)
+    boolean getUserCanBeAuthorInProposal(@RequestBody Long[] IDs){
+        Long userID = IDs[0];
+        Long proposalID = IDs[1];
+        Optional<ProposalAuthor> proposalAuthor = userService.getUserCanBeAuthorInProposal(userID, proposalID);
+
+        return proposalAuthor.isPresent();
     }
 
 }
