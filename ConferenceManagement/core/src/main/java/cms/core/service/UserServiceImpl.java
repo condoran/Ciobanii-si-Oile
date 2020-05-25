@@ -112,6 +112,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<CMSUser> getNonSCMembers() {
+        return userRepository.findAll().stream().filter(user -> !user.getIsSCMember()).collect(Collectors.toList());
+    }
+
+    @Override
     public Optional<Permission> getPermissionForUserInConference(long userID, long conferenceID) {
         return permissionRepository.findAll().stream().filter(permission -> permission.getCmsUser().getId() == userID
         && permission.getConference().getId() == conferenceID).findFirst();

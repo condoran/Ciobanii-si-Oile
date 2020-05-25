@@ -35,6 +35,8 @@ public interface UserService {
 
     List<CMSUser> getSCMembers();
 
+    public List<CMSUser> getNonSCMembers();
+
     Optional<Permission> getPermissionForUserInConference(long userID, long conferenceID);
 
     Optional<ProposalAuthor> getUserCanBeAuthorInProposal(long userID, long proposalID);

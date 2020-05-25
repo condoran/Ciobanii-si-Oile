@@ -46,6 +46,12 @@ public class UserController {
         return new ArrayList<>(userConverter.convertModelsToDtos(users));
     }
 
+    @RequestMapping(value = "/user/getNonSCMembers", method = RequestMethod.GET)
+    List<UserDTO> getNonSCMembers(){
+        List<CMSUser> users = userService.getNonSCMembers();
+        return new ArrayList<>(userConverter.convertModelsToDtos(users));
+    }
+
     @RequestMapping(value = "/user/getUsersByIDs", method = RequestMethod.POST)
     List<UserDTO> getUsersByIDs(@RequestBody List<Long> usersIDs){
         List<CMSUser> users = userService.getUsersByIDs(usersIDs);
