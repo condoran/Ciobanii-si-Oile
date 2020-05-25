@@ -18,7 +18,7 @@ export class LoginPageComponent implements OnInit {
               private proposalService: ProposalService) { }
 
   private user: User;
-  private logInStatus: boolean;
+
   ngOnInit(): void {
   }
 
@@ -36,11 +36,10 @@ export class LoginPageComponent implements OnInit {
         }
         else {
           sessionStorage.setItem("user", JSON.stringify(this.user));
-          sessionStorage.setItem("username", username);
-          sessionStorage.setItem("isChair", String(this.user.isChair));
-          sessionStorage.setItem("isCoChair", String(this.user.isCoChair));
           this.proposalService.getProposalsIDsForUser(this.user.id)
-            .subscribe(IDs => sessionStorage.setItem("proposalsIDs", JSON.stringify(IDs)))
+            .subscribe(IDs => sessionStorage.setItem("proposalsIDs", JSON.stringify(IDs)));
+          this.proposalService.getUnbiddenProposalIDs(this.user.id)
+            .subscribe( IDs => sessionStorage.setItem("biddingIDs", JSON.stringify(IDs)));
           this.menuComponent.ngOnInit();
           this.router.navigate([""]);
         }

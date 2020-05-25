@@ -6,6 +6,7 @@ import {Proposal} from "./proposal.model";
 import {User} from "./user.model";
 import {ProposalAuthor} from "./proposalAuthor.model";
 import {map} from "rxjs/operators";
+import {Bidding} from "./bidding.model";
 
 @Injectable()
 export class ProposalService{
@@ -43,5 +44,14 @@ export class ProposalService{
   getProposalsIDsForUser(userID:number):Observable<number[]>{
     return this.httpClient
       .post<number[]>(this.proposalUrl + "/getProposalsIDsForUser", userID);
+  }
+
+  addBidding(bidding: Bidding): Observable<Bidding>{
+    return this.httpClient
+      .post<Bidding>(this.proposalUrl + "/bidProposal", bidding);
+  }
+
+  getUnbiddenProposalIDs(userID: number): Observable<number[]>{
+    return this.httpClient.post<number[]>(this.proposalUrl + "/getUnbiddenProposalsIDs", userID);
   }
 }

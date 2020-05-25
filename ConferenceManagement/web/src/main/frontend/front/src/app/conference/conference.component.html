@@ -8,15 +8,27 @@
     <br/>
     <label>Start Date: </label>{{conference.startDate | date:'MM/dd/yyyy'}}
     <label>
-      <input type="date" *ngIf="isChair === 'true' || isCoChair === 'true'" value="{{conference.startDate | date:'yyyy-MM-dd'}}" id="startDate">
+      <input type="date" *ngIf="user !== null && (user.isChair === true || user.isCoChair === true)" value="{{conference.startDate | date:'yyyy-MM-dd'}}" id="startDate">
     </label><br/>
     <label>End Date: </label>{{conference.endDate | date:'MM/dd/yyyy'}}
-    <input type="date" *ngIf="isChair === 'true' || isCoChair === 'true'" value="{{conference.endDate | date:'yyyy-MM-dd'}}" id="endDate"><br/>
+    <input type="date" *ngIf="user !== null && (user.isChair === true || user.isCoChair === true)" value="{{conference.endDate | date:'yyyy-MM-dd'}}" id="endDate"><br/>
   </div>
   <hr>
   <button (click)="goBack()">Back</button>
-  <button *ngIf="isChair === 'true' || isCoChair === 'true'" (click)="updateConference()">Update Deadlines</button>
+  <button *ngIf="user !== null && (user.isChair === true || user.isCoChair === true)" (click)="updateConference()">Update Deadlines</button>
   <button (click)="goToProposals()">See Proposals</button>
-  <button *ngIf="isLoggedIn !== null && isChair !== 'true' && isCoChair !== 'true'"
+  <button *ngIf="user !== null && user.isChair !== true && user.isCoChair !== true"
           (click)="goToCreateProposal()">Create Proposal</button>
+  <button *ngIf="user !== null && (user.isChair === true || user.isCoChair === true)" (click)="getAllUsers()">Assign PC Members</button>
+  <div *ngIf="user !== null && (user.isChair === true || user.isCoChair === true) && users !== null">
+    <ul>
+      <li *ngFor="let user of users">
+        {{user.name}}
+        {{user.emailAddress}}
+        {{user.affiliation}}
+        {{user.personalWebsite}}
+        <button (click)="allowAsPCMember(user)" >Allow As PC Member</button>
+      </li>
+    </ul>
+  </div>
 </div>

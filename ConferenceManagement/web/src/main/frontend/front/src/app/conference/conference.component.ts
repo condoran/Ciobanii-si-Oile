@@ -8,6 +8,7 @@ import {UserService} from "../shared/user.service";
 import {User} from "../shared/user.model";
 import {Observable} from "rxjs";
 import {ProposalService} from "../shared/proposal.service";
+import {Permission} from "../shared/permission.model";
 
 @Component({
   selector: 'app-conference',
@@ -18,28 +19,31 @@ export class ConferenceComponent implements OnInit {
 
   @Input() conference: Conference;
   user: User = JSON.parse(sessionStorage.getItem("user"));
-  isChair: string;
-  isCoChair: string;
-  isLoggedIn: string;
+  users: User[] = null;
 
   constructor(private conferenceService: ConferenceService,
               private route: ActivatedRoute,
               private router: Router,
               private location: Location,
-              private userService: UserService,
-              private proposalService:ProposalService) { }
+              private userService: UserService) { }
 
   ngOnInit(): void {
     this.route.params.pipe(switchMap((params: Params) => this.conferenceService.getConference(+params['conferenceID'])))
       .subscribe(conference => this.conference = conference);
-
-    this.isChair = sessionStorage.getItem('isChair');
-    this.isCoChair = sessionStorage.getItem('isCoChair');
-    this.isLoggedIn = sessionStorage.getItem('username');
   }
 
   goBack(): void{
     this.location.back();
+  }
+
+  allowAsPCMember(user: User): void{
+    this.conferenceService.addPermission(new Permission(null, this.conference,
+      user, null, true, null))
+      .subscribe();
+    const index = this.users.indexOf(user);
+    if (index > -1) {
+      this.users.splice(index, 1);
+    }
   }
 
   goToCreateProposal(): void{
@@ -56,6 +60,10 @@ export class ConferenceComponent implements OnInit {
     this.conference.startDate = new Date(date1);
     this.conference.endDate = new Date(date2);
     this.conferenceService.updateConference(this.conference).subscribe( _ => this.goBack());
+  }
+
+  getAllUsers(): void{
+    this.userService.getAllNonSCUsersAndNonPCMembers(this.conference.id).subscribe(users => this.users = users);
   }
 
 }

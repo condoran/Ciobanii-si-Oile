@@ -5,11 +5,11 @@
   </a>
 
   <div class="menuItems">
-    <a routerLink="conference-new" *ngIf="isChair || isCoChair">Add Conference</a>
+    <a routerLink="conference-new" *ngIf="user !== null && (user.isChair || user.isCoChair)">Add Conference</a>
     <a routerLink="conference-list-page">View Conferences</a>
     <a routerLink="register-page">Register</a>
-    <a routerLink="login-page" *ngIf="!isLogged">Login</a>
-    <a routerLink="" *ngIf="isLogged" (click)="logout()">Logout</a>
+    <a routerLink="login-page" *ngIf="user === null">Login</a>
+    <a routerLink="" *ngIf="user !== null" (click)="logout()">Logout</a>
   </div>
 </div>
 <div class="container">

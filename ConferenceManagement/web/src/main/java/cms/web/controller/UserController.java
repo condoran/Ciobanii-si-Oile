@@ -58,7 +58,7 @@ public class UserController {
                 .collect(Collectors.toList());
 
         List<CMSUser> result = userService.getNonSCMembers().stream()
-                .filter(user -> PCMembersIDs.contains(user.getId()))
+                .filter(user -> !PCMembersIDs.contains(user.getId()))
                 .collect(Collectors.toList());
         return new ArrayList<>(userConverter.convertModelsToDtos(result));
     }
@@ -93,11 +93,6 @@ public class UserController {
 
     @RequestMapping(value = "/user/getConferencesForPCMember", method = RequestMethod.POST)
     List<ConferenceDTO> getConferencesForPCMember(@RequestBody String username){
-        return conferenceConverter.convertModelsToDtos(userService.getConferencesForPCMember(username));
-    }
-
-    @RequestMapping(value = "/user/getConferencesForPCMember2", method = RequestMethod.GET)
-    List<ConferenceDTO> getConferencesForPCMember2(@RequestParam String username){
         return conferenceConverter.convertModelsToDtos(userService.getConferencesForPCMember(username));
     }
 

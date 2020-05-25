@@ -9,25 +9,16 @@ import {User} from "../shared/user.model";
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
+  user: User;
 
-  isLogged: boolean;
-  isChair: boolean;
-  isCoChair: boolean;
-  constructor(private userService : UserService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.isLogged = sessionStorage.getItem('username') !== null;
-    if(this.isLogged) {
-      const user: User = JSON.parse(sessionStorage.getItem('user'));
-      this.isChair = user.isChair;
-      this.isCoChair = user.isCoChair;
-    }
+    this.user = JSON.parse(sessionStorage.getItem('user'));
+
   }
 
   logout(): void{
-    sessionStorage.removeItem('username');
-    sessionStorage.removeItem('isChair');
-    sessionStorage.removeItem('isCoChair');
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('conference');
     this.ngOnInit();

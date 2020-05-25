@@ -48,4 +48,8 @@ export class UserService {
     return this.httpClient.post<boolean>(this.userUrl + "/getUserCanBeAuthorInProposal", [userID, proposalID]);
   }
 
+  getAllNonSCUsersAndNonPCMembers(conferenceID: number): Observable<User[]>{
+    return this.httpClient.post<User[]>(this.userUrl + "/getNonSCMembersAndNonPCMembers", conferenceID);
+  }
+
 }

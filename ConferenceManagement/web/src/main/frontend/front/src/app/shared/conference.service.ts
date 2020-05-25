@@ -6,13 +6,15 @@ import {Observable} from 'rxjs';
 import {Conference} from './conference.model';
 import {map} from "rxjs/operators";
 import {Permission} from "./permission.model";
+import {UserService} from "./user.service";
 
 
 @Injectable()
 export class ConferenceService {
   private conferenceUrl = 'http://localhost:8080/conference';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,
+              private userService: UserService) {
   }
 
   saveConference(conference: Conference): Observable<Conference>{
@@ -39,6 +41,10 @@ export class ConferenceService {
       .subscribe(conference => {
         sessionStorage.setItem("conference", JSON.stringify(conference));
       });
+
+    const user: User = JSON.parse(sessionStorage.getItem("user"));
+    this.userService.getPermissionForUserInConference(user.id, conferenceID).subscribe(permission =>
+      sessionStorage.setItem("permission", JSON.stringify(permission)));
   }
 
   addPermission(permission: Permission) :Observable<Permission>{
