@@ -18,3 +18,24 @@
   grid-template-columns: 45% 45%;
   justify-content: space-between;
 }
+.proposalName {
+  text-align: left;
+  padding: 10px;
+
+}
+.proposalName h4{
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+}
+hr {
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+}
+.middleDiv {
+  text-align: left;
+  padding: 10px;
+}
+.buttonsDiv {
+  text-align: right;
+  padding: 5px;
+}
