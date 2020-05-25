@@ -16,6 +16,8 @@ import {ConferenceService} from './shared/conference.service';
 import { ProposalListComponent } from './proposal-list/proposal-list.component';
 import {ProposalService} from "./shared/proposal.service";
 import { ProposalNewComponent } from './proposal-new/proposal-new.component';
+import { ConferenceNewComponent } from './conference-new/conference-new.component';
+import { ProposalUpdateComponent } from './proposal-update/proposal-update.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { ProposalNewComponent } from './proposal-new/proposal-new.component';
     ConferenceListComponent,
     ProposalListComponent,
     ProposalNewComponent,
+    ConferenceNewComponent,
+    ProposalUpdateComponent,
   ],
   imports: [
     BrowserModule,

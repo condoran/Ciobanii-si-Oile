@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<CMSUser> getCoChairs() {
-        return userRepository.findAll().stream().filter(CMSUser::getIsCoChair).collect(Collectors.toList());
+        return userRepository.findAll().stream().filter(user -> user.getIsCoChair() != null && user.getIsCoChair() == true).collect(Collectors.toList());
     }
 
     @Override

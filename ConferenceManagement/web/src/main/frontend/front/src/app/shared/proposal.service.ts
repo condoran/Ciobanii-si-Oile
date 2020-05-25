@@ -5,6 +5,7 @@ import {Conference} from "./conference.model";
 import {Proposal} from "./proposal.model";
 import {User} from "./user.model";
 import {ProposalAuthor} from "./proposalAuthor.model";
+import {map} from "rxjs/operators";
 
 @Injectable()
 export class ProposalService{
@@ -18,6 +19,10 @@ export class ProposalService{
       .post<Proposal[]>(this.proposalUrl + '/getProposalsForConference', conferenceID);
   }
 
+  getProposalForConference(conferenceID: number, proposalID: number){
+    return this.getProposalsForConference(conferenceID).pipe(map(proposals => proposals.find(proposal => proposal.id === proposalID)));
+  }
+
   addProposal(name: string, keywords:string, topics: string, conference:Conference):
     Observable<Proposal>{
     let proposal : Proposal = new Proposal(null, name, keywords, topics, conference);
@@ -29,5 +34,9 @@ export class ProposalService{
     this.httpClient
       .post(this.proposalUrl + "/addAuthorForProposal", proposalAuthor)
       .subscribe(x => console.log(x));
+  }
+
+  updateProposal(proposal: Proposal): Observable<Proposal>{
+    return this.httpClient.post<Proposal>(this.proposalUrl + "/updateProposal", proposal);
   }
 }

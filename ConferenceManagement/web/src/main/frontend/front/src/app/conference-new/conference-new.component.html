@@ -1,0 +1,25 @@
+<h2>Add a new conference</h2>
+<div>
+  Name:<input type="text" #name/>
+  <br/>
+  CallForPapers:<br/><textarea #callForPapers rows="10" cols="50"></textarea>
+  <br/>
+  Start Date:<input type="date" #startDate/>
+  <br/>
+  <br/>
+  End Date:<input type="date" #endDate/>
+  <br/>
+  <br/>
+  Bidding Deadline:<input type="date" #bidding/>
+  <br/>
+  <br/>
+  Abstract Paper Deadline:<input type="date" #abstract/>
+  <br/>
+  <br/>
+  Full Paper Deadline:<input type="date" #fullPaper/>
+  <br/>
+  <br/>
+
+  <button (click)="addConference(name.value, callForPapers.value, startDate.value, endDate.value, bidding.value, abstract.value, fullPaper.value)">SAVE</button>
+  <button (click)="goBack()">Back</button>
+</div>

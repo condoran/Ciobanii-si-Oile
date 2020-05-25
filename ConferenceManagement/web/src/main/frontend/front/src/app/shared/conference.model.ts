@@ -12,7 +12,23 @@ export class Conference {
   fullPaperDeadline: Date;
   biddingDeadline: Date;
   chair: User;
-  fistCoChair: User;
+  firstCoChair: User;
   secondCoChair: User;
   sections: number[];
+
+  constructor(id, name, password, startDate, endDate, callForPapers, abstractPaperDeadline, fullPaperDeadline, biddingDeadline, chair, firstCoChair, secondCoChair, sections) {
+    this.id = id;
+    this.name = name;
+    this.password = password;
+    this.startDate = startDate;
+    this.endDate = endDate;
+    this.callForPapers = callForPapers;
+    this.abstractPaperDeadline = abstractPaperDeadline;
+    this.fullPaperDeadline = fullPaperDeadline;
+    this.biddingDeadline = biddingDeadline;
+    this.chair = chair;
+    this.firstCoChair = firstCoChair;
+    this.secondCoChair = secondCoChair;
+    this.sections = sections;
+  }
 }

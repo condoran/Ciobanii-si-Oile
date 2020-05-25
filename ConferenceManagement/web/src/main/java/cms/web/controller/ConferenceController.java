@@ -11,6 +11,8 @@ import cms.web.converter.UserConverter;
 import cms.web.dto.ConferenceDTO;
 import cms.web.dto.PermissionDTO;
 import cms.web.dto.UserDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,8 @@ import java.util.Optional;
 
 @RestController
 public class ConferenceController {
+    public static final Logger logger = LoggerFactory.getLogger(ConferenceController.class);
+
     @Autowired
     private ConferenceService conferenceService;
 
@@ -43,18 +47,27 @@ public class ConferenceController {
 
     @RequestMapping(value = "conference/saveConference", method = RequestMethod.POST)
     ConferenceDTO saveConference(@RequestBody ConferenceDTO conferenceDTO){
+        logger.trace("controller- conference={}", conferenceDTO);
         Conference conference = conferenceConverter.convertDtoToModel(conferenceDTO);
         Optional<CMSUser> chairOptional = userService.getChair();
+        logger.trace("controller- chair={}", chairOptional.get());
+
         if(chairOptional.isEmpty()) {
             return null;
         }
         conference.setChair(chairOptional.get());
 
         List<CMSUser> coChairs = userService.getCoChairs();
-        conference.setFirstCoChair(coChairs.get(0));
-        conference.setSecondCoChair(coChairs.get(1));
-
-        return conferenceConverter.convertModelToDto(conferenceService.save(conference));
+        logger.trace("controller - cochairs={}", coChairs);
+        if(coChairs.size() == 1)
+            conference.setFirstCoChair(coChairs.get(0));
+        if(coChairs.size() == 2){
+            conference.setFirstCoChair(coChairs.get(0));
+            conference.setSecondCoChair(coChairs.get(1));
+        }
+        Conference savedConference = conferenceService.save(conference);
+        logger.trace("controller-saved conference={}", savedConference);
+        return conferenceConverter.convertModelToDto(savedConference);
     }
 
     @RequestMapping(value = "conference/getConferenceByID", method = RequestMethod.POST)

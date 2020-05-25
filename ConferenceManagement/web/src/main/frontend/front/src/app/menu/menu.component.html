@@ -5,7 +5,7 @@
   </a>
 
   <div class="menuItems">
-
+    <a routerLink="conference-new" *ngIf="isChair || isCoChair">Add Conference</a>
     <a routerLink="conference-list-page">View Conferences</a>
     <a routerLink="register-page">Register</a>
     <a routerLink="login-page" *ngIf="!isLogged">Login</a>

@@ -15,6 +15,11 @@ export class ConferenceService {
   constructor(private httpClient: HttpClient) {
   }
 
+  saveConference(conference: Conference): Observable<Conference>{
+    console.log(conference);
+    return this.httpClient.post<Conference>(this.conferenceUrl + '/saveConference', conference);
+  }
+
   getConferences(): Observable<Conference[]>{
     return this.httpClient
       .get<Conference[]>(this.conferenceUrl + '/getConferences');

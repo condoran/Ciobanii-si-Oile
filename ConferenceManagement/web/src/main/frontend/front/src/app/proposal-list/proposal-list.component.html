@@ -10,13 +10,13 @@
     </div>
     <hr>
     <div class="middleDiv">
-      {{proposal.keywords}}
+      <h4>Keywords:</h4> {{proposal.keywords}}
     <br><br>
-      {{proposal.topics}}
+      <h4>Topics:</h4> {{proposal.topics}}
     </div>
     <hr>
     <div class="buttonsDiv">
-    <button>btn1</button>
+    <button (click)="goToUpdateProposal(proposal.id)">Update</button>
     </div>
   </div>
 

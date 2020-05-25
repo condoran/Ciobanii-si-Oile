@@ -6,12 +6,12 @@
     {{conference.callForPapers}}
     <br/>
     <br/>
-    <label>Start Date: </label>{{conference.startDate | date:'yyyy-MM-dd'}}
+    <label>Start Date: </label>{{conference.startDate | date:'MM/dd/yyyy'}}
     <label>
-      <input *ngIf="isChair === 'true' || isCoChair === 'true'" value="{{conference.startDate | date:'yyyy-MM-dd'}}" id="startDate">
+      <input type="date" *ngIf="isChair === 'true' || isCoChair === 'true'" value="{{conference.startDate | date:'yyyy-MM-dd'}}" id="startDate">
     </label><br/>
-    <label>End Date: </label>{{conference.endDate | date:'yyyy-MM-dd'}}
-    <input *ngIf="isChair === 'true' || isCoChair === 'true'" value="{{conference.endDate | date:'yyyy-MM-dd'}}" id="endDate"><br/>
+    <label>End Date: </label>{{conference.endDate | date:'MM/dd/yyyy'}}
+    <input type="date" *ngIf="isChair === 'true' || isCoChair === 'true'" value="{{conference.endDate | date:'yyyy-MM-dd'}}" id="endDate"><br/>
   </div>
   <hr>
   <button (click)="goBack()">Back</button>

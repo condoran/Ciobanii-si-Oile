@@ -52,7 +52,7 @@ public class ProposalController {
                 proposalService.addAuthorForProposal(proposalAuthor));
     }
 
-    @RequestMapping(value = "/proposal/updateProposal", method = RequestMethod.PUT)
+    @RequestMapping(value = "/proposal/updateProposal", method = RequestMethod.POST)
     ProposalDTO updateProposal(@RequestBody ProposalDTO newProposalDTO){
         return proposalConverter.convertModelToDto(proposalService.update(proposalConverter.convertDtoToModel(newProposalDTO)));
     }

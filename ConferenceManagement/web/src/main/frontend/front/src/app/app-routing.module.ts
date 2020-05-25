@@ -7,6 +7,8 @@ import {ConferenceListComponent} from './conference-list/conference-list.compone
 import {ConferenceComponent} from './conference/conference.component';
 import {ProposalListComponent} from "./proposal-list/proposal-list.component";
 import {ProposalNewComponent} from "./proposal-new/proposal-new.component";
+import {ConferenceNewComponent} from "./conference-new/conference-new.component";
+import {ProposalUpdateComponent} from "./proposal-update/proposal-update.component";
 
 
 const routes: Routes = [
@@ -16,7 +18,9 @@ const routes: Routes = [
   {path: 'conference-list-page', component: ConferenceListComponent},
   {path: 'conference/:conferenceID', component: ConferenceComponent},
   {path: 'conference/:conferenceID/proposals', component:ProposalListComponent},
-  {path: 'conference/:conferenceID/newProposal', component:ProposalNewComponent}
+  {path: 'conference/:conferenceID/newProposal', component:ProposalNewComponent},
+  {path: 'conference-new', component:ConferenceNewComponent},
+  {path: 'conference/:conferenceID/proposals/:proposalID', component: ProposalUpdateComponent}
 ];
 
 @NgModule({

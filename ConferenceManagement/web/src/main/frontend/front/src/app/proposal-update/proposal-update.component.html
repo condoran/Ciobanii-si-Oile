@@ -1,0 +1,25 @@
+<div class="container" *ngIf="proposal">
+  <h1>Proposal {{proposal.name}} Details:</h1>
+  <hr>
+  <br>
+  <div>
+    <label>Name: </label>
+    <input type="text" [(ngModel)]="proposal.name"><br/>
+
+    <label>Keywords: </label>
+    <input type="text" [(ngModel)]="proposal.keywords"><br/>
+
+    <label>Topics: </label><br/>
+    <textarea rows="8" cols="50" [(ngModel)]="proposal.topics"></textarea><br/>
+    <button *ngIf="wantToAddAuthor === false && proposal" (click)="wantToAddAuthor = true">Want to add author</button>
+    <div *ngIf="wantToAddAuthor">
+      Please add your colleagues email addresses, you are author by default!
+      <br>
+      Author email: <input type="text" #emailAddress/>
+      <button (click)="addAuthor(emailAddress.value)">Add author</button>
+    </div>
+  </div>
+  <hr>
+  <button (click)="updateProposal()">Update</button>
+  <button (click)="goBack()">Back</button>
+</div>

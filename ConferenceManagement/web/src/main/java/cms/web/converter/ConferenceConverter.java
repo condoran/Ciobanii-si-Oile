@@ -33,10 +33,10 @@ public class ConferenceConverter extends BaseConverter<Conference, ConferenceDTO
                 .fullPaperDeadline(conferenceDTO.getFullPaperDeadline())
                 .biddingDeadline(conferenceDTO.getBiddingDeadline())
                 .password(conferenceDTO.getPassword())
-                .chair(userConverter.convertDtoToModel(conferenceDTO.getChair()))
-                .firstCoChair(userConverter.convertDtoToModel(conferenceDTO.getFirstCoChair()))
-                .secondCoChair(userConverter.convertDtoToModel(conferenceDTO.getSecondCoChair()))
-                .sections(sectionService.getSectionsByIDs(conferenceDTO.getSectionsIDs()))
+                .chair((conferenceDTO.getChair() == null) ? null : userConverter.convertDtoToModel(conferenceDTO.getChair()))
+                .firstCoChair((conferenceDTO.getFirstCoChair() == null) ? null : userConverter.convertDtoToModel(conferenceDTO.getFirstCoChair()))
+                .secondCoChair((conferenceDTO.getSecondCoChair() == null) ? null : userConverter.convertDtoToModel(conferenceDTO.getSecondCoChair()))
+                .sections((conferenceDTO.getSectionsIDs() == null) ? null : sectionService.getSectionsByIDs(conferenceDTO.getSectionsIDs()))
                 .build();
     }
 
@@ -54,10 +54,10 @@ public class ConferenceConverter extends BaseConverter<Conference, ConferenceDTO
                 .fullPaperDeadline(conference.getFullPaperDeadline())
                 .biddingDeadline(conference.getBiddingDeadline())
                 .password(conference.getPassword())
-                .chair(userConverter.convertModelToDto(conference.getChair()))
-                .firstCoChair(userConverter.convertModelToDto(conference.getFirstCoChair()))
-                .secondCoChair(userConverter.convertModelToDto(conference.getSecondCoChair()))
-                .sectionsIDs(sectionConverter.convertModelsToIDs(conference.getSections()))
+                .chair((conference.getChair() == null) ? null : userConverter.convertModelToDto(conference.getChair()))
+                .firstCoChair((conference.getFirstCoChair() == null) ? null : userConverter.convertModelToDto(conference.getFirstCoChair()))
+                .secondCoChair((conference.getSecondCoChair() == null) ? null : userConverter.convertModelToDto(conference.getSecondCoChair()))
+                .sectionsIDs((conference.getSections() == null) ? null : sectionConverter.convertModelsToIDs(conference.getSections()))
                 .build();
     }
 }
