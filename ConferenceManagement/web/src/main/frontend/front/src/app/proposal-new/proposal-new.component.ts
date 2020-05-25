@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ConferenceComponent} from "../conference/conference.component";
 import {ProposalService} from "../shared/proposal.service";
 import {ConferenceService} from "../shared/conference.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../shared/user.service";
 import {ProposalAuthor} from "../shared/proposalAuthor.model";
 import {Permission} from "../shared/permission.model";
@@ -24,13 +23,18 @@ export class ProposalNewComponent implements OnInit {
   constructor(private conferenceService: ConferenceService,
               private proposalService: ProposalService,
               private userService : UserService,
-              private router: Router) { }
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      if(+params["conferenceID"] != this.conference.id) {
+        this.router.navigate(["conference/", this.conference.id, "newProposal"]);
+      }
+    });
   }
 
   addProposal(name: string, keywords: string, topics: string) {
-
     this.proposalService.addProposal(name, keywords, topics,
       this.conference)
       .subscribe(proposal => {

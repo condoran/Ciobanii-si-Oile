@@ -16,6 +16,7 @@ export class ProposalListComponent implements OnInit {
   private conferenceID: number;
   user : User = JSON.parse(sessionStorage.getItem("user"));
   allowedToUpdate: boolean
+  writtenProposals :number[] = JSON.parse(sessionStorage.getItem("proposalsIDs"));
 
   constructor(private proposalService: ProposalService,
               private route: ActivatedRoute,
@@ -23,13 +24,16 @@ export class ProposalListComponent implements OnInit {
               private userService: UserService) { }
 
   ngOnInit(): void {
+    console.log(this.writtenProposals);
     this.route.params.subscribe(params => {
       this.conferenceID = +params['conferenceID']
     });
-    this.proposalService.getProposalsForConference(this.conferenceID).subscribe(proposals => this.proposals = proposals);
-    //this.userService.getUserCanBeAuthorInProposal(this.user.id, Number((<HTMLInputElement>document.getElementById("hidden")).value)).subscribe( allowed => this.allowedToUpdate = allowed);
-    this.userService.getUserCanBeAuthorInProposal(this.user.id, 1).subscribe( allowed => this.allowedToUpdate = allowed);
-
+    this.proposalService.getProposalsForConference(this.conferenceID)
+      .subscribe(proposals => this.proposals = proposals);
+    // this.proposalService.getProposalsIDsForUser(this.user.id)
+    //   .subscribe(IDs => this.writtenProposals = IDs);
+    // this.writtenProposals = JSON.parse(sessionStorage.getItem("proposalsIDs"));
+    console.log(this.writtenProposals);
   }
 
   goToUpdateProposal(id: number): void{

@@ -13,6 +13,8 @@ public interface ProposalService {
 
     List<Proposal> getAllByConferenceId(Long conferenceId);
 
+    List<Long> getProposalsIDsForUser(Long userID);
+
     Proposal save(Proposal proposal);
 
     void delete(Long proposalId);

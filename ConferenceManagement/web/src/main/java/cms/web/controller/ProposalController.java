@@ -56,4 +56,9 @@ public class ProposalController {
     ProposalDTO updateProposal(@RequestBody ProposalDTO newProposalDTO){
         return proposalConverter.convertModelToDto(proposalService.update(proposalConverter.convertDtoToModel(newProposalDTO)));
     }
+
+    @RequestMapping(value = "/proposal/getProposalsIDsForUser", method = RequestMethod.POST)
+    List<Long> getProposalsIDsForUser(@RequestBody Long userID){
+        return proposalService.getProposalsIDsForUser(userID);
+    }
 }

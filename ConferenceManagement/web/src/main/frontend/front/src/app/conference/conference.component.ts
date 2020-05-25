@@ -7,6 +7,7 @@ import {switchMap} from "rxjs/operators";
 import {UserService} from "../shared/user.service";
 import {User} from "../shared/user.model";
 import {Observable} from "rxjs";
+import {ProposalService} from "../shared/proposal.service";
 
 @Component({
   selector: 'app-conference',
@@ -16,7 +17,7 @@ import {Observable} from "rxjs";
 export class ConferenceComponent implements OnInit {
 
   @Input() conference: Conference;
-  user: User;
+  user: User = JSON.parse(sessionStorage.getItem("user"));
   isChair: string;
   isCoChair: string;
   isLoggedIn: string;
@@ -25,7 +26,8 @@ export class ConferenceComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private location: Location,
-              private userService: UserService) { }
+              private userService: UserService,
+              private proposalService:ProposalService) { }
 
   ngOnInit(): void {
     this.route.params.pipe(switchMap((params: Params) => this.conferenceService.getConference(+params['conferenceID'])))
@@ -34,11 +36,6 @@ export class ConferenceComponent implements OnInit {
     this.isChair = sessionStorage.getItem('isChair');
     this.isCoChair = sessionStorage.getItem('isCoChair');
     this.isLoggedIn = sessionStorage.getItem('username');
-  }
-
-  getUser(): void{
-    this.userService.getUserByUsername(sessionStorage.getItem('username')).subscribe(user => {this.user = user;
-      console.log(this.user)});
   }
 
   goBack(): void{
@@ -54,7 +51,6 @@ export class ConferenceComponent implements OnInit {
   }
 
   updateConference(): void{
-    console.log(this.conference.startDate);
     var date1 = (<HTMLInputElement>document.getElementById("startDate")).value;
     var date2 = (<HTMLInputElement>document.getElementById("endDate")).value;
     this.conference.startDate = new Date(date1);

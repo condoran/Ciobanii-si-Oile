@@ -46,6 +46,13 @@ public class ProposalServiceImpl implements ProposalService{
     }
 
     @Override
+    public List<Long> getProposalsIDsForUser(Long userID) {
+        return proposalAuthorRepository.findAll().stream().filter(x -> x.getUser().getId().equals(userID))
+                .map(x -> x.getProposal().getId())
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Proposal save(Proposal proposal) {
         return proposalRepository.save(proposal);
     }
@@ -84,4 +91,6 @@ public class ProposalServiceImpl implements ProposalService{
     public ProposalAuthor addAuthorForProposal(ProposalAuthor proposalAuthor) {
         return proposalAuthorRepository.save(proposalAuthor);
     }
+
+
 }

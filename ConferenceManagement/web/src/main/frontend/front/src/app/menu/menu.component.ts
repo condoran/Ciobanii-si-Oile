@@ -17,9 +17,11 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLogged = sessionStorage.getItem('username') !== null;
-    const user: User = JSON.parse(sessionStorage.getItem('user'));
-    this.isChair = user.isChair;
-    this.isCoChair = user.isCoChair;
+    if(this.isLogged) {
+      const user: User = JSON.parse(sessionStorage.getItem('user'));
+      this.isChair = user.isChair;
+      this.isCoChair = user.isCoChair;
+    }
   }
 
   logout(): void{

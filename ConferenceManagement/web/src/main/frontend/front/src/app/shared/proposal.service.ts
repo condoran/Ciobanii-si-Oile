@@ -39,4 +39,9 @@ export class ProposalService{
   updateProposal(proposal: Proposal): Observable<Proposal>{
     return this.httpClient.post<Proposal>(this.proposalUrl + "/updateProposal", proposal);
   }
+
+  getProposalsIDsForUser(userID:number):Observable<number[]>{
+    return this.httpClient
+      .post<number[]>(this.proposalUrl + "/getProposalsIDsForUser", userID);
+  }
 }
