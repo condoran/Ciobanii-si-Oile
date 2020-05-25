@@ -3,6 +3,7 @@ package cms.web.controller;
 import cms.core.domain.CMSUser;
 import cms.core.domain.Permission;
 import cms.core.domain.ProposalAuthor;
+import cms.core.service.ConferenceService;
 import cms.core.service.UserService;
 import cms.web.converter.ConferenceConverter;
 import cms.web.converter.PermissionConverter;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 public class UserController {
@@ -27,6 +29,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ConferenceService conferenceService;
 
     @Autowired
     private UserConverter userConverter;
@@ -46,10 +51,16 @@ public class UserController {
         return new ArrayList<>(userConverter.convertModelsToDtos(users));
     }
 
-    @RequestMapping(value = "/user/getNonSCMembers", method = RequestMethod.GET)
-    List<UserDTO> getNonSCMembers(){
-        List<CMSUser> users = userService.getNonSCMembers();
-        return new ArrayList<>(userConverter.convertModelsToDtos(users));
+    @RequestMapping(value = "/user/getNonSCMembersAndNonPCMembers", method = RequestMethod.POST)
+    List<UserDTO> getNonSCMembersAndNonPCMembers(@RequestBody Long conferenceId){
+        List<Long> PCMembersIDs = conferenceService.getPCMembersForConference(conferenceId)
+                .stream().map(CMSUser::getId)
+                .collect(Collectors.toList());
+
+        List<CMSUser> result = userService.getNonSCMembers().stream()
+                .filter(user -> PCMembersIDs.contains(user.getId()))
+                .collect(Collectors.toList());
+        return new ArrayList<>(userConverter.convertModelsToDtos(result));
     }
 
     @RequestMapping(value = "/user/getUsersByIDs", method = RequestMethod.POST)
