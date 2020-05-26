@@ -1,19 +1,10 @@
 package cms.web.controller;
 
-import cms.core.domain.Bidding;
-import cms.core.domain.CMSUser;
-import cms.core.domain.Proposal;
-import cms.core.domain.ProposalAuthor;
+import cms.core.domain.*;
 import cms.core.repo.ProposalRepository;
 import cms.core.service.ProposalService;
-import cms.web.converter.BiddingConverter;
-import cms.web.converter.ProposalAuthorConverter;
-import cms.web.converter.ProposalConverter;
-import cms.web.converter.UserConverter;
-import cms.web.dto.BiddingDTO;
-import cms.web.dto.ProposalAuthorDTO;
-import cms.web.dto.ProposalDTO;
-import cms.web.dto.UserDTO;
+import cms.web.converter.*;
+import cms.web.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +27,9 @@ public class ProposalController {
 
     @Autowired
     private UserConverter userConverter;
+
+    @Autowired
+    private ReviewConverter reviewConverter;
 
     @RequestMapping(value = "/proposal/getProposals", method = RequestMethod.GET)
     List<ProposalDTO> getProposals(){
@@ -76,6 +70,12 @@ public class ProposalController {
     BiddingDTO bidProposal(@RequestBody BiddingDTO biddingDTO){
         Bidding bidding = proposalService.bidProposal(biddingConverter.convertDtoToModel(biddingDTO));
         return biddingConverter.convertModelToDto(bidding);
+    }
+
+    @RequestMapping(value = "/proposal/reviewProposal", method = RequestMethod.POST)
+    ReviewDTO reviewProposal(@RequestBody ReviewDTO reviewDTO){
+        Review review = proposalService.reviewProposal(reviewConverter.convertDtoToModel(reviewDTO));
+        return reviewConverter.convertModelToDto(review);
     }
 
     @RequestMapping(value = "/proposal/getUnbiddenProposalsIDs", method = RequestMethod.POST)
