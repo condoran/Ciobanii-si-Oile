@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ProposalController {
@@ -95,8 +96,30 @@ public class ProposalController {
         return new ArrayList<>(userConverter.convertModelsToDtos(users));
     }
 
-    @RequestMapping(value = "proposal/getReviewersForProposal", method = RequestMethod.POST)
+    @RequestMapping(value = "/proposal/getReviewersForProposal", method = RequestMethod.POST)
     List<Long> getReviewersForProposal(@RequestBody Long proposalID){
         return proposalService.getReviewersForProposal(proposalID);
+    }
+
+    @RequestMapping(value = "/proposal/updateReview", method = RequestMethod.POST)
+    ReviewDTO updateReview(@RequestBody ReviewDTO reviewDTO){
+        Optional<Review> updatedReview = proposalService.updateReview(reviewConverter.convertDtoToModel(reviewDTO));
+
+        if(updatedReview.isEmpty()){
+            return null;
+        }
+
+        return reviewConverter.convertModelToDto(updatedReview.get());
+    }
+
+    @RequestMapping(value = "/proposal/getReviewByUserAndProposal", method = RequestMethod.POST)
+    ReviewDTO getReviewByUserAndProposal(@RequestBody Long[] IDs){
+        Optional<Review> review = proposalService.getReviewByUserAndProposal(IDs[0], IDs[1]);
+
+        if(review.isEmpty()){
+            return null;
+        }
+
+        return reviewConverter.convertModelToDto(review.get());
     }
 }

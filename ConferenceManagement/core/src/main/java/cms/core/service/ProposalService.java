@@ -32,4 +32,8 @@ public interface ProposalService {
     List<CMSUser> getUsersForReviewingAProposal(Long proposalID);
 
     List<Long> getReviewersForProposal(Long proposalID);
+
+    Optional<Review> updateReview(Review review);
+
+    Optional<Review> getReviewByUserAndProposal(Long userID, Long proposalID);
 }

@@ -26,7 +26,7 @@ public class ConferenceConverter extends BaseConverter<Conference, ConferenceDTO
         return Conference.builder()
                 .id(conferenceDTO.getId())
                 .name(conferenceDTO.getName())
-                .startDate(conferenceDTO.getEndDate())
+                .startDate(conferenceDTO.getStartDate())
                 .endDate(conferenceDTO.getEndDate())
                 .callForPapers(conferenceDTO.getCallForPapers())
                 .abstractPaperDeadline(conferenceDTO.getAbstractPaperDeadline())

@@ -61,7 +61,7 @@ export class ConferenceComponent implements OnInit {
     this.conference.startDate = new Date(date1);
     this.conference.endDate = new Date(date2);
     this.conference.biddingDeadline = new Date(date3)
-    this.conferenceService.updateConference(this.conference).subscribe( _ => this.goBack());
+    this.conferenceService.updateConference(this.conference).subscribe();
   }
 
   getAllUsers(): void{

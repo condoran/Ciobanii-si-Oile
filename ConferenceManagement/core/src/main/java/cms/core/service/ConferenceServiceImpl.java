@@ -155,6 +155,6 @@ public class ConferenceServiceImpl implements ConferenceService {
         if(conference.getFullPaperDeadline() != null)
             updatedConference.setFullPaperDeadline(conference.getFullPaperDeadline());
 
-        return Optional.of(conference);
+        return Optional.of(updatedConference);
     }
 }

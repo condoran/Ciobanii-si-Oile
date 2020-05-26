@@ -26,4 +26,23 @@
       </li>
     </ul>
   </div>
+  <button (click)="goBack()">Go Back</button>
+  <button *ngIf="user !== null && reviewersForProposal !== null && reviewersForProposal.indexOf(user.id) !== -1" (click)="showForReview = true">Review</button>
+  <div *ngIf="showForReview">
+    <div *ngIf="review.qualifier === ''">
+      <label><b>Qualifier:</b>
+        <input type="radio" value="Strong Accept" [(ngModel)]="qualifier">Strong Accept
+        <input type="radio" value="Accept" [(ngModel)]="qualifier">Accept
+        <input type="radio" value="Weak Accept" [(ngModel)]="qualifier">Weak Accept
+        <input type="radio" value="Borderline Paper" [(ngModel)]="qualifier">Borderline Paper
+        <input type="radio" value="Weak Reject" [(ngModel)]="qualifier">Weak Reject
+        <input type="radio" value="Reject" [(ngModel)]="qualifier">Reject
+        <input type="radio" value="Strong Reject" [(ngModel)]="qualifier">Strong Reject
+      </label><br/><br/>
+    </div>
+    <label><b>Recommendation: </b><br/>
+      <textarea rows="6" cols="40" #recommendation [value]="review.recommendation"></textarea>
+    </label><br/>
+    <button (click)="reviewProposal(recommendation.value)">Submit Review</button>
+  </div>
 </div>
