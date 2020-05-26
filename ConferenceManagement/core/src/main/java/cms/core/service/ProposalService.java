@@ -28,4 +28,6 @@ public interface ProposalService {
     Review reviewProposal(Review review);
 
     ProposalAuthor addAuthorForProposal(ProposalAuthor proposalAuthor);
+
+    List<CMSUser> getUsersForReviewingAProposal(Long proposalID);
 }

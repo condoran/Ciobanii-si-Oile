@@ -1,13 +1,10 @@
 package cms.core.service;
 
 import cms.core.domain.*;
-import cms.core.repo.ProposalAuthorRepository;
+import cms.core.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import cms.core.repo.BiddingRepository;
-import cms.core.repo.ProposalRepository;
-import cms.core.repo.ReviewRepository;
 
 
 import java.util.List;
@@ -27,6 +24,9 @@ public class ProposalServiceImpl implements ProposalService{
 
     @Autowired
     private ProposalAuthorRepository proposalAuthorRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public Optional<Proposal> getProposalById(Long proposalId) {
@@ -102,6 +102,17 @@ public class ProposalServiceImpl implements ProposalService{
     @Override
     public ProposalAuthor addAuthorForProposal(ProposalAuthor proposalAuthor) {
         return proposalAuthorRepository.save(proposalAuthor);
+    }
+
+    @Override
+    public List<CMSUser> getUsersForReviewingAProposal(Long proposalID) {
+        List<Long> userIDs = biddingRepository.findAll().stream()
+                .filter(bidding -> bidding.getProposal().getId().equals(proposalID))
+                .filter(Bidding::getAccepted)
+                .map(bidding -> bidding.getCMSUser().getId())
+                .collect(Collectors.toList());
+
+        return userRepository.findAllById(userIDs);
     }
 
 

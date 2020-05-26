@@ -9,6 +9,7 @@ import cms.core.service.ProposalService;
 import cms.web.converter.BiddingConverter;
 import cms.web.converter.ProposalAuthorConverter;
 import cms.web.converter.ProposalConverter;
+import cms.web.converter.UserConverter;
 import cms.web.dto.BiddingDTO;
 import cms.web.dto.ProposalAuthorDTO;
 import cms.web.dto.ProposalDTO;
@@ -32,6 +33,9 @@ public class ProposalController {
 
     @Autowired
     private BiddingConverter biddingConverter;
+
+    @Autowired
+    private UserConverter userConverter;
 
     @RequestMapping(value = "/proposal/getProposals", method = RequestMethod.GET)
     List<ProposalDTO> getProposals(){
@@ -77,5 +81,11 @@ public class ProposalController {
     @RequestMapping(value = "/proposal/getUnbiddenProposalsIDs", method = RequestMethod.POST)
     List<Long> getUnbiddenProposalsIDs(@RequestBody Long userID) {
         return proposalService.getUnbiddenIDs(userID);
+    }
+
+    @RequestMapping(value = "/proposal/getUsersForReviewingAProposal", method = RequestMethod.POST)
+    List<UserDTO> getUsersForReviewingAProposal(@RequestBody Long proposalID){
+        List<CMSUser> users = proposalService.getUsersForReviewingAProposal(proposalID);
+        return new ArrayList<>(userConverter.convertModelsToDtos(users));
     }
 }
