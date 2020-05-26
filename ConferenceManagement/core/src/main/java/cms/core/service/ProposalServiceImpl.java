@@ -58,6 +58,7 @@ public class ProposalServiceImpl implements ProposalService{
                 .map(Proposal::getId)
                 .collect(Collectors.toList());
         List<Long> biddenIDs = biddingRepository.findAll().stream()
+                .filter(bidding -> bidding.getCMSUser().getId().equals(userID))
                 .map(bidding -> bidding.getProposal().getId())
                 .collect(Collectors.toList());
         return allProposalsIDs.stream().filter(id -> !biddenIDs.contains(id))
@@ -111,8 +112,14 @@ public class ProposalServiceImpl implements ProposalService{
                 .filter(Bidding::getAccepted)
                 .map(bidding -> bidding.getCMSUser().getId())
                 .collect(Collectors.toList());
+        List<Long> reviewersIDs = reviewRepository.findAll().stream()
+                .filter(review -> review.getProposal().getId().equals(proposalID))
+                .map(review -> review.getCMSUser().getId())
+                .collect(Collectors.toList());
+        List<Long> usersToReviewIDs = userIDs.stream().filter(id -> !reviewersIDs.contains(id))
+                .collect(Collectors.toList());
 
-        return userRepository.findAllById(userIDs);
+        return userRepository.findAllById(usersToReviewIDs);
     }
 
     @Override

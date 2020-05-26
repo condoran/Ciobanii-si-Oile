@@ -27,7 +27,8 @@ export class ProposalComponent implements OnInit {
   reviewersForProposal: number[] = null;
   showForReview: boolean = false;
   qualifier: string = "";
-  review: Review;
+  review: Review = null;
+  reviewsByAllUsers: Review[] = null;
 
   constructor(private route:ActivatedRoute,
               private proposalService: ProposalService,
@@ -40,9 +41,13 @@ export class ProposalComponent implements OnInit {
         this.proposalService.getReviewByUserAndProposal(this.user.id, this.proposal.id).subscribe(
           review => {this.review = review; console.log(this.review)}
         );
+        this.proposalService.getReviewsForProposal(this.proposal.id).subscribe(reviewers =>
+          this.reviewsByAllUsers = reviewers);
         this.proposalService.getReviewersForProposal(this.proposal.id).subscribe(reviewers =>
           this.reviewersForProposal = reviewers)
       });
+    console.log(this.permission);
+    console.log(this.unbiddenIDs);
   }
 
   bidProposal(proposal: Proposal, accepted: boolean): void{

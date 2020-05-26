@@ -81,4 +81,8 @@ export class ProposalService{
   getReviewByUserAndProposal(userID: number, proposalID: number): Observable<Review>{
     return this.httpClient.post<Review>(this.proposalUrl + "/getReviewByUserAndProposal", [userID, proposalID]);
   }
+
+  getReviewsForProposal(proposalID: number): Observable<Review[]>{
+    return this.httpClient.post<Review[]>(this.proposalUrl + "/getReviewsForProposal", proposalID);
+  }
 }

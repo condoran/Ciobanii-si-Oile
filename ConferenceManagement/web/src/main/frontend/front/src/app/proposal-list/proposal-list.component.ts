@@ -6,6 +6,7 @@ import {User} from "../shared/user.model";
 import {Permission} from "../shared/permission.model";
 import {UserService} from "../shared/user.service";
 import {Bidding} from "../shared/bidding.model";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-proposal-list',
@@ -22,7 +23,8 @@ export class ProposalListComponent implements OnInit {
 
   constructor(private proposalService: ProposalService,
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router,
+              private location: Location) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -40,5 +42,9 @@ export class ProposalListComponent implements OnInit {
 
   goToDetails(id: number) {
     this.router.navigate(["conference", this.conferenceID, "proposals", id, "details"]);
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

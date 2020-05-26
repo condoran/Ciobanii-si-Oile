@@ -29,7 +29,7 @@
   <button (click)="goBack()">Go Back</button>
   <button *ngIf="user !== null && reviewersForProposal !== null && reviewersForProposal.indexOf(user.id) !== -1" (click)="showForReview = true">Review</button>
   <div *ngIf="showForReview">
-    <div *ngIf="review.qualifier === ''">
+    <div *ngIf="review !== null && review.qualifier === ''">
       <label><b>Qualifier:</b>
         <input type="radio" value="Strong Accept" [(ngModel)]="qualifier">Strong Accept
         <input type="radio" value="Accept" [(ngModel)]="qualifier">Accept
@@ -44,5 +44,16 @@
       <textarea rows="6" cols="40" #recommendation [value]="review.recommendation"></textarea>
     </label><br/>
     <button (click)="reviewProposal(recommendation.value)">Submit Review</button>
+  </div>
+  <div *ngIf="user !== null && review !== null && review.qualifier !== '' && review.recommendation !== ''">
+    <ul>
+      <li *ngFor="let reviewOthers of reviewsByAllUsers" style="list-style-type: none">
+        <div *ngIf="reviewOthers.user.id !== user.id">
+          <h4>-Review Of {{reviewOthers.user.name}}:</h4>
+          <b>Qualifier: </b><br/>{{reviewOthers.qualifier}}<br/>
+          <b>Recommendation: </b><br/>{{reviewOthers.recommendation}}<br/>
+        </div>
+      </li>
+    </ul>
   </div>
 </div>
