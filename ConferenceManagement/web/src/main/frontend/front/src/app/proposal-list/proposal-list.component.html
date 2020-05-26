@@ -16,9 +16,8 @@
     </div>
     <hr>
     <div class="buttonsDiv">
+      <button (click)="goToDetails(proposal.id)">View Proposal</button>
       <button *ngIf="writtenProposals.indexOf(proposal.id) !== -1" (click)="goToUpdateProposal(proposal.id)">Update</button>
-      <button *ngIf="permission !== null && permission.isPCMember === true && unbiddenIDs.indexOf(proposal.id) !== -1" (click)="bidProposal(proposal, true)">Accept Proposal</button>
-        <button *ngIf="permission !== null && permission.isPCMember === true && unbiddenIDs.indexOf(proposal.id) !== -1" (click)="bidProposal(proposal, false)">Refuse Proposal</button>
 
     </div>
   </div>

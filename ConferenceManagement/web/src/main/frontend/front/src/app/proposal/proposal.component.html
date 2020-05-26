@@ -1,0 +1,29 @@
+<div *ngIf="proposal">
+  <h2> Proposal {{proposal.name}} DETAILS:</h2>
+  <br>
+  <hr>
+  <h4>Keywords:</h4><br>
+  {{proposal.keywords}}
+
+  <h4>Topics:</h4><br>
+  {{proposal.topics}}
+  <hr>
+
+  <button *ngIf="user !== null && (user.isChair || user.isCoChair) && currentDate > conference.biddingDeadline" (click)="showList()">
+    Assign reviewers
+  </button>
+  <button *ngIf="canDoBidding()" (click)="bidProposal(proposal, true)">Accept Proposal</button>
+  <button *ngIf="canDoBidding()" (click)="bidProposal(proposal, false)">Refuse Proposal</button>
+
+  <div *ngIf="user !== null && usersToReview !== null ">
+    <ul>
+      <li *ngFor="let user of usersToReview">
+        {{user.name}}
+        {{user.emailAddress}}
+        {{user.affiliation}}
+        {{user.personalWebsite}}
+        <button (click)="setAsReviewer(user)" >Set as reviewer</button>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -17,8 +17,8 @@ export class ProposalListComponent implements OnInit {
   private conferenceID: number;
   user : User = JSON.parse(sessionStorage.getItem("user"));
   writtenProposals :number[] = JSON.parse(sessionStorage.getItem("proposalsIDs"));
-  permission: Permission = JSON.parse(sessionStorage.getItem("permission"));
-  unbiddenIDs: number[] = JSON.parse(sessionStorage.getItem("biddingIDs"));
+
+
 
   constructor(private proposalService: ProposalService,
               private route: ActivatedRoute,
@@ -36,14 +36,9 @@ export class ProposalListComponent implements OnInit {
     this.router.navigate(["conference", this.conferenceID, "proposals", id]);
   }
 
-  bidProposal(proposal: Proposal, accepted: boolean): void{
-    const bidding: Bidding = new Bidding(null, accepted, this.user, proposal);
-    this.proposalService.addBidding(bidding).subscribe();
-    const index = this.unbiddenIDs.indexOf(proposal.id);
-    if (index > -1) {
-      this.unbiddenIDs.splice(index, 1);
-    }
-    sessionStorage.setItem("biddingIDs", JSON.stringify(this.unbiddenIDs));
-  }
 
+
+  goToDetails(id: number) {
+    this.router.navigate(["conference", this.conferenceID, "proposals", id, "details"]);
+  }
 }

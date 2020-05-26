@@ -19,8 +19,8 @@ public class ReviewConverter extends BaseConverter<Review, ReviewDTO>{
             return null;
         return Review.builder()
                 .id(reviewDTO.getId())
-                .CMSUser(userConverter.convertDtoToModel(reviewDTO.getUser()))
-                .proposal(proposalConverter.convertDtoToModel(reviewDTO.getProposal()))
+                .CMSUser((reviewDTO.getUser() == null)? null : userConverter.convertDtoToModel(reviewDTO.getUser()))
+                .proposal((reviewDTO.getProposal() == null)? null : proposalConverter.convertDtoToModel(reviewDTO.getProposal()))
                 .qualifier(reviewDTO.getQualifier())
                 .recommendation(reviewDTO.getRecommendation())
                 .build();
@@ -32,8 +32,8 @@ public class ReviewConverter extends BaseConverter<Review, ReviewDTO>{
             return null;
         return ReviewDTO.builder()
                 .id(review.getId())
-                .user(userConverter.convertModelToDto(review.getCMSUser()))
-                .proposal(proposalConverter.convertModelToDto(review.getProposal()))
+                .user((review.getCMSUser() == null)? null : userConverter.convertModelToDto(review.getCMSUser()))
+                .proposal((review.getProposal() == null)? null : proposalConverter.convertModelToDto(review.getProposal()))
                 .qualifier(review.getQualifier())
                 .recommendation(review.getRecommendation())
                 .build();

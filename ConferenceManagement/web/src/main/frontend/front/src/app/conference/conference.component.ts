@@ -57,13 +57,19 @@ export class ConferenceComponent implements OnInit {
   updateConference(): void{
     var date1 = (<HTMLInputElement>document.getElementById("startDate")).value;
     var date2 = (<HTMLInputElement>document.getElementById("endDate")).value;
+    var date3 = (<HTMLInputElement>document.getElementById("biddingDeadline")).value;
     this.conference.startDate = new Date(date1);
     this.conference.endDate = new Date(date2);
+    this.conference.biddingDeadline = new Date(date3)
     this.conferenceService.updateConference(this.conference).subscribe( _ => this.goBack());
   }
 
   getAllUsers(): void{
     this.userService.getAllNonSCUsersAndNonPCMembers(this.conference.id).subscribe(users => this.users = users);
+  }
+
+  isChairOrCoChair():boolean{
+    return this.user.isChair === true || this.user.isCoChair === true;
   }
 
 }

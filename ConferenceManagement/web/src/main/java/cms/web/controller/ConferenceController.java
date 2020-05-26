@@ -70,6 +70,17 @@ public class ConferenceController {
         return conferenceConverter.convertModelToDto(savedConference);
     }
 
+    @RequestMapping(value = "conference/updateConference", method = RequestMethod.POST)
+    ConferenceDTO updateConference(@RequestBody ConferenceDTO conferenceDTO) {
+        Optional<Conference> updatedConference =
+                conferenceService.updateConference(conferenceConverter.convertDtoToModel(conferenceDTO));
+        if(updatedConference.isEmpty())
+            return null;
+
+        return conferenceConverter.convertModelToDto(updatedConference.get());
+
+    }
+
     @RequestMapping(value = "conference/getConferenceByID", method = RequestMethod.POST)
     ConferenceDTO getConferenceByID(@RequestBody Long conferenceID){
         Optional<Conference> conference = conferenceService.getConferenceById(conferenceID);

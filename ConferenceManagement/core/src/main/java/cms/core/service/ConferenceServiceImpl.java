@@ -112,6 +112,13 @@ public class ConferenceServiceImpl implements ConferenceService {
                 .findFirst().orElse(null);
 
         if(newPermission == null){
+            if(permission.getIsAuthor() == null)
+                permission.setIsAuthor(false);
+            if(permission.getIsPCMember() == null)
+                permission.setIsPCMember(false);
+            if(permission.getIsSectionChair() == null)
+                permission.setIsSectionChair(false);
+
             permissionRepository.save(permission);
             return permission;
         }
@@ -126,5 +133,28 @@ public class ConferenceServiceImpl implements ConferenceService {
             newPermission.setIsSectionChair(permission.getIsSectionChair());
         }
         return newPermission;
+    }
+
+    @Override
+    @Transactional
+    public Optional<Conference> updateConference(Conference conference) {
+        Conference updatedConference = conferenceRepository.findById(conference.getId()).orElse(null);
+        if(updatedConference == null)
+            return Optional.empty();
+
+        if(conference.getCallForPapers() != null)
+            updatedConference.setCallForPapers(conference.getCallForPapers());
+        if(conference.getStartDate() != null)
+            updatedConference.setStartDate(conference.getStartDate());
+        if(conference.getEndDate() != null)
+            updatedConference.setEndDate(conference.getEndDate());
+        if(conference.getBiddingDeadline() != null)
+            updatedConference.setBiddingDeadline(conference.getBiddingDeadline());
+        if(conference.getAbstractPaperDeadline() != null)
+            updatedConference.setAbstractPaperDeadline(conference.getAbstractPaperDeadline());
+        if(conference.getFullPaperDeadline() != null)
+            updatedConference.setFullPaperDeadline(conference.getFullPaperDeadline());
+
+        return Optional.of(conference);
     }
 }

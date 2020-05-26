@@ -21,7 +21,7 @@ export class UserService {
   }
 
   register(name: string, username: string, password: string, email: string): Observable<User>{
-    let user: User = new User(null, username, name, email, null, password, null, null, null, null);
+    let user: User = new User(null, username, name, email, null, password, null, false, false, false);
 
     return this.httpClient
       .post<User>(this.userUrl + '/saveUser', user);
@@ -51,5 +51,6 @@ export class UserService {
   getAllNonSCUsersAndNonPCMembers(conferenceID: number): Observable<User[]>{
     return this.httpClient.post<User[]>(this.userUrl + "/getNonSCMembersAndNonPCMembers", conferenceID);
   }
+
 
 }

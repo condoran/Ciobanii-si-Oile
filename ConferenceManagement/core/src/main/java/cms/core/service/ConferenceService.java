@@ -32,4 +32,6 @@ public interface ConferenceService {
     Optional<Conference> postponeConference(Long conferenceId, Date newStartDate, Date newEndDate);
 
     Permission saveOrUpdatePermission(Permission permission);
+
+    Optional<Conference> updateConference(Conference conference);
 }

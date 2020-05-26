@@ -18,8 +18,8 @@ public class BiddingConverter extends BaseConverter<Bidding, BiddingDTO>{
             return null;
         return Bidding.builder()
                 .id(biddingDTO.getId())
-                .proposal(proposalConverter.convertDtoToModel(biddingDTO.getProposal()))
-                .CMSUser(userConverter.convertDtoToModel(biddingDTO.getUser()))
+                .proposal((biddingDTO.getProposal() == null)? null : proposalConverter.convertDtoToModel(biddingDTO.getProposal()))
+                .CMSUser((biddingDTO.getUser() == null)? null : userConverter.convertDtoToModel(biddingDTO.getUser()))
                 .accepted(biddingDTO.getAccepted())
                 .build();
     }
@@ -30,8 +30,8 @@ public class BiddingConverter extends BaseConverter<Bidding, BiddingDTO>{
             return null;
         return BiddingDTO.builder()
                 .id(bidding.getId())
-                .proposal(proposalConverter.convertModelToDto(bidding.getProposal()))
-                .user(userConverter.convertModelToDto(bidding.getCMSUser()))
+                .proposal((bidding.getProposal() == null)? null : proposalConverter.convertModelToDto(bidding.getProposal()))
+                .user((bidding.getCMSUser() == null)? null : userConverter.convertModelToDto(bidding.getCMSUser()))
                 .accepted(bidding.getAccepted())
                 .build();
     }

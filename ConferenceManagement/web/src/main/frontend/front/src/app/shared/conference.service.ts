@@ -32,7 +32,7 @@ export class ConferenceService {
   }
 
   updateConference(conference: Conference): Observable<Conference>{
-    return this.httpClient.post<Conference>(this.conferenceUrl + '/postponeConference', conference);
+    return this.httpClient.post<Conference>(this.conferenceUrl + '/updateConference', conference);
   }
 
   setCurrentConference(conferenceID:number):void{

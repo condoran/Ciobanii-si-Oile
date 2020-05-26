@@ -27,9 +27,9 @@ public class SectionConverter extends BaseConverter<Section, SectionDTO>{
             return null;
         return Section.builder()
                 .id(sectionDTO.getId())
-                .sectionChair(userConverter.convertDtoToModel(sectionDTO.getChair()))
-                .speakers(userService.getUsersByIDs(sectionDTO.getSpeakersIDs()))
-                .conference(conferenceConverter.convertDtoToModel(sectionDTO.getConference()))
+                .sectionChair((sectionDTO.getChair() == null)? null : userConverter.convertDtoToModel(sectionDTO.getChair()))
+                .speakers((sectionDTO.getSpeakersIDs() == null)? null : userService.getUsersByIDs(sectionDTO.getSpeakersIDs()))
+                .conference((sectionDTO.getConference() == null)? null : conferenceConverter.convertDtoToModel(sectionDTO.getConference()))
                 .build();
     }
 
@@ -39,9 +39,9 @@ public class SectionConverter extends BaseConverter<Section, SectionDTO>{
             return null;
         return SectionDTO.builder()
                 .id(section.getId())
-                .chair(userConverter.convertModelToDto(section.getSectionChair()))
-                .speakersIDs(userConverter.convertModelsToIDs(section.getSpeakers()))
-                .conference(conferenceConverter.convertModelToDto(section.getConference()))
+                .chair((section.getSectionChair() == null)? null : userConverter.convertModelToDto(section.getSectionChair()))
+                .speakersIDs((section.getSpeakers() == null)? null : userConverter.convertModelsToIDs(section.getSpeakers()))
+                .conference((section.getConference() == null)? null : conferenceConverter.convertModelToDto(section.getConference()))
                 .build();
     }
 

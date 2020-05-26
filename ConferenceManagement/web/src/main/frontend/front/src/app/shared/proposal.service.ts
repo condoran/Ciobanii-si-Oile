@@ -7,6 +7,8 @@ import {User} from "./user.model";
 import {ProposalAuthor} from "./proposalAuthor.model";
 import {map} from "rxjs/operators";
 import {Bidding} from "./bidding.model";
+import {patchTimer} from "zone.js/lib/common/timers";
+import {Review} from "./review.model";
 
 @Injectable()
 export class ProposalService{
@@ -51,7 +53,19 @@ export class ProposalService{
       .post<Bidding>(this.proposalUrl + "/bidProposal", bidding);
   }
 
+  addReview(review: Review): Observable<Review>{
+    console.log(review);
+    return this.httpClient
+      .post<Review>(this.proposalUrl + "/reviewProposal", review);
+  }
+
   getUnbiddenProposalIDs(userID: number): Observable<number[]>{
     return this.httpClient.post<number[]>(this.proposalUrl + "/getUnbiddenProposalsIDs", userID);
+  }
+
+  getUsersForReviewingAProposal(proposalID:number):Observable<User[]>{
+    return this.httpClient
+      .post<User[]>(this.proposalUrl + "/getUsersForReviewingAProposal", proposalID);
+
   }
 }

@@ -20,8 +20,8 @@ public class PermissionConverter extends BaseConverter<Permission, PermissionDTO
             return null;
         return Permission.builder()
                 .id(permissionDTO.getId())
-                .cmsUser(userConverter.convertDtoToModel(permissionDTO.getUser()))
-                .conference(conferenceConverter.convertDtoToModel(permissionDTO.getConference()))
+                .cmsUser((permissionDTO.getUser() == null)? null : userConverter.convertDtoToModel(permissionDTO.getUser()))
+                .conference((permissionDTO.getConference() == null)? null : conferenceConverter.convertDtoToModel(permissionDTO.getConference()))
                 .isAuthor(permissionDTO.getIsAuthor())
                 .isPCMember(permissionDTO.getIsPCMember())
                 .isSectionChair(permissionDTO.getIsSectionChair())
@@ -34,8 +34,8 @@ public class PermissionConverter extends BaseConverter<Permission, PermissionDTO
             return null;
         return PermissionDTO.builder()
                 .id(permission.getId())
-                .user(userConverter.convertModelToDto(permission.getCmsUser()))
-                .conference(conferenceConverter.convertModelToDto(permission.getConference()))
+                .user((permission.getCmsUser() == null)? null : userConverter.convertModelToDto(permission.getCmsUser()))
+                .conference((permission.getConference() == null)? null : conferenceConverter.convertModelToDto(permission.getConference()))
                 .isAuthor(permission.getIsAuthor())
                 .isPCMember(permission.getIsPCMember())
                 .isSectionChair(permission.getIsSectionChair())

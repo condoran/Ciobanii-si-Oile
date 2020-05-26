@@ -18,8 +18,8 @@ public class ProposalAuthorConverter extends BaseConverter<ProposalAuthor, Propo
     public ProposalAuthor convertDtoToModel(ProposalAuthorDTO proposalAuthorDTO) {
         return ProposalAuthor.builder()
                 .id(proposalAuthorDTO.getId())
-                .proposal(proposalConverter.convertDtoToModel(proposalAuthorDTO.getProposal()))
-                .user(userConverter.convertDtoToModel(proposalAuthorDTO.getAuthor()))
+                .proposal((proposalAuthorDTO.getProposal() == null)? null : proposalConverter.convertDtoToModel(proposalAuthorDTO.getProposal()))
+                .user((proposalAuthorDTO.getAuthor() == null)? null : userConverter.convertDtoToModel(proposalAuthorDTO.getAuthor()))
                 .build();
     }
 
@@ -27,8 +27,8 @@ public class ProposalAuthorConverter extends BaseConverter<ProposalAuthor, Propo
     public ProposalAuthorDTO convertModelToDto(ProposalAuthor proposalAuthor) {
         return ProposalAuthorDTO.builder()
                 .id(proposalAuthor.getId())
-                .proposal(proposalConverter.convertModelToDto(proposalAuthor.getProposal()))
-                .author(userConverter.convertModelToDto(proposalAuthor.getUser()))
+                .proposal((proposalAuthor.getProposal() == null)? null : proposalConverter.convertModelToDto(proposalAuthor.getProposal()))
+                .author((proposalAuthor.getUser() == null)? null : userConverter.convertModelToDto(proposalAuthor.getUser()))
                 .build();
     }
 }

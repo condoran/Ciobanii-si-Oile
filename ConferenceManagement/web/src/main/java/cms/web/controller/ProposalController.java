@@ -5,6 +5,8 @@ import cms.core.repo.ProposalRepository;
 import cms.core.service.ProposalService;
 import cms.web.converter.*;
 import cms.web.dto.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,8 @@ import java.util.List;
 
 @RestController
 public class ProposalController {
+    public static final Logger logger = LoggerFactory.getLogger(ConferenceController.class);
+
     @Autowired
     private ProposalService proposalService;
 
@@ -74,7 +78,9 @@ public class ProposalController {
 
     @RequestMapping(value = "/proposal/reviewProposal", method = RequestMethod.POST)
     ReviewDTO reviewProposal(@RequestBody ReviewDTO reviewDTO){
+        logger.trace("proposalController, review proposal, review = {}", reviewDTO);
         Review review = proposalService.reviewProposal(reviewConverter.convertDtoToModel(reviewDTO));
+        logger.trace("proposalController, review proposal, saved review = {}", review);
         return reviewConverter.convertModelToDto(review);
     }
 

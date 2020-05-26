@@ -31,8 +31,7 @@ export class ProposalUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.pipe(switchMap((params: Params) => this.proposalService.getProposalForConference(+params['conferenceID'], +params['proposalID'])))
-      .subscribe(proposal => {this.proposal = proposal;
-      console.log(this.proposal)});
+      .subscribe(proposal => {this.proposal = proposal;});
   }
 
   updateProposal(): void {
