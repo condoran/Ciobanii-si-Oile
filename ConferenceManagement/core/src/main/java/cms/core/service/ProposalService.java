@@ -33,6 +33,8 @@ public interface ProposalService {
 
     List<Long> getReviewersForProposal(Long proposalID);
 
+    List<Review> getReviewsForProposal(Long proposalID);
+
     Optional<Review> updateReview(Review review);
 
     Optional<Review> getReviewByUserAndProposal(Long userID, Long proposalID);

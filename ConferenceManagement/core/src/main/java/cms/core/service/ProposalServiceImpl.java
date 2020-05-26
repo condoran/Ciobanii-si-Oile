@@ -124,6 +124,13 @@ public class ProposalServiceImpl implements ProposalService{
     }
 
     @Override
+    public List<Review> getReviewsForProposal(Long proposalID) {
+        return reviewRepository.findAll().stream()
+                .filter(review -> review.getProposal().getId().equals(proposalID))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     @Transactional
     public Optional<Review> updateReview(Review review) {
         Review newReview = reviewRepository.findById(review.getId()).orElse(null);

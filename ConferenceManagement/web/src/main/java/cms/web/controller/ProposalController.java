@@ -119,7 +119,16 @@ public class ProposalController {
         if(review.isEmpty()){
             return null;
         }
-
         return reviewConverter.convertModelToDto(review.get());
+    }
+
+    @RequestMapping(value = "/proposal/getReviewsForProposal", method = RequestMethod.POST)
+    List<ReviewDTO> getReviewsForProposal(@RequestBody Long proposalID) {
+        logger.trace("in proposalController, getReviewsForProposal, proposalID = {}", proposalID);
+        List<Review> reviewList = proposalService.getReviewsForProposal(proposalID);
+        logger.trace("in proposalController, getReviewsForProposal, reviewList = {}", reviewList);
+        List<ReviewDTO> reviewDTOList = reviewConverter.convertModelsToDtos(reviewList);
+        logger.trace("in proposalController, getReviewsForProposal, reviewDTOList = {}", reviewDTOList);
+        return reviewDTOList;
     }
 }
