@@ -30,4 +30,6 @@ public interface ProposalService {
     ProposalAuthor addAuthorForProposal(ProposalAuthor proposalAuthor);
 
     List<CMSUser> getUsersForReviewingAProposal(Long proposalID);
+
+    List<Long> getReviewersForProposal(Long proposalID);
 }

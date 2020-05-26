@@ -115,5 +115,13 @@ public class ProposalServiceImpl implements ProposalService{
         return userRepository.findAllById(userIDs);
     }
 
+    @Override
+    public List<Long> getReviewersForProposal(Long proposalID) {
+        return reviewRepository.findAll().stream()
+                .filter(review -> review.getProposal().getId().equals(proposalID))
+                .map(review -> review.getCMSUser().getId())
+                .collect(Collectors.toList());
+    }
+
 
 }

@@ -94,4 +94,9 @@ public class ProposalController {
         List<CMSUser> users = proposalService.getUsersForReviewingAProposal(proposalID);
         return new ArrayList<>(userConverter.convertModelsToDtos(users));
     }
+
+    @RequestMapping(value = "proposal/getReviewersForProposal", method = RequestMethod.POST)
+    List<Long> getReviewersForProposal(@RequestBody Long proposalID){
+        return proposalService.getReviewersForProposal(proposalID);
+    }
 }
