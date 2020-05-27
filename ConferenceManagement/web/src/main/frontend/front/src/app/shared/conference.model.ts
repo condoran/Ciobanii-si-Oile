@@ -4,7 +4,7 @@ import {Section} from './section.model';
 export class Conference {
   id: number;
   name: string;
-  password: string;
+  level: number;
   startDate: Date;
   endDate: Date;
   callForPapers: string;
@@ -16,10 +16,10 @@ export class Conference {
   secondCoChair: User;
   sections: number[];
 
-  constructor(id, name, password, startDate, endDate, callForPapers, abstractPaperDeadline, fullPaperDeadline, biddingDeadline, chair, firstCoChair, secondCoChair, sections) {
+  constructor(id, name, level, startDate, endDate, callForPapers, abstractPaperDeadline, fullPaperDeadline, biddingDeadline, chair, firstCoChair, secondCoChair, sections) {
     this.id = id;
     this.name = name;
-    this.password = password;
+    this.level = level;
     this.startDate = startDate;
     this.endDate = endDate;
     this.callForPapers = callForPapers;

@@ -4,6 +4,11 @@
   <br/>
   CallForPapers:<br/><textarea #callForPapers rows="10" cols="50"></textarea>
   <br/>
+  <label><b>Level:</b>
+    <input type="radio" value="2" [(ngModel)]="level">2 Reviewers
+    <input type="radio" value="3" [(ngModel)]="level">3 Reviewers
+    <input type="radio" value="4" [(ngModel)]="level">4 Reviewers
+  </label><br/><br/>
   Start Date:<input type="date" #startDate/>
   <br/>
   <br/>
