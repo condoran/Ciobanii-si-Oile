@@ -136,4 +136,9 @@ public class ProposalController {
     boolean checkAuthorWroteAProposal(@RequestBody Long[] IDs){
         return proposalService.checkAuthorWroteAProposal(IDs[0], IDs[1]);
     }
+
+    @RequestMapping(value = "/proposal/checkProposalStatus", method = RequestMethod.POST)
+    String checkProposalStatus(@RequestBody Long[] params){
+        return proposalService.checkProposalStatus(params[0], params[1]);
+    }
 }

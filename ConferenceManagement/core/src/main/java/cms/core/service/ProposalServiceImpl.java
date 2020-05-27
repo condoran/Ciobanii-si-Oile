@@ -169,5 +169,47 @@ public class ProposalServiceImpl implements ProposalService{
 
     }
 
+    @Override
+    public String checkProposalStatus(Long proposalID, Long conferenceLevel) {
+        List<String> qualifiersForProposal = reviewRepository.findAll().stream()
+                .filter(review -> review.getProposal().getId().equals(proposalID))
+                .map(Review::getQualifier)
+                .collect(Collectors.toList());
+
+        int accepted = 0;
+        int rejected = 0;
+        for(String qualifier: qualifiersForProposal){
+            if (qualifier.contains("Accept"))
+                accepted++;
+            else if(qualifier.contains("Reject"))
+                rejected++;
+        }
+
+        if(conferenceLevel == 2){
+            if(accepted == 2)
+                return "Accepted";
+            else if(rejected == 2)
+                return "Rejected";
+            else
+                return "Undecided";
+        }
+        else if(conferenceLevel == 3){
+            if(accepted >= 2)
+                return "Accepted";
+            else if(rejected >= 2)
+                return "Rejected";
+            else
+                return "Undecided";
+        }
+        else{
+            if(accepted >= 3)
+                return "Accepted";
+            else if(rejected >= 3)
+                return "Rejected";
+            else
+                return "Undecided";
+        }
+    }
+
 
 }

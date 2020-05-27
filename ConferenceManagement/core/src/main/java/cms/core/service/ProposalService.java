@@ -40,4 +40,6 @@ public interface ProposalService {
     Optional<Review> getReviewByUserAndProposal(Long userID, Long proposalID);
 
     boolean checkAuthorWroteAProposal(Long proposalID, Long userID);
+
+    String checkProposalStatus(Long proposalID, Long conferenceLevel);
 }
