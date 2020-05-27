@@ -154,4 +154,12 @@ public class ProposalController {
         logger.trace("in ProposalController, checkProposalStatus, status updated");
         return status;
     }
+
+    @RequestMapping(value = "/proposal/resetReviewsForProposal", method = RequestMethod.POST)
+    String resetReviewsForProposal(@RequestBody Long proposalID){
+        logger.trace("in ProposalController, restReviewsForProposal, proposalID = {}", proposalID);
+
+        this.proposalService.resetReviewsForProposal(proposalID);
+        return "OK";
+    }
 }

@@ -44,4 +44,6 @@ public interface ProposalService {
     boolean checkAuthorWroteAProposal(Long proposalID, Long userID);
 
     String checkProposalStatus(Long proposalID, Long conferenceLevel);
+
+    void resetReviewsForProposal(Long proposalID);
 }

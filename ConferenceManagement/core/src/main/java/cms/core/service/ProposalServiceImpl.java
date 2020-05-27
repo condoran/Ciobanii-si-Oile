@@ -222,5 +222,15 @@ public class ProposalServiceImpl implements ProposalService{
         }
     }
 
+    @Override
+    @Transactional
+    public void resetReviewsForProposal(Long proposalID) {
+        this.reviewRepository.findAll().stream()
+                .filter(review -> review.getProposal().getId().equals(proposalID))
+                .forEach(review -> {review.setQualifier(""); review.setRecommendation("");});
+
+        this.proposalRepository.findById(proposalID).ifPresent(proposal -> proposal.setStatus("pending review"));
+    }
+
 
 }
