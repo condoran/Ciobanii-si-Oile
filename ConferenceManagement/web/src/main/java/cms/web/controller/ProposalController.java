@@ -131,4 +131,9 @@ public class ProposalController {
         logger.trace("in proposalController, getReviewsForProposal, reviewDTOList = {}", reviewDTOList);
         return reviewDTOList;
     }
+
+    @RequestMapping(value = "/proposal/checkAuthorWroteAProposal", method = RequestMethod.POST)
+    boolean checkAuthorWroteAProposal(@RequestBody Long[] IDs){
+        return proposalService.checkAuthorWroteAProposal(IDs[0], IDs[1]);
+    }
 }

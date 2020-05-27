@@ -28,7 +28,7 @@ export class ProposalService{
 
   addProposal(name: string, keywords:string, topics: string, conference:Conference):
     Observable<Proposal>{
-    let proposal : Proposal = new Proposal(null, name, keywords, topics, conference);
+    let proposal : Proposal = new Proposal(null, name, keywords, topics, null, null, null, conference);
     return this.httpClient
       .post<Proposal>(this.proposalUrl + "/saveProposal", proposal);
   }
@@ -84,5 +84,9 @@ export class ProposalService{
 
   getReviewsForProposal(proposalID: number): Observable<Review[]>{
     return this.httpClient.post<Review[]>(this.proposalUrl + "/getReviewsForProposal", proposalID);
+  }
+
+  checkAuthorWroteAProposal(proposalID: number, userID: number): Observable<boolean>{
+    return this.httpClient.post<boolean>(this.proposalUrl+ "/checkAuthorWroteAProposal", [proposalID, userID]);
   }
 }

@@ -29,6 +29,7 @@ public class Proposal implements Serializable {
     private String topics;
     private File abstractPaper;
     private File fullPaper;
+    private Boolean accepted;
     
     @ManyToOne
     private Conference conference;

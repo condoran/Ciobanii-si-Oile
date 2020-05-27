@@ -12,8 +12,8 @@
   <button *ngIf="user !== null && (user.isChair || user.isCoChair) && currentDate > conference.biddingDeadline" (click)="showList()">
     Assign reviewers
   </button>
-  <button *ngIf="canDoBidding()" (click)="bidProposal(proposal, true)">Accept Proposal</button>
-  <button *ngIf="canDoBidding()" (click)="bidProposal(proposal, false)">Refuse Proposal</button>
+  <button *ngIf="canDoBidding(proposal.id)" (click)="bidProposal(proposal, true)">Accept Proposal</button>
+  <button *ngIf="canDoBidding(proposal.id)" (click)="bidProposal(proposal, false)">Refuse Proposal</button>
 
   <div *ngIf="user !== null && usersToReview !== null ">
     <ul>

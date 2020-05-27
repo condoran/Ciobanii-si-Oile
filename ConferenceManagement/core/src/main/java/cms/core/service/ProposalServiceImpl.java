@@ -85,6 +85,7 @@ public class ProposalServiceImpl implements ProposalService{
         proposal.setTopics(newProposal.getTopics());
         proposal.setAbstractPaper(newProposal.getAbstractPaper());
         proposal.setFullPaper(newProposal.getFullPaper());
+        proposal.setAccepted(newProposal.getAccepted());
         proposal.setConference(newProposal.getConference());
 
         return proposal;
@@ -155,6 +156,17 @@ public class ProposalServiceImpl implements ProposalService{
     public Optional<Review> getReviewByUserAndProposal(Long userID, Long proposalID) {
         return reviewRepository.findAll().stream().filter(review -> review.getCMSUser().getId().equals(userID)
             && review.getProposal().getId().equals(proposalID)).findFirst();
+    }
+
+    @Override
+    public boolean checkAuthorWroteAProposal(Long proposalID, Long userID) {
+        Optional<ProposalAuthor> found = proposalAuthorRepository.findAll().stream()
+                .filter(proposalAuthor -> proposalAuthor.getProposal().getId().equals(proposalID)
+                && proposalAuthor.getUser().getId().equals(userID))
+                .findFirst();
+
+        return found.isPresent();
+
     }
 
 

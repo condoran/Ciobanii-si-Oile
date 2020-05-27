@@ -29,6 +29,7 @@ export class ProposalComponent implements OnInit {
   qualifier: string = "";
   review: Review = null;
   reviewsByAllUsers: Review[] = null;
+  writtenProposals :number[] = JSON.parse(sessionStorage.getItem("proposalsIDs"));
 
   constructor(private route:ActivatedRoute,
               private proposalService: ProposalService,
@@ -46,8 +47,6 @@ export class ProposalComponent implements OnInit {
         this.proposalService.getReviewersForProposal(this.proposal.id).subscribe(reviewers =>
           this.reviewersForProposal = reviewers)
       });
-    console.log(this.permission);
-    console.log(this.unbiddenIDs);
   }
 
   bidProposal(proposal: Proposal, accepted: boolean): void{
@@ -60,8 +59,8 @@ export class ProposalComponent implements OnInit {
     sessionStorage.setItem("biddingIDs", JSON.stringify(this.unbiddenIDs));
   }
 
-  canDoBidding():boolean{
-    if(this.permission === null || this.permission.isAuthor === true){
+  canDoBidding(proposalID: number):boolean{
+    if(this.permission === null || this.writtenProposals.indexOf(proposalID) !== -1){
       return false;
     }
     return this.permission.isPCMember === true &&

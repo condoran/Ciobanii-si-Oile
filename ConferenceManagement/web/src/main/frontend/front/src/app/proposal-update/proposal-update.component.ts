@@ -22,6 +22,7 @@ export class ProposalUpdateComponent implements OnInit {
   user : User = JSON.parse(sessionStorage.getItem("user"));
   conference : Conference = JSON.parse(sessionStorage.getItem("conference"));
   wantToAddAuthor :Boolean = false;
+  formData: FormData;
 
   constructor(private proposalService: ProposalService,
               private route: ActivatedRoute,
@@ -56,4 +57,5 @@ export class ProposalUpdateComponent implements OnInit {
       }
     });
   }
+
 }

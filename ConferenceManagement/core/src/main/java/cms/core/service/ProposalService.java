@@ -38,4 +38,6 @@ public interface ProposalService {
     Optional<Review> updateReview(Review review);
 
     Optional<Review> getReviewByUserAndProposal(Long userID, Long proposalID);
+
+    boolean checkAuthorWroteAProposal(Long proposalID, Long userID);
 }

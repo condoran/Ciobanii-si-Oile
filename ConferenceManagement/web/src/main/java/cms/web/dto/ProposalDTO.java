@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 
@@ -17,5 +18,8 @@ public class ProposalDTO implements Serializable {
     private String name;
     private String keywords;
     private String topics;
+    private File abstractPaper;
+    private File fullPaper;
+    private Boolean accepted;
     private ConferenceDTO conference;
 }

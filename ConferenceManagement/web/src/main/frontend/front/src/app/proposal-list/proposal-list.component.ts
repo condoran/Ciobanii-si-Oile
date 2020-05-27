@@ -19,8 +19,6 @@ export class ProposalListComponent implements OnInit {
   user : User = JSON.parse(sessionStorage.getItem("user"));
   writtenProposals :number[] = JSON.parse(sessionStorage.getItem("proposalsIDs"));
 
-
-
   constructor(private proposalService: ProposalService,
               private route: ActivatedRoute,
               private router: Router,
@@ -37,8 +35,6 @@ export class ProposalListComponent implements OnInit {
   goToUpdateProposal(id: number): void{
     this.router.navigate(["conference", this.conferenceID, "proposals", id]);
   }
-
-
 
   goToDetails(id: number) {
     this.router.navigate(["conference", this.conferenceID, "proposals", id, "details"]);
