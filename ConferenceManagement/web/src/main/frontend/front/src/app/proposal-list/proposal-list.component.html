@@ -3,6 +3,7 @@
 </h1>
 
 <div class="container">
+  <br>
   <button (click)="goBack()">Back</button>
   <div class="proposal" *ngFor="let proposal of proposals ">
     <div class="proposalName">
@@ -19,6 +20,7 @@
       <button (click)="goToDetails(proposal.id)">View Proposal</button>
       <button *ngIf="writtenProposals.indexOf(proposal.id) !== -1" (click)="goToUpdateProposal(proposal.id)">Update</button>
     </div>
+    <br>
   </div>
 
 </div>
