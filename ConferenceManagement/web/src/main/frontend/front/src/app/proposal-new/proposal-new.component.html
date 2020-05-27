@@ -1,11 +1,11 @@
-<h2>Add a new proposal</h2>
+<div class="container">
+<h2 class="title">Add a new proposal</h2>
 
-Name:<input type="text" #name/>
+<input type="text"  placeholder="Name" #name/>
 <br/>
-Keywords<input type="text" #keywords/>
+<input type="text" placeholder="Keywords" #keywords/>
 <br/>
-Topics:<br/><textarea rows="8" cols="40" #topics></textarea>
-<br/>
+<textarea rows="8" cols="40" placeholder="Topics" #topics></textarea>
 <br/>
 <div *ngIf="wantToAddAuthor">
   Please add your colleagues email addresses, you are author by default!
@@ -13,7 +13,9 @@ Topics:<br/><textarea rows="8" cols="40" #topics></textarea>
   Author email: <input type="text" #emailAddress/>
   <button (click)="addAuthor(emailAddress.value)">Add author</button>
 </div>
-
-<button *ngIf="wantToAddAuthor === false && proposal" (click)="wantToAddAuthor = true">Want to add author</button>
-<button *ngIf="!proposal" (click)="addProposal(name.value, keywords.value, topics.value)">Add Proposal</button>
-<button (click)="goBack()">Back</button>
+<nav>
+  <button *ngIf="wantToAddAuthor === false && proposal" (click)="wantToAddAuthor = true">Want to add author</button>
+  <button *ngIf="!proposal" (click)="addProposal(name.value, keywords.value, topics.value)">Add Proposal</button>
+  <button (click)="goBack()">Back</button>
+</nav>
+</div>
