@@ -1,30 +1,40 @@
 <h2>Add a new conference</h2>
-<div>
-  Name:<input type="text" #name/>
-  <br/>
-  CallForPapers:<br/><textarea #callForPapers rows="10" cols="50"></textarea>
-  <br/>
-  <label><b>Level:</b>
+<div class="container">
+  <div>
+  <input type="text" placeholder="Name" #name/>
+ <!--<textarea #callForPapers rows="10" placeholder="CallForPapers" cols="50"></textarea>-->
+  <br/><br/>
+  <!--<label><b>Level:</b>
     <input type="radio" value="2" [(ngModel)]="level">2 Reviewers
     <input type="radio" value="3" [(ngModel)]="level">3 Reviewers
     <input type="radio" value="4" [(ngModel)]="level">4 Reviewers
-  </label><br/><br/>
-  Start Date:<input type="date" #startDate/>
+  </label><br/><br/>-->
+  Start Date:<br/><input type="date" #startDate/>
   <br/>
   <br/>
-  End Date:<input type="date" #endDate/>
+  End Date:<br/><input type="date" #endDate/>
   <br/>
   <br/>
-  Bidding Deadline:<input type="date" #bidding/>
+  Bidding Deadline:<br/><input type="date" #bidding/>
   <br/>
   <br/>
-  Abstract Paper Deadline:<input type="date" #abstract/>
+  Abstract Paper Deadline:<br/><input type="date" #abstract/>
   <br/>
   <br/>
-  Full Paper Deadline:<input type="date" #fullPaper/>
+  Full Paper Deadline:<br/><input type="date" #fullPaper/>
   <br/>
   <br/>
 
   <button (click)="addConference(name.value, callForPapers.value, startDate.value, endDate.value, bidding.value, abstract.value, fullPaper.value)">SAVE</button>
   <button (click)="goBack()">Back</button>
+  </div>
+  <div>
+    <textarea #callForPapers rows="10" placeholder="CallForPapers" cols="50"></textarea>
+    <br/><br/>
+    <label><b>Level:</b>
+      <input type="radio" value="2" [(ngModel)]="level">2 Reviewers
+      <input type="radio" value="3" [(ngModel)]="level">3 Reviewers
+      <input type="radio" value="4" [(ngModel)]="level">4 Reviewers
+    </label><br/><br/>
+  </div>
 </div>
