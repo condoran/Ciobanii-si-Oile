@@ -1,7 +1,10 @@
 .register{
   margin:5px;
+}
 
-
+.bigLogo
+{
+  width: 400px;
 }
 
 .container{
@@ -10,7 +13,7 @@
   background-color: lightgray;
   width:auto;
   text-align: center;
-  margin-top:15%;
+  margin-top:10%;
 
 }
 input{

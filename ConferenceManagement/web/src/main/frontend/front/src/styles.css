@@ -4,23 +4,24 @@ body{
 }
 
 button {
+  box-shadow:inset 0px 1px 0px 0px #54a3f7;
+  background:linear-gradient(to bottom, #007dc1 5%, #0061a7 100%);
+  background-color:#007dc1;
+  border-radius:3px;
+  border:1px solid #124d77;
   display:inline-block;
-  padding:0.35em 1.2em;
-  border:0.1em solid #FFFFFF;
-  margin:0 0.3em 0.3em 0;
-  border-radius:0.12em;
-  box-sizing: border-box;
+  cursor:pointer;
+  color:#ffffff;
+  font-size:13px;
+  padding:6px 24px;
   text-decoration:none;
-  font-family:'Roboto',sans-serif;
-  font-weight:300;
-  color:black;
-  text-align:center;
-  transition: all 0.2s;
-  background-color: #24A0ED;
+  text-shadow:0px 1px 0px #154682;
+  margin-bottom: 5px;
+  margin-right: 5px;
 }
 button:hover {
-  color: #000000;
-  background-color: #0275d8;
+  background:linear-gradient(to bottom, #0061a7 5%, #007dc1 100%);
+  background-color:#0061a7;
 }
 button:active {
   position:relative;
