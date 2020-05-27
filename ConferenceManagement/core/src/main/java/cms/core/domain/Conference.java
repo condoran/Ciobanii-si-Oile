@@ -30,7 +30,7 @@ public class Conference implements Serializable {
     private Date abstractPaperDeadline;
     private Date fullPaperDeadline;
     private Date biddingDeadline;
-    private String password;
+    private Integer level;
 
     @OneToOne
     private CMSUser chair;
