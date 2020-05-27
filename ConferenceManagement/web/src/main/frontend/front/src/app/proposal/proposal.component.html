@@ -16,6 +16,7 @@
   <button *ngIf="canDoBidding(proposal.id)" (click)="bidProposal(proposal, false)">Refuse Proposal</button>
 
   <div *ngIf="user !== null && usersToReview !== null ">
+    <p>Please select only {{conference.level}} reviewers!</p>
     <ul>
       <li *ngFor="let user of usersToReview">
         {{user.name}}
