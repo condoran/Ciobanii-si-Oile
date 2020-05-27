@@ -85,10 +85,16 @@ public class ProposalServiceImpl implements ProposalService{
         proposal.setTopics(newProposal.getTopics());
         proposal.setAbstractPaper(newProposal.getAbstractPaper());
         proposal.setFullPaper(newProposal.getFullPaper());
-        proposal.setAccepted(newProposal.getAccepted());
+        proposal.setStatus(newProposal.getStatus());
         proposal.setConference(newProposal.getConference());
 
         return proposal;
+    }
+
+    @Override
+    @Transactional
+    public void updateStatus(Long proposalID, String status) {
+        this.proposalRepository.findById(proposalID).ifPresent(proposal -> proposal.setStatus(status));
     }
 
     @Override
@@ -124,10 +130,10 @@ public class ProposalServiceImpl implements ProposalService{
     }
 
     @Override
-    public List<Long> getReviewersForProposal(Long proposalID) {
+    public List<CMSUser> getReviewersForProposal(Long proposalID) {
         return reviewRepository.findAll().stream()
                 .filter(review -> review.getProposal().getId().equals(proposalID))
-                .map(review -> review.getCMSUser().getId())
+                .map(Review::getCMSUser)
                 .collect(Collectors.toList());
     }
 
@@ -135,6 +141,7 @@ public class ProposalServiceImpl implements ProposalService{
     public List<Review> getReviewsForProposal(Long proposalID) {
         return reviewRepository.findAll().stream()
                 .filter(review -> review.getProposal().getId().equals(proposalID))
+                .filter(review -> !review.getQualifier().equals(""))
                 .collect(Collectors.toList());
     }
 
@@ -172,9 +179,13 @@ public class ProposalServiceImpl implements ProposalService{
     @Override
     public String checkProposalStatus(Long proposalID, Long conferenceLevel) {
         List<String> qualifiersForProposal = reviewRepository.findAll().stream()
+                .filter(review -> !review.getQualifier().equals(""))
                 .filter(review -> review.getProposal().getId().equals(proposalID))
                 .map(Review::getQualifier)
                 .collect(Collectors.toList());
+
+        if(qualifiersForProposal.size() != conferenceLevel)
+            return "pending review";
 
         int accepted = 0;
         int rejected = 0;

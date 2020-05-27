@@ -20,6 +20,6 @@ public class ProposalDTO implements Serializable {
     private String topics;
     private File abstractPaper;
     private File fullPaper;
-    private Boolean accepted;
+    private String status;
     private ConferenceDTO conference;
 }

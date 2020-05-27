@@ -12,12 +12,16 @@
   <button *ngIf="user !== null && (user.isChair || user.isCoChair) && currentDate > conference.biddingDeadline" (click)="showList()">
     Assign reviewers
   </button>
+  <button *ngIf="user !== null && (user.isChair || user.isCoChair) && currentDate > conference.biddingDeadline" (click)="wantToSeReviewers = true">
+    Show reviewers
+  </button>
   <button *ngIf="canDoBidding(proposal.id)" (click)="bidProposal(proposal, true)">Accept Proposal</button>
   <button *ngIf="canDoBidding(proposal.id)" (click)="bidProposal(proposal, false)">Refuse Proposal</button>
 
-  <div *ngIf="user !== null && usersToReview !== null ">
-    <p>Please select only {{conference.level}} reviewers!</p>
-    <ul>
+  <!--  Assign reviewers  -->
+  <div id = "assignReviewers" *ngIf="user !== null && usersToReview !== null && reviewersForProposal !== null">
+    <p> You have to select {{conference.level - reviewersForProposal.length}} more reviewers!</p>
+    <ul *ngIf="conference.level - reviewersForProposal.length > 0">
       <li *ngFor="let user of usersToReview">
         {{user.name}}
         {{user.emailAddress}}
@@ -27,8 +31,21 @@
       </li>
     </ul>
   </div>
+
+  <!--  See existent reviewers  -->
+  <div id = "showExistentReviewers" *ngIf="user !== null && reviewersForProposal !== null && wantToSeReviewers">
+    <ul>
+      <li *ngFor="let user of reviewersForProposal">
+        {{user.name}}
+        {{user.emailAddress}}
+        {{user.affiliation}}
+        {{user.personalWebsite}}
+      </li>
+    </ul>
+  </div>
+
   <button (click)="goBack()">Go Back</button>
-  <button *ngIf="user !== null && reviewersForProposal !== null && reviewersForProposal.indexOf(user.id) !== -1" (click)="showForReview = true">Review</button>
+  <button *ngIf="user !== null && reviewersForProposal !== null && userInReviewers(user.id) === true" (click)="showForReview = true">Review</button>
   <div *ngIf="showForReview">
     <div *ngIf="review !== null && review.qualifier === ''">
       <label><b>Qualifier:</b>
@@ -46,7 +63,7 @@
     </label><br/>
     <button (click)="reviewProposal(recommendation.value)">Submit Review</button>
   </div>
-  <div *ngIf="user !== null && review !== null && review.qualifier !== '' && review.recommendation !== ''">
+  <div *ngIf="user !== null && review !== null && review.qualifier !== '' && review.recommendation !== '' && reviewsByAllUsers">
     <ul class="review-list">
       <li  *ngFor="let reviewOthers of reviewsByAllUsers" style="list-style-type: none">
         <div class="review" >

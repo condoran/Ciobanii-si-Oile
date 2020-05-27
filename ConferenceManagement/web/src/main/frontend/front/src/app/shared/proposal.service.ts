@@ -28,7 +28,7 @@ export class ProposalService{
 
   addProposal(name: string, keywords:string, topics: string, conference:Conference):
     Observable<Proposal>{
-    let proposal : Proposal = new Proposal(null, name, keywords, topics, null, null, null, conference);
+    let proposal : Proposal = new Proposal(null, name, keywords, topics, null, null, "pending review", conference);
     return this.httpClient
       .post<Proposal>(this.proposalUrl + "/saveProposal", proposal);
   }
@@ -69,8 +69,12 @@ export class ProposalService{
 
   }
 
-  getReviewersForProposal(proposalID: number): Observable<number[]>{
-    return this.httpClient.post<number[]>(this.proposalUrl + "/getReviewersForProposal", proposalID);
+  getReviewersIDsForProposal(proposalID: number): Observable<number[]>{
+    return this.httpClient.post<number[]>(this.proposalUrl + "/getReviewersIDsForProposal", proposalID);
+  }
+
+  getReviewersForProposal(proposalID: number): Observable<User[]>{
+    return this.httpClient.post<User[]>(this.proposalUrl + "/getReviewersForProposal", proposalID);
   }
 
   updateReview(review: Review): Observable<Review>{
@@ -88,5 +92,10 @@ export class ProposalService{
 
   checkAuthorWroteAProposal(proposalID: number, userID: number): Observable<boolean>{
     return this.httpClient.post<boolean>(this.proposalUrl+ "/checkAuthorWroteAProposal", [proposalID, userID]);
+  }
+
+  checkProposalStatus(proposalID: number, conferenceLevel: number) : Observable<string>{
+    return this.httpClient
+      .post<string>(this.proposalUrl + "/checkProposalStatus", [proposalID, conferenceLevel]);
   }
 }

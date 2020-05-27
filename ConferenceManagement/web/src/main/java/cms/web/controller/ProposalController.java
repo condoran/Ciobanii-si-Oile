@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 public class ProposalController {
@@ -96,8 +97,15 @@ public class ProposalController {
         return new ArrayList<>(userConverter.convertModelsToDtos(users));
     }
 
+    @RequestMapping(value = "/proposal/getReviewersIDsForProposal", method = RequestMethod.POST)
+    List<Long> getReviewersIDsForProposal(@RequestBody Long proposalID){
+        return proposalService.getReviewersForProposal(proposalID).stream()
+                .map(CMSUser::getId)
+                .collect(Collectors.toList());
+    }
+
     @RequestMapping(value = "/proposal/getReviewersForProposal", method = RequestMethod.POST)
-    List<Long> getReviewersForProposal(@RequestBody Long proposalID){
+    List<CMSUser> getReviewersForProposal(@RequestBody Long proposalID){
         return proposalService.getReviewersForProposal(proposalID);
     }
 
@@ -139,6 +147,11 @@ public class ProposalController {
 
     @RequestMapping(value = "/proposal/checkProposalStatus", method = RequestMethod.POST)
     String checkProposalStatus(@RequestBody Long[] params){
-        return proposalService.checkProposalStatus(params[0], params[1]);
+        logger.trace("in ProposalController, checkProposalStatus, proposalID = {}, conferenceLevel = {}", params[0], params[1]);
+        String status = proposalService.checkProposalStatus(params[0], params[1]);
+        logger.trace("in ProposalController, checkProposalStatus, status = {}", status);
+        proposalService.updateStatus(params[0], status);
+        logger.trace("in ProposalController, checkProposalStatus, status updated");
+        return status;
     }
 }

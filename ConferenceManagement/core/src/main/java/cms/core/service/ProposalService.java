@@ -23,6 +23,8 @@ public interface ProposalService {
 
     Proposal update(Proposal newProposal);
 
+    void updateStatus(Long proposalID, String status);
+
     Bidding bidProposal(Bidding bidding);
 
     Review reviewProposal(Review review);
@@ -31,7 +33,7 @@ public interface ProposalService {
 
     List<CMSUser> getUsersForReviewingAProposal(Long proposalID);
 
-    List<Long> getReviewersForProposal(Long proposalID);
+    List<CMSUser> getReviewersForProposal(Long proposalID);
 
     List<Review> getReviewsForProposal(Long proposalID);
 

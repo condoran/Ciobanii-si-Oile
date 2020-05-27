@@ -32,6 +32,7 @@ export class ConferenceService {
   }
 
   updateConference(conference: Conference): Observable<Conference>{
+    sessionStorage.setItem("conference", JSON.stringify(conference));
     return this.httpClient.post<Conference>(this.conferenceUrl + '/updateConference', conference);
   }
 

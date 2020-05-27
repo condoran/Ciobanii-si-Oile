@@ -24,12 +24,14 @@ export class ProposalComponent implements OnInit {
   unbiddenIDs: number[] = JSON.parse(sessionStorage.getItem("biddingIDs"));
   permission: Permission = JSON.parse(sessionStorage.getItem("permission"));
   usersToReview: User[] = null;
-  reviewersForProposal: number[] = null;
+  reviewersIDsForProposal: number[] = null;
   showForReview: boolean = false;
   qualifier: string = "";
   review: Review = null;
   reviewsByAllUsers: Review[] = null;
   writtenProposals :number[] = JSON.parse(sessionStorage.getItem("proposalsIDs"));
+  reviewersForProposal : User[] = null;
+  wantToSeReviewers: boolean = false;
 
   constructor(private route:ActivatedRoute,
               private proposalService: ProposalService,
@@ -40,12 +42,15 @@ export class ProposalComponent implements OnInit {
       this.proposalService.getProposalForConference(+params['conferenceID'], +params['proposalID'])))
       .subscribe(proposal => {this.proposal = proposal;
         this.proposalService.getReviewByUserAndProposal(this.user.id, this.proposal.id).subscribe(
-          review => {this.review = review; console.log(this.review)}
+          review => {this.review = review;}
         );
         this.proposalService.getReviewsForProposal(this.proposal.id).subscribe(reviewers =>
           this.reviewsByAllUsers = reviewers);
         this.proposalService.getReviewersForProposal(this.proposal.id).subscribe(reviewers =>
-          this.reviewersForProposal = reviewers)
+        {
+          this.reviewersForProposal = reviewers;
+        })
+
       });
   }
 
@@ -69,14 +74,15 @@ export class ProposalComponent implements OnInit {
 
   showList() {
     this.proposalService.getUsersForReviewingAProposal(this.proposal.id)
-      .subscribe(users => {this.usersToReview = users; console.log(users)});
+      .subscribe(users => {this.usersToReview = users;});
   }
 
   setAsReviewer(user: User) {
     this.proposalService.
-    addReview(new Review(null, user, this.proposal, "", ""))
+    addReview(new Review(null, user, this.proposal, '', ''))
       .subscribe();
     this.usersToReview.splice(this.usersToReview.indexOf(user), 1);
+    this.reviewersForProposal.push(user);
   }
 
   reviewProposal(recommendation: string) {
@@ -86,11 +92,38 @@ export class ProposalComponent implements OnInit {
 
     this.review.recommendation = recommendation;
     this.proposalService.updateReview(this.review)
-      .subscribe();
+      .subscribe(review =>{
+
+        let isPresent = false;
+        this.reviewsByAllUsers.forEach(currentReview =>
+        {
+          if(currentReview.id == review.id){
+            isPresent = true;
+            currentReview.recommendation = review.recommendation;
+          }
+        })
+
+        if(!isPresent) {
+          this.reviewsByAllUsers.push(review);
+          this.proposalService.checkProposalStatus(this.proposal.id, this.conference.level)
+            .subscribe();
+        }
+      });
     this.showForReview = false;
+
+
   }
 
   goBack() {
     this.location.back();
+  }
+
+  userInReviewers(userId:number):boolean{
+    let wasThere : boolean = false;
+    this.reviewersForProposal.forEach(user => {
+      if(user.id == userId)
+        wasThere = true;
+    });
+    return wasThere;
   }
 }
