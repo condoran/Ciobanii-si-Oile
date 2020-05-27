@@ -24,7 +24,6 @@ export class ProposalComponent implements OnInit {
   unbiddenIDs: number[] = JSON.parse(sessionStorage.getItem("biddingIDs"));
   permission: Permission = JSON.parse(sessionStorage.getItem("permission"));
   usersToReview: User[] = null;
-  reviewersIDsForProposal: number[] = null;
   showForReview: boolean = false;
   qualifier: string = "";
   review: Review = null;
@@ -32,6 +31,7 @@ export class ProposalComponent implements OnInit {
   writtenProposals :number[] = JSON.parse(sessionStorage.getItem("proposalsIDs"));
   reviewersForProposal : User[] = null;
   wantToSeReviewers: boolean = false;
+  chairToViewReviews: boolean = false;
 
   constructor(private route:ActivatedRoute,
               private proposalService: ProposalService,
@@ -125,5 +125,16 @@ export class ProposalComponent implements OnInit {
         wasThere = true;
     });
     return wasThere;
+  }
+
+  updateStatusByChair(status: string): void{
+    this.proposal.status = status;
+    this.proposalService.updateProposal(this.proposal).subscribe();
+  }
+
+  resetProposalReviews() {
+    this.proposal.status = "pending review";
+    this.reviewsByAllUsers = null;
+    this.proposalService.resetReviewsForProposal(this.proposal.id).subscribe();
   }
 }

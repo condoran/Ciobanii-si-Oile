@@ -98,4 +98,8 @@ export class ProposalService{
     return this.httpClient
       .post<string>(this.proposalUrl + "/checkProposalStatus", [proposalID, conferenceLevel]);
   }
+
+  resetReviewsForProposal(proposalID: number): Observable<string>{
+    return this.httpClient.post<string>(this.proposalUrl + "/resetReviewsForProposal", proposalID);
+  }
 }
