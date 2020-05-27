@@ -42,7 +42,11 @@ export class ProposalNewComponent implements OnInit {
         this.proposalService.addAuthor(new ProposalAuthor(null, this.user, proposal));
         this.conferenceService.addPermission(new Permission(null, this.conference ,
           this.user, true, null, null))
-          .subscribe(permission => console.log(permission));
+          .subscribe();
+
+        let writtenProposals :number[] = JSON.parse(sessionStorage.getItem("proposalsIDs"));
+        writtenProposals.push(proposal.id);
+        sessionStorage.setItem("proposalsIDs", JSON.stringify(writtenProposals));
       });
   }
 

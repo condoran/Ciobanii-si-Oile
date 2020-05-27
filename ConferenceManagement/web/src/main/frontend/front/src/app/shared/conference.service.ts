@@ -43,8 +43,9 @@ export class ConferenceService {
       });
 
     const user: User = JSON.parse(sessionStorage.getItem("user"));
-    this.userService.getPermissionForUserInConference(user.id, conferenceID).subscribe(permission =>
-      sessionStorage.setItem("permission", JSON.stringify(permission)));
+    this.userService.getPermissionForUserInConference(user.id, conferenceID).subscribe(permission => {
+      sessionStorage.setItem("permission", JSON.stringify(permission));
+    });
   }
 
   addPermission(permission: Permission) :Observable<Permission>{
