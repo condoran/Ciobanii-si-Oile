@@ -3,10 +3,10 @@
   <br>
   <hr>
   <h4>Keywords:</h4><br>
-  {{proposal.keywords}}
+  <p>{{proposal.keywords}}</p>
 
   <h4>Topics:</h4><br>
-  {{proposal.topics}}
+  <p>{{proposal.topics}}</p>
   <hr>
 
   <button *ngIf="user !== null && (user.isChair || user.isCoChair) && currentDate > conference.biddingDeadline" (click)="showList()">
@@ -46,11 +46,12 @@
     <button (click)="reviewProposal(recommendation.value)">Submit Review</button>
   </div>
   <div *ngIf="user !== null && review !== null && review.qualifier !== '' && review.recommendation !== ''">
-    <ul>
-      <li *ngFor="let reviewOthers of reviewsByAllUsers" style="list-style-type: none">
-        <div *ngIf="reviewOthers.user.id !== user.id">
-          <h4>-Review Of {{reviewOthers.user.name}}:</h4>
-          <b>Qualifier: </b><br/>{{reviewOthers.qualifier}}<br/>
+    <ul class="review-list">
+      <li  *ngFor="let reviewOthers of reviewsByAllUsers" style="list-style-type: none">
+        <div class="review" >
+          <h4 *ngIf="reviewOthers.user.id !== user.id">-Review Of {{reviewOthers.user.name}}:</h4>
+          <h4 *ngIf="reviewOthers.user.id === user.id">-My Review:</h4><br/>
+          <b>Qualifier: </b><br/>{{reviewOthers.qualifier}}<br/><br/>
           <b>Recommendation: </b><br/>{{reviewOthers.recommendation}}<br/>
         </div>
       </li>
