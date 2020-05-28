@@ -25,4 +25,6 @@ public interface SectionService {
 
     List<Proposal> getUnassignedAndAcceptedProposals();
 
+    Section updateSectionProposals(Long sectionID, List<Long> proposalIDs);
+
 }

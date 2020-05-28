@@ -79,4 +79,19 @@ public class SectionServiceImpl implements SectionService{
                 .collect(Collectors.toList());
     }
 
+    @Override
+    @Transactional
+    public Section updateSectionProposals(Long sectionID, List<Long> proposalIDs) {
+        List<Proposal> proposals = proposalRepository.findAllById(proposalIDs);
+        Optional<Section> updatedSection =
+                sectionRepository.findById(sectionID);
+        if(updatedSection.isEmpty())
+            return null;
+
+        updatedSection.ifPresent(section -> section.setProposals(proposals));
+
+        return updatedSection.get();
+    }
+
+
 }

@@ -89,8 +89,15 @@ public class SectionController {
         List<Proposal> proposalList = sectionService.getUnassignedAndAcceptedProposals();
         logger.trace("in SectionController, getUnassignedAndAcceptedProposals, proposalList = {}", proposalList);
         return proposalConverter.convertModelsToDtos(proposalList);
-
     }
 
+    @RequestMapping(value = "section/updateSectionProposals", method = RequestMethod.POST)
+    SectionDTO updateSectionProposals(@RequestBody SectionDTO sectionDTO){
+        logger.trace("in SectionController, updateSectionProposals, sectionDTO = {}", sectionDTO);
+        Section updatedSection = sectionService.updateSectionProposals(sectionDTO.getId(), sectionDTO.getProposalIDs());
+        logger.trace("in SectionController, updateSectionProposals, updatedSection = {}", updatedSection);
+
+        return sectionConverter.convertModelToDto(updatedSection);
+    }
 
 }
