@@ -22,6 +22,7 @@ import { ProposalComponent } from './proposal/proposal.component';
 import { SectionNewComponent } from './section-new/section-new.component';
 import { SectionListComponent } from './section-list/section-list.component';
 import {SectionService} from "./shared/section.service";
+import { SectionComponent } from './section/section.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {SectionService} from "./shared/section.service";
     ProposalComponent,
     SectionNewComponent,
     SectionListComponent,
+    SectionComponent,
   ],
   imports: [
     BrowserModule,

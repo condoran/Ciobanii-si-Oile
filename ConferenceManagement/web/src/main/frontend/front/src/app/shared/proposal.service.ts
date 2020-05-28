@@ -103,6 +103,10 @@ export class ProposalService{
     return this.httpClient.post<string>(this.proposalUrl + "/resetReviewsForProposal", proposalID);
   }
 
+  getProposalsForIDs(proposalIDs: number[]): Observable<Proposal[]>{
+    return this.httpClient.post<Proposal[]>(this.proposalUrl + "getProposalsForIDs", proposalIDs);
+  }
+
   // uploadAbstract(authorId: number, paperName: string,
   //                paperKeywords: string, abstract: File): Observable<boolean> {
   //   console.log(authorId, paperName, paperKeywords, abstract);

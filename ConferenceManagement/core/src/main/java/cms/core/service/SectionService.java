@@ -22,5 +22,4 @@ public interface SectionService {
 
     Optional<Section> updateSectionChair(Long sectionID, CMSUser futureChair);
 
-    Optional<Section> updateSectionSpeakers(Long sectionID, List<CMSUser> speakers);
 }

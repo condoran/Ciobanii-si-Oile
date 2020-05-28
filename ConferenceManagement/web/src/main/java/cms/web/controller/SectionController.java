@@ -41,15 +41,6 @@ public class SectionController {
         return new ArrayList<>(sectionConverter.convertModelsToDtos(sections));
     }
 
-    @RequestMapping(value = "section/getSpeakers", method = RequestMethod.GET)
-    List<UserDTO> getSpeakers(@RequestBody Long sectionID){
-        Optional<Section> section = sectionService.getSectionById(sectionID);
-        if(section.isEmpty()){
-            return new ArrayList<>();
-        }
-        return new ArrayList<>(userConverter.convertModelsToDtos(section.get().getSpeakers()));
-    }
-
     @RequestMapping(value = "section/updateSectionChair/{sectionID}", method = RequestMethod.POST)
     SectionDTO updateSectionChair(@PathVariable Long sectionID, @RequestBody UserDTO userDTO){
         Optional<Section> section = sectionService.updateSectionChair(sectionID, userConverter.convertDtoToModel(userDTO));
@@ -59,13 +50,5 @@ public class SectionController {
         return sectionConverter.convertModelToDto(section.get());
     }
 
-    @RequestMapping(value = "section/updateSectionSpeakers/{sectionID}", method = RequestMethod.POST)
-    SectionDTO updateSectionSpeakers(@PathVariable Long sectionID, @RequestBody List<UserDTO> speakers){
-        Optional<Section> section = sectionService.updateSectionSpeakers(sectionID, userConverter.convertDtosToModel(speakers));
-        if(section.isEmpty()){
-            return null;
-        }
-        return sectionConverter.convertModelToDto(section.get());
-    }
 
 }

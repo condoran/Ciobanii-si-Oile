@@ -60,16 +60,4 @@ public class SectionServiceImpl implements SectionService{
         return section;
     }
 
-    @Override
-    public Optional<Section> updateSectionSpeakers(Long sectionID, List<CMSUser> speakers) {
-        Optional<Section> section = sectionRepository.findById(sectionID);
-        if(section.isEmpty()){
-            return Optional.empty();
-        }
-
-        section.get().setSpeakers(speakers);
-        return section;
-    }
-
-
 }

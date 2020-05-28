@@ -3,6 +3,8 @@ import {Section} from "../shared/section.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Conference} from "../shared/conference.model";
 import {SectionService} from "../shared/section.service";
+import {ProposalService} from "../shared/proposal.service";
+import {Proposal} from "../shared/proposal.model";
 
 @Component({
   selector: 'app-section-list',
@@ -13,10 +15,12 @@ export class SectionListComponent implements OnInit {
 
   sectionsForConference: Section[] = null;
   conference: Conference = JSON.parse(sessionStorage.getItem("conference"));
+  proposalsToPresent: Proposal[] = null;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private sectionService: SectionService) { }
+              private sectionService: SectionService,
+              private proposalService: ProposalService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -28,4 +32,7 @@ export class SectionListComponent implements OnInit {
       .subscribe(sections => this.sectionsForConference = sections);
   }
 
+  goToDetails(id: number) {
+    this.router.navigate(["conference/", this.conference.id, "sections", id]);
+  }
 }
