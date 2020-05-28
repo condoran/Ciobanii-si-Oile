@@ -41,16 +41,18 @@ export class ProposalComponent implements OnInit {
     this.route.params.pipe(switchMap((params: Params) =>
       this.proposalService.getProposalForConference(+params['conferenceID'], +params['proposalID'])))
       .subscribe(proposal => {this.proposal = proposal;
-        this.proposalService.getReviewByUserAndProposal(this.user.id, this.proposal.id).subscribe(
-          review => {this.review = review;}
-        );
-        this.proposalService.getReviewsForProposal(this.proposal.id).subscribe(reviewers =>
-          this.reviewsByAllUsers = reviewers);
-        this.proposalService.getReviewersForProposal(this.proposal.id).subscribe(reviewers =>
-        {
-          this.reviewersForProposal = reviewers;
-        })
-
+        if(this.user !== null) {
+          this.proposalService.getReviewByUserAndProposal(this.user.id, this.proposal.id).subscribe(
+            review => {
+              this.review = review;
+            }
+          );
+          this.proposalService.getReviewsForProposal(this.proposal.id).subscribe(reviewers =>
+            this.reviewsByAllUsers = reviewers);
+          this.proposalService.getReviewersForProposal(this.proposal.id).subscribe(reviewers => {
+            this.reviewersForProposal = reviewers;
+          })
+        }
       });
   }
 
