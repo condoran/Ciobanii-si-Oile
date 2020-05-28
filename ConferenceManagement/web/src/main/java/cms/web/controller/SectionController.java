@@ -36,13 +36,13 @@ public class SectionController {
     }
 
     @RequestMapping(value = "section/getSectionsForConference", method = RequestMethod.GET)
-    List<SectionDTO> getSectionsForConference(@RequestParam Long conferenceID){
+    List<SectionDTO> getSectionsForConference(@RequestBody Long conferenceID){
         List<Section> sections = sectionService.getAllByConferenceId(conferenceID);
         return new ArrayList<>(sectionConverter.convertModelsToDtos(sections));
     }
 
     @RequestMapping(value = "section/getSpeakers", method = RequestMethod.GET)
-    List<UserDTO> getSpeakers(@RequestParam Long sectionID){
+    List<UserDTO> getSpeakers(@RequestBody Long sectionID){
         Optional<Section> section = sectionService.getSectionById(sectionID);
         if(section.isEmpty()){
             return new ArrayList<>();
