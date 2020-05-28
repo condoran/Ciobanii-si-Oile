@@ -27,4 +27,8 @@ public interface SectionService {
 
     Section updateSectionProposals(Long sectionID, List<Long> proposalIDs);
 
+    void addParticipantInSection(Long sectionID, Long userID);
+
+    boolean checkParticipantInSection(Long sectionID, Long userID);
+
 }

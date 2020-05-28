@@ -100,4 +100,22 @@ public class SectionController {
         return sectionConverter.convertModelToDto(updatedSection);
     }
 
+    @RequestMapping(value = "section/addParticipantInSection", method = RequestMethod.POST)
+    void addParticipantInSection(@RequestBody Long[] IDs){
+        Long sectionID = IDs[0];
+        Long userID = IDs[1];
+        logger.trace("in SectionController, addParticipantInSection, sectionID = {}, userID  = {}", sectionID, userID);
+        sectionService.addParticipantInSection(sectionID, userID);
+    }
+
+    @RequestMapping(value = "section/checkParticipantInSection", method = RequestMethod.POST)
+    boolean checkParticipantInSection(@RequestBody Long[] IDs){
+        Long sectionID = IDs[0];
+        Long userID = IDs[1];
+        logger.trace("in SectionController, checkParticipantInSection, sectionID = {}, userID  = {}", sectionID, userID);
+        return sectionService.checkParticipantInSection(sectionID, userID);
+    }
+
+
+
 }

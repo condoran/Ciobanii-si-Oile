@@ -4,6 +4,7 @@ import cms.core.domain.CMSUser;
 import cms.core.domain.Proposal;
 import cms.core.domain.Section;
 import cms.core.repo.ProposalRepository;
+import cms.core.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import cms.core.repo.SectionRepository;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,6 +24,9 @@ public class SectionServiceImpl implements SectionService{
 
     @Autowired
     private ProposalRepository proposalRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public Optional<Section> getSectionById(Long sectionId) {
@@ -91,6 +96,30 @@ public class SectionServiceImpl implements SectionService{
         updatedSection.ifPresent(section -> section.setProposals(proposals));
 
         return updatedSection.get();
+    }
+
+    @Override
+    @Transactional
+    public void addParticipantInSection(Long sectionID, Long userID) {
+        userRepository.findById(userID).ifPresent(user -> {
+            sectionRepository.findById(sectionID).ifPresent(section -> {
+                List<CMSUser> participants = section.getParticipants();
+                participants.add(user);
+                section.setParticipants(participants);
+            });
+        });
+    }
+
+    @Override
+    public boolean checkParticipantInSection(Long sectionID, Long userID) {
+        Optional<Section> section = sectionRepository.findById(sectionID);
+        if(section.isEmpty())
+            return false;
+        List<Long> cmsUsersIDs = section.get().getParticipants().stream()
+                .map(CMSUser::getId)
+                .collect(Collectors.toList());
+
+        return cmsUsersIDs.contains(userID);
     }
 
 
