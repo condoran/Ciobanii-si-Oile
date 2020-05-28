@@ -75,4 +75,8 @@ export class ConferenceComponent implements OnInit {
   goToSections() {
     this.router.navigate(["conference", this.conference.id,"sections"]);
   }
+
+  goToCreateSection() {
+    this.router.navigate(["conference", this.conference.id,"newSection"]);
+  }
 }

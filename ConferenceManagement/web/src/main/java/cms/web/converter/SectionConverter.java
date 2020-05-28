@@ -6,6 +6,7 @@ import cms.web.dto.SectionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,8 +31,10 @@ public class SectionConverter extends BaseConverter<Section, SectionDTO>{
             return null;
         return Section.builder()
                 .id(sectionDTO.getId())
+                .name(sectionDTO.getName())
                 .sectionChair((sectionDTO.getChair() == null)? null : userConverter.convertDtoToModel(sectionDTO.getChair()))
                 .proposals((sectionDTO.getProposalIDs() == null)? null : proposalService.getProposalsByIDs(sectionDTO.getProposalIDs()))
+                .participants(new ArrayList<>())
                 .conference((sectionDTO.getConference() == null)? null : conferenceConverter.convertDtoToModel(sectionDTO.getConference()))
                 .build();
     }
@@ -42,6 +45,7 @@ public class SectionConverter extends BaseConverter<Section, SectionDTO>{
             return null;
         return SectionDTO.builder()
                 .id(section.getId())
+                .name(section.getName())
                 .chair((section.getSectionChair() == null)? null : userConverter.convertModelToDto(section.getSectionChair()))
                 .proposalIDs((section.getProposals() == null)? null : proposalConverter.convertModelsToIDs(section.getProposals()))
                 .conference((section.getConference() == null)? null : conferenceConverter.convertModelToDto(section.getConference()))

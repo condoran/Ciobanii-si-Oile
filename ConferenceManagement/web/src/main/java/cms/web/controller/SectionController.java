@@ -34,8 +34,12 @@ public class SectionController {
     private UserConverter userConverter;
 
     @RequestMapping(value = "section/saveSection", method = RequestMethod.POST)
-    SectionDTO saveSection(SectionDTO sectionDTO){
-        return sectionConverter.convertModelToDto(sectionService.save(sectionConverter.convertDtoToModel(sectionDTO)));
+    SectionDTO saveSection(@RequestBody SectionDTO sectionDTO){
+        logger.trace("saveSection, sectionDTO={}", sectionDTO);
+        Section section = sectionService.save(sectionConverter.convertDtoToModel(sectionDTO));
+        logger.trace("saveSection, saved section={}", section);
+
+        return sectionConverter.convertModelToDto(section);
     }
 
     @RequestMapping(value = "section/getSectionByID", method = RequestMethod.POST)

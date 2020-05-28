@@ -1,1 +1,8 @@
-<p>section works!</p>
+
+<h2 *ngIf="section">Section {{section.name}} Details:</h2>
+
+<div id="proposals" *ngFor="let proposal of proposalsToPresent">
+  {{proposal.name}}
+</div>
+<button>Assign Proposals</button>
+<button (click)="goBack()">Back</button>

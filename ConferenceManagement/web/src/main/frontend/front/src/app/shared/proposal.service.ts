@@ -104,7 +104,7 @@ export class ProposalService{
   }
 
   getProposalsForIDs(proposalIDs: number[]): Observable<Proposal[]>{
-    return this.httpClient.post<Proposal[]>(this.proposalUrl + "getProposalsForIDs", proposalIDs);
+    return this.httpClient.post<Proposal[]>(this.proposalUrl + "/getProposalsForIDs", proposalIDs);
   }
 
   // uploadAbstract(authorId: number, paperName: string,

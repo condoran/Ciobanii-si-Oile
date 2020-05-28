@@ -2,8 +2,8 @@
 
 <div id="sectionList" *ngFor="let section of sectionsForConference">
   <div id="section">
-    <h3>Section name</h3>
-    Section chair: {{section.chair}}<br>
+    <h3>Name: {{section.name}}</h3>
+    Section chair: {{section.chair.name}}<br>
     <button (click)="goToDetails(section.id)">Show Details</button>
   </div>
 </div>

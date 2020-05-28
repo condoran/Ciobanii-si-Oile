@@ -15,12 +15,10 @@ export class SectionListComponent implements OnInit {
 
   sectionsForConference: Section[] = null;
   conference: Conference = JSON.parse(sessionStorage.getItem("conference"));
-  proposalsToPresent: Proposal[] = null;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private sectionService: SectionService,
-              private proposalService: ProposalService) { }
+              private sectionService: SectionService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {

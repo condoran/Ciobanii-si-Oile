@@ -20,13 +20,15 @@ public class Section implements Serializable {
     @GeneratedValue
     private Long id;
 
+    private String name;
+
     @OneToOne
     private CMSUser sectionChair;
 
     @OneToMany(fetch = FetchType.EAGER)
     private List<Proposal> proposals = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany
     private List<CMSUser> participants = new ArrayList<>();
 
     @ManyToOne
