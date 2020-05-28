@@ -19,7 +19,7 @@
     <hr>
     <div class="buttonsDiv">
       <button (click)="goToDetails(proposal.id)">View Proposal</button>
-      <button *ngIf="writtenProposals.indexOf(proposal.id) !== -1" (click)="goToUpdateProposal(proposal.id)">Update</button>
+      <button *ngIf="user != null && writtenProposals.indexOf(proposal.id) !== -1" (click)="goToUpdateProposal(proposal.id)">Update</button>
     </div>
     <br>
   </div>

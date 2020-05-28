@@ -28,7 +28,7 @@ public class Section implements Serializable {
     @OneToMany(fetch = FetchType.EAGER)
     private List<Proposal> proposals = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<CMSUser> participants = new ArrayList<>();
 
     @ManyToOne

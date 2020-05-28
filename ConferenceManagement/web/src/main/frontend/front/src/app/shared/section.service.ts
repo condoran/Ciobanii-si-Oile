@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Section} from "./section.model";
 import {Observable} from "rxjs";
 import {User} from "./user.model";
+import {Proposal} from "./proposal.model";
 
 @Injectable()
 export class SectionService {
@@ -31,4 +32,19 @@ export class SectionService {
     return this.httpClient.post<User[]>(this.sectionUrl + "/getCandidatesForSectionChair", conferenceID);
   }
 
+  updateSectionProposals(section: Section): Observable<Section>{
+    return this.httpClient.post<Section>(this.sectionUrl + "/updateSectionProposals", section);
+  }
+
+  getUnassignedAndAcceptedProposals(): Observable<Proposal[]>{
+    return this.httpClient.get<Proposal[]>(this.sectionUrl + "/getUnassignedAndAcceptedProposals");
+  }
+
+  addParticipantInSection(sectionID: number, userID: number): Observable<void>{
+    return this.httpClient.post<void>(this.sectionUrl + "/addParticipantInSection", [sectionID, userID]);
+  }
+
+  checkParticipantInSection(sectionID: number, userID: number): Observable<boolean>{
+    return this.httpClient.post<boolean>(this.sectionUrl + "/checkParticipantInSection",[sectionID, userID]);
+  }
 }

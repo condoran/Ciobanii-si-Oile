@@ -4,6 +4,9 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Conference} from "../shared/conference.model";
 import {User} from "../shared/user.model";
 import {Section} from "../shared/section.model";
+import {Location} from "@angular/common";
+import {ConferenceService} from "../shared/conference.service";
+import {Permission} from "../shared/permission.model";
 
 @Component({
   selector: 'app-section-new',
@@ -19,12 +22,14 @@ export class SectionNewComponent implements OnInit {
 
   constructor(private sectionService: SectionService,
               private router: Router,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private location: Location,
+              private conferenceService: ConferenceService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       if(+params["conferenceID"] != this.conference.id) {
-        this.router.navigate(["conference/", this.conference.id, "newSection"]);
+        this.router.navigate(["conference", this.conference.id, "newSection"]);
       }
     });
     this.sectionService.getCandidatesForSectionChair(this.conference.id)
@@ -35,9 +40,15 @@ export class SectionNewComponent implements OnInit {
     this.wantsToAddSectionChair = false;
     let section: Section = new Section(null, sectionName, user, null, this.conference);
     this.sectionService.addSection(section).subscribe();
+    this.conferenceService.addPermission(new Permission(null, this.conference, user, null, null, true)).subscribe();
+    this.router.navigate(["conference", this.conference.id, "sections"]);
   }
 
   setAsSectionChair(user: User) {
     this.selectedCandidate = user;
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

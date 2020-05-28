@@ -19,8 +19,8 @@
     Show reviews
   </button>
 
-  <button *ngIf="canDoBidding(proposal.id)" (click)="bidProposal(proposal, true)">Accept Proposal</button>
-  <button *ngIf="canDoBidding(proposal.id)" (click)="bidProposal(proposal, false)">Refuse Proposal</button>
+  <button *ngIf="user != null && canDoBidding(proposal.id)" (click)="bidProposal(proposal, true)">Accept Proposal</button>
+  <button *ngIf="user != null && canDoBidding(proposal.id)" (click)="bidProposal(proposal, false)">Refuse Proposal</button>
 
   <!--  Assign reviewers  -->
   <div id = "assignReviewers" *ngIf="user !== null && usersToReview !== null && reviewersForProposal !== null">

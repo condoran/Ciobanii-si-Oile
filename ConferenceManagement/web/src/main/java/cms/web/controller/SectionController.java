@@ -113,7 +113,10 @@ public class SectionController {
         Long sectionID = IDs[0];
         Long userID = IDs[1];
         logger.trace("in SectionController, checkParticipantInSection, sectionID = {}, userID  = {}", sectionID, userID);
-        return sectionService.checkParticipantInSection(sectionID, userID);
+        boolean found = sectionService.checkParticipantInSection(sectionID, userID);
+        logger.trace("in SectionController, checkParticipantInSection, found={}", found);
+        return found;
+
     }
 
 
