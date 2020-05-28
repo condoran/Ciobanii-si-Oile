@@ -1,11 +1,15 @@
 package cms.web.controller;
 
+import cms.core.domain.CMSUser;
 import cms.core.domain.Section;
 import cms.core.service.SectionService;
+import cms.core.service.UserService;
 import cms.web.converter.SectionConverter;
 import cms.web.converter.UserConverter;
 import cms.web.dto.SectionDTO;
 import cms.web.dto.UserDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +19,13 @@ import java.util.Optional;
 
 @RestController
 public class SectionController {
+    public static final Logger logger = LoggerFactory.getLogger(ConferenceController.class);
+
     @Autowired
     private SectionService sectionService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private SectionConverter sectionConverter;
@@ -54,6 +63,14 @@ public class SectionController {
             return null;
         }
         return sectionConverter.convertModelToDto(section.get());
+    }
+
+    @RequestMapping(value = "section/getCandidatesForSectionChair", method = RequestMethod.POST)
+    List<UserDTO> getCandidatesForSectionChair(@RequestBody Long conferenceID){
+        logger.trace("in SectionController, getCandidatesForSectionChair, conferenceID = {}", conferenceID);
+        List<CMSUser> candidates = userService.getCandidatesForSectionChair(conferenceID);
+        logger.trace("in SectionController, getCandidatesForSectionChair, candidates = {}", candidates);
+        return new ArrayList<>(userConverter.convertModelsToDtos(candidates));
     }
 
 

@@ -41,4 +41,6 @@ public interface UserService {
 
     Optional<ProposalAuthor> getUserCanBeAuthorInProposal(long userID, long proposalID);
 
+    List<CMSUser> getCandidatesForSectionChair(Long conferenceID);
+
 }

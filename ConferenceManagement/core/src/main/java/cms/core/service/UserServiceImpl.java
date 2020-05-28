@@ -6,6 +6,7 @@ import cms.core.domain.Permission;
 import cms.core.domain.ProposalAuthor;
 import cms.core.repo.PermissionRepository;
 import cms.core.repo.ProposalAuthorRepository;
+import cms.core.repo.SectionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import cms.core.repo.UserRepository;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -30,6 +32,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private ProposalAuthorRepository proposalAuthorRepository;
+
+    @Autowired
+    private SectionRepository sectionRepository;
 
     @Override
     public Optional<CMSUser> getUserByUsername(String username) {
@@ -126,6 +131,32 @@ public class UserServiceImpl implements UserService {
     public Optional<ProposalAuthor> getUserCanBeAuthorInProposal(long userID, long proposalID) {
         return proposalAuthorRepository.findAll().stream().filter(proposalAuthor -> proposalAuthor.getUser().getId() == userID
         && proposalAuthor.getProposal().getId() == proposalID).findFirst();
+    }
+
+    @Override
+    public List<CMSUser> getCandidatesForSectionChair(Long conferenceID) {
+
+        List<Long> sectionChairsIDs =
+                permissionRepository.findAll().stream()
+                .filter(permission -> permission.getConference().getId().equals(conferenceID))
+                .filter(Permission::getIsSectionChair)
+                .map(permission -> permission.getCmsUser().getId())
+                .collect(Collectors.toList());
+
+        List<CMSUser> SCMembers = userRepository.findAll().stream()
+                        .filter(user -> !sectionChairsIDs.contains(user.getId()))
+                        .filter(CMSUser::getIsSCMember)
+                        .collect(Collectors.toList());
+
+        List<CMSUser> PCMembers = permissionRepository.findAll().stream()
+                .filter(Permission::getIsPCMember)
+                .filter(permission -> !permission.getIsSectionChair())
+                .map(Permission::getCmsUser)
+                .collect(Collectors.toList());
+
+        return Stream.concat(SCMembers.stream(), PCMembers.stream())
+                .collect(Collectors.toList());
+
     }
 
 
