@@ -2,7 +2,6 @@ package cms.web.converter;
 
 import cms.core.domain.Section;
 import cms.core.service.ProposalService;
-import cms.core.service.UserService;
 import cms.web.dto.SectionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,7 +31,7 @@ public class SectionConverter extends BaseConverter<Section, SectionDTO>{
         return Section.builder()
                 .id(sectionDTO.getId())
                 .sectionChair((sectionDTO.getChair() == null)? null : userConverter.convertDtoToModel(sectionDTO.getChair()))
-                .proposals((sectionDTO.getProposalIDs() == null)? null : proposalService.getProposalByIDs(sectionDTO.getProposalIDs()))
+                .proposals((sectionDTO.getProposalIDs() == null)? null : proposalService.getProposalsByIDs(sectionDTO.getProposalIDs()))
                 .conference((sectionDTO.getConference() == null)? null : conferenceConverter.convertDtoToModel(sectionDTO.getConference()))
                 .build();
     }

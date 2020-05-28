@@ -7,6 +7,7 @@ import cms.web.converter.*;
 import cms.web.dto.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aop.target.LazyInitTargetSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +41,12 @@ public class ProposalController {
     @RequestMapping(value = "/proposal/getProposals", method = RequestMethod.GET)
     List<ProposalDTO> getProposals(){
         List<Proposal> proposals = proposalService.getAll();
+        return new ArrayList<>(proposalConverter.convertModelsToDtos(proposals));
+    }
+
+    @RequestMapping(value = "/proposal/getProposalsForIDs", method = RequestMethod.POST)
+    List<ProposalDTO> getProposalsForIDs(@RequestBody List<Long> proposalsIDs){
+        List<Proposal> proposals = proposalService.getProposalsByIDs(proposalsIDs);
         return new ArrayList<>(proposalConverter.convertModelsToDtos(proposals));
     }
 
