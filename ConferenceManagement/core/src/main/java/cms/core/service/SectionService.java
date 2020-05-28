@@ -1,6 +1,7 @@
 package cms.core.service;
 
 import cms.core.domain.CMSUser;
+import cms.core.domain.Proposal;
 import cms.core.domain.Section;
 
 import java.util.List;
@@ -21,5 +22,7 @@ public interface SectionService {
     void delete(Long sectionId);
 
     Optional<Section> updateSectionChair(Long sectionID, CMSUser futureChair);
+
+    List<Proposal> getUnassignedAndAcceptedProposals();
 
 }

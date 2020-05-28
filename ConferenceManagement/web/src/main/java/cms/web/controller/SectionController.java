@@ -1,11 +1,14 @@
 package cms.web.controller;
 
 import cms.core.domain.CMSUser;
+import cms.core.domain.Proposal;
 import cms.core.domain.Section;
 import cms.core.service.SectionService;
 import cms.core.service.UserService;
+import cms.web.converter.ProposalConverter;
 import cms.web.converter.SectionConverter;
 import cms.web.converter.UserConverter;
+import cms.web.dto.ProposalDTO;
 import cms.web.dto.SectionDTO;
 import cms.web.dto.UserDTO;
 import org.slf4j.Logger;
@@ -32,6 +35,9 @@ public class SectionController {
 
     @Autowired
     private UserConverter userConverter;
+
+    @Autowired
+    private ProposalConverter proposalConverter;
 
     @RequestMapping(value = "section/saveSection", method = RequestMethod.POST)
     SectionDTO saveSection(@RequestBody SectionDTO sectionDTO){
@@ -75,6 +81,15 @@ public class SectionController {
         List<CMSUser> candidates = userService.getCandidatesForSectionChair(conferenceID);
         logger.trace("in SectionController, getCandidatesForSectionChair, candidates = {}", candidates);
         return new ArrayList<>(userConverter.convertModelsToDtos(candidates));
+    }
+
+    @RequestMapping(value = "section/getUnassignedAndAcceptedProposals", method = RequestMethod.GET)
+    List<ProposalDTO> getUnassignedAndAcceptedProposals(){
+        logger.trace("in SectionController, getUnassignedAndAcceptedProposals");
+        List<Proposal> proposalList = sectionService.getUnassignedAndAcceptedProposals();
+        logger.trace("in SectionController, getUnassignedAndAcceptedProposals, proposalList = {}", proposalList);
+        return proposalConverter.convertModelsToDtos(proposalList);
+
     }
 
 

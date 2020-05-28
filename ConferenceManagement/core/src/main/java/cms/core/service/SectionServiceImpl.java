@@ -1,12 +1,15 @@
 package cms.core.service;
 
 import cms.core.domain.CMSUser;
+import cms.core.domain.Proposal;
 import cms.core.domain.Section;
+import cms.core.repo.ProposalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import cms.core.repo.SectionRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -16,6 +19,9 @@ public class SectionServiceImpl implements SectionService{
 
     @Autowired
     private SectionRepository sectionRepository;
+
+    @Autowired
+    private ProposalRepository proposalRepository;
 
     @Override
     public Optional<Section> getSectionById(Long sectionId) {
@@ -58,6 +64,19 @@ public class SectionServiceImpl implements SectionService{
 
         section.get().setSectionChair(futureChair);
         return section;
+    }
+
+    @Override
+    public List<Proposal> getUnassignedAndAcceptedProposals() {
+        List<Long> assignedProposalIDs = new ArrayList<>();
+        sectionRepository.findAll().stream()
+                .map(Section::getProposals)
+                .forEach(proposals -> proposals.forEach(proposal -> assignedProposalIDs.add(proposal.getId())));
+
+        return proposalRepository.findAll().stream()
+                .filter(proposal -> proposal.getStatus().equals("Accepted"))
+                .filter(proposal -> !assignedProposalIDs.contains(proposal.getId()))
+                .collect(Collectors.toList());
     }
 
 }
