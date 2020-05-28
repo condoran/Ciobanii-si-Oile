@@ -10,6 +10,7 @@ import {ProposalNewComponent} from "./proposal-new/proposal-new.component";
 import {ConferenceNewComponent} from "./conference-new/conference-new.component";
 import {ProposalUpdateComponent} from "./proposal-update/proposal-update.component";
 import {ProposalComponent} from "./proposal/proposal.component";
+import {SectionListComponent} from "./section-list/section-list.component";
 
 
 const routes: Routes = [
@@ -22,7 +23,8 @@ const routes: Routes = [
   {path: 'conference/:conferenceID/newProposal', component:ProposalNewComponent},
   {path: 'conference-new', component:ConferenceNewComponent},
   {path: 'conference/:conferenceID/proposals/:proposalID', component: ProposalUpdateComponent},
-  {path: 'conference/:conferenceID/proposals/:proposalID/details', component: ProposalComponent}
+  {path: 'conference/:conferenceID/proposals/:proposalID/details', component: ProposalComponent},
+  {path: 'conference/:conferenceID/sections', component:SectionListComponent}
 ];
 
 @NgModule({

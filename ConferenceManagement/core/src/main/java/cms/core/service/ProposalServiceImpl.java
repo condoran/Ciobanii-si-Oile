@@ -34,6 +34,11 @@ public class ProposalServiceImpl implements ProposalService{
     }
 
     @Override
+    public List<Proposal> getProposalByIDs(List<Long> proposalIDs) {
+        return proposalRepository.findAllById(proposalIDs);
+    }
+
+    @Override
     public List<Proposal> getAll() {
         return proposalRepository.findAll();
     }

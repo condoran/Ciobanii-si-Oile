@@ -24,6 +24,7 @@
   <button *ngIf="user !== null && !isChairOrCoChair()"
           (click)="goToCreateProposal()">Create Proposal</button>
   <button *ngIf="user !== null && isChairOrCoChair()" (click)="getAllUsers()">Assign PC Members</button>
+  <button *ngIf="user !== null && isChairOrCoChair()" (click)="goToSections()">View Sections</button>
   <div *ngIf="user !== null && isChairOrCoChair() && users !== null">
     <ul>
       <li *ngFor="let user of users">

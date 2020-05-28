@@ -25,9 +25,9 @@ public class ConferenceDTO implements Serializable {
     private Date biddingDeadline;
     private Integer level;
 
-    private UserDTO chair;
-    private UserDTO firstCoChair;
-    private UserDTO secondCoChair;
+//    private UserDTO chair;
+//    private UserDTO firstCoChair;
+//    private UserDTO secondCoChair;
     private List<Long> sectionsIDs;
 
 }

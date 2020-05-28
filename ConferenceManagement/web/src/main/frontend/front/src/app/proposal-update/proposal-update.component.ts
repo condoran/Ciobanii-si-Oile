@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ProposalService} from "../shared/proposal.service";
 import {ActivatedRoute, Params} from "@angular/router";
 import {Proposal} from "../shared/proposal.model";
@@ -18,6 +18,10 @@ import {ConferenceService} from "../shared/conference.service";
 })
 export class ProposalUpdateComponent implements OnInit {
 
+  @ViewChild('fileUpload', {static: false}) fileUpload: ElementRef;
+  file: File = null;
+  fileName: string;
+
   @Input() proposal: Proposal;
   user : User = JSON.parse(sessionStorage.getItem("user"));
   conference : Conference = JSON.parse(sessionStorage.getItem("conference"));
@@ -34,6 +38,16 @@ export class ProposalUpdateComponent implements OnInit {
     this.route.params.pipe(switchMap((params: Params) => this.proposalService.getProposalForConference(+params['conferenceID'], +params['proposalID'])))
       .subscribe(proposal => {this.proposal = proposal;});
   }
+
+  // uploadAbstractButtonPressed() {
+  //   const fileUpload = this.fileUpload.nativeElement;
+  //   fileUpload.onchange = () => {
+  //     this.file = fileUpload.files[0];
+  //     this.fileName = this.file.name;
+  //     this.fileUpload.nativeElement.value = '';
+  //   };
+  //   fileUpload.click();
+  // }
 
   updateProposal(): void {
     this.proposalService.updateProposal(this.proposal).subscribe();

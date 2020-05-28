@@ -15,6 +15,6 @@ import java.util.List;
 public class SectionDTO implements Serializable {
     private Long id;
     private UserDTO chair;
-    private List<Long> speakersIDs;
+    private List<Long> proposalIDs;
     private ConferenceDTO conference;
 }

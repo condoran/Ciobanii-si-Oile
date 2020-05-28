@@ -1,6 +1,7 @@
 package cms.web.converter;
 
 import cms.core.domain.Section;
+import cms.core.service.ProposalService;
 import cms.core.service.UserService;
 import cms.web.dto.SectionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,10 @@ public class SectionConverter extends BaseConverter<Section, SectionDTO>{
     private ConferenceConverter conferenceConverter;
 
     @Autowired
-    private UserService userService;
+    private ProposalConverter proposalConverter;
+
+    @Autowired
+    private ProposalService proposalService;
 
     @Override
     public Section convertDtoToModel(SectionDTO sectionDTO) {
@@ -28,7 +32,7 @@ public class SectionConverter extends BaseConverter<Section, SectionDTO>{
         return Section.builder()
                 .id(sectionDTO.getId())
                 .sectionChair((sectionDTO.getChair() == null)? null : userConverter.convertDtoToModel(sectionDTO.getChair()))
-                .speakers((sectionDTO.getSpeakersIDs() == null)? null : userService.getUsersByIDs(sectionDTO.getSpeakersIDs()))
+                .proposals((sectionDTO.getProposalIDs() == null)? null : proposalService.getProposalByIDs(sectionDTO.getProposalIDs()))
                 .conference((sectionDTO.getConference() == null)? null : conferenceConverter.convertDtoToModel(sectionDTO.getConference()))
                 .build();
     }
@@ -40,7 +44,7 @@ public class SectionConverter extends BaseConverter<Section, SectionDTO>{
         return SectionDTO.builder()
                 .id(section.getId())
                 .chair((section.getSectionChair() == null)? null : userConverter.convertModelToDto(section.getSectionChair()))
-                .speakersIDs((section.getSpeakers() == null)? null : userConverter.convertModelsToIDs(section.getSpeakers()))
+                .proposalIDs((section.getProposals() == null)? null : proposalConverter.convertModelsToIDs(section.getProposals()))
                 .conference((section.getConference() == null)? null : conferenceConverter.convertModelToDto(section.getConference()))
                 .build();
     }

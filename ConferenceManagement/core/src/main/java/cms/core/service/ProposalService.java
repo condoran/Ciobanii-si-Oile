@@ -9,6 +9,8 @@ public interface ProposalService {
 
     Optional<Proposal> getProposalById(Long proposalId);
 
+    List<Proposal> getProposalByIDs(List<Long> proposalIDs);
+
     List<Proposal> getAll();
 
     List<Proposal> getAllByConferenceId(Long conferenceId);

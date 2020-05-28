@@ -24,7 +24,10 @@ public class Section implements Serializable {
     private CMSUser sectionChair;
 
     @OneToMany(fetch = FetchType.EAGER)
-    private List<CMSUser> speakers = new ArrayList<>();
+    private List<Proposal> proposals = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<CMSUser> participants = new ArrayList<>();
 
     @ManyToOne
     private Conference conference;

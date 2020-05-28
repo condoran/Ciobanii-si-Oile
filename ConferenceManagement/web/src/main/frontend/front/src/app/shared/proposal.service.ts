@@ -1,11 +1,11 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {Conference} from "./conference.model";
 import {Proposal} from "./proposal.model";
 import {User} from "./user.model";
 import {ProposalAuthor} from "./proposalAuthor.model";
-import {map} from "rxjs/operators";
+import {catchError, map} from "rxjs/operators";
 import {Bidding} from "./bidding.model";
 import {patchTimer} from "zone.js/lib/common/timers";
 import {Review} from "./review.model";
@@ -102,4 +102,33 @@ export class ProposalService{
   resetReviewsForProposal(proposalID: number): Observable<string>{
     return this.httpClient.post<string>(this.proposalUrl + "/resetReviewsForProposal", proposalID);
   }
+
+  // uploadAbstract(authorId: number, paperName: string,
+  //                paperKeywords: string, abstract: File): Observable<boolean> {
+  //   console.log(authorId, paperName, paperKeywords, abstract);
+  //   var success = true;
+  //
+  //   this.uploadAbstractProper(abstract)
+  //     .subscribe(abstractResult => {
+  //       console.log(abstractResult);
+  //       success = abstractResult;
+  //     });
+  //
+  //   return of(success);
+  // }
+
+  // uploadAbstractProper(abstract: File): Observable<boolean> {
+  //   const formData = new FormData();
+  //   formData.append('file', abstract);
+  //   return this.httpClient.put<boolean>(this.proposalUrl + '/upload-abstract/abstract', formData)
+  //     .pipe(
+  //       map(result => Boolean(result['message']))
+  //     );
+  // }
+  //
+  // private handleError<T>(uploadAbstractProper: string) {
+  //   return function (p1: any, p2: Observable<boolean>) {
+  //     return false;
+  //   };
+  // }
 }

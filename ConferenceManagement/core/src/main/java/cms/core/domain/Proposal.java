@@ -30,6 +30,8 @@ public class Proposal implements Serializable {
     private File abstractPaper;
     private File fullPaper;
     private String status;
+
+//    private CMSUser speaker;
     
     @ManyToOne
     private Conference conference;

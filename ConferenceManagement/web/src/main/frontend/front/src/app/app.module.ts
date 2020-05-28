@@ -19,6 +19,9 @@ import { ProposalNewComponent } from './proposal-new/proposal-new.component';
 import { ConferenceNewComponent } from './conference-new/conference-new.component';
 import { ProposalUpdateComponent } from './proposal-update/proposal-update.component';
 import { ProposalComponent } from './proposal/proposal.component';
+import { SectionNewComponent } from './section-new/section-new.component';
+import { SectionListComponent } from './section-list/section-list.component';
+import {SectionService} from "./shared/section.service";
 
 @NgModule({
   declarations: [
@@ -34,14 +37,16 @@ import { ProposalComponent } from './proposal/proposal.component';
     ConferenceNewComponent,
     ProposalUpdateComponent,
     ProposalComponent,
+    SectionNewComponent,
+    SectionListComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
-  providers: [UserService, ConferenceService, ProposalService],
+  providers: [UserService, ConferenceService, ProposalService, SectionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

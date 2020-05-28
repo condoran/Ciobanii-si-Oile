@@ -47,11 +47,11 @@ export class ConferenceComponent implements OnInit {
   }
 
   goToCreateProposal(): void{
-    this.router.navigate(["conference/", this.conference.id,"newProposal"]);
+    this.router.navigate(["conference", this.conference.id,"newProposal"]);
   }
 
   goToProposals(): void{
-    this.router.navigate(["conference/", this.conference.id,"proposals"]);
+    this.router.navigate(["conference", this.conference.id,"proposals"]);
   }
 
   updateConference(): void{
@@ -72,4 +72,7 @@ export class ConferenceComponent implements OnInit {
     return this.user.isChair === true || this.user.isCoChair === true;
   }
 
+  goToSections() {
+    this.router.navigate(["conference", this.conference.id,"sections"]);
+  }
 }
