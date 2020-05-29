@@ -35,14 +35,14 @@ export class LoginPageComponent implements OnInit {
           alert("Invalid username or password!");
         }
         else {
+          this.userService.checkIfIsPCMemberInAnyConference(this.user.id)
+            .subscribe(status => sessionStorage.setItem("isPCMemberInSomeConference", String(status)));
           sessionStorage.setItem("user", JSON.stringify(this.user));
           this.proposalService.getProposalsIDsForUser(this.user.id)
             .subscribe(IDs => sessionStorage.setItem("proposalsIDs", JSON.stringify(IDs)));
           this.proposalService.getUnbiddenProposalIDs(this.user.id)
             .subscribe( IDs => sessionStorage.setItem("biddingIDs", JSON.stringify(IDs)));
           this.menuComponent.ngOnInit();
-          this.userService.checkIfIsPCMemberInAnyConference(this.user.id)
-            .subscribe(status => sessionStorage.setItem("isPCMemberInSomeConference", String(status)));
           this.router.navigate([""]);
         }
       });

@@ -182,4 +182,10 @@ public class ProposalController{
         logger.trace("in ProposalController, uploadAbstract, abstractUrl = {}", abstractUrl);
         return true;
     }
+
+    @RequestMapping(value = "/proposal/getAuthorsForProposal", method = RequestMethod.POST)
+    List<UserDTO> getAuthorsForProposal(@RequestBody Long proposalID){
+        List<CMSUser> authors = proposalService.getAuthorsForProposal(proposalID);
+        return new ArrayList<>(userConverter.convertModelsToDtos(authors));
+    }
 }

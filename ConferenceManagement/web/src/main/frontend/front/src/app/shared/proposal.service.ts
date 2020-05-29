@@ -107,6 +107,10 @@ export class ProposalService{
     return this.httpClient.post<Proposal[]>(this.proposalUrl + "/getProposalsForIDs", proposalIDs);
   }
 
+  getAuthorsForProposal(proposalID: number): Observable<User[]>{
+    return this.httpClient.post<User[]>(this.proposalUrl + "/getAuthorsForProposal", proposalID);
+  }
+
   uploadAbstractProper(abstract: File): Observable<boolean> {
     const formData = new FormData();
     formData.append('file', abstract);

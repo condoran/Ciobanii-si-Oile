@@ -48,4 +48,6 @@ public interface ProposalService {
     String checkProposalStatus(Long proposalID, Long conferenceLevel);
 
     void resetReviewsForProposal(Long proposalID);
+
+    List<CMSUser> getAuthorsForProposal(Long proposalID);
 }

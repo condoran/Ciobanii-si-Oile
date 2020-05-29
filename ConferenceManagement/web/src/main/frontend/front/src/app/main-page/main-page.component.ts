@@ -13,7 +13,8 @@ export class MainPageComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.user)
+    console.log(this.user);
+    console.log(this.isPCMemberInSomeConference);
     if(this.user && this.user.affiliation == null && this.isPCMemberInSomeConference == "true"){
       alert("You are PC Member. Please update you personal data!")
     }

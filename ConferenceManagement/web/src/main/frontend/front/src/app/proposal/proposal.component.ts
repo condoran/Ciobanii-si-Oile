@@ -33,6 +33,7 @@ export class ProposalComponent implements OnInit {
   wantToSeReviewers: boolean = false;
   chairToViewReviews: boolean = false;
   authorToViewReviews: boolean = false;
+  authorsForProposal: User[] = null;
 
   constructor(private route:ActivatedRoute,
               private proposalService: ProposalService,
@@ -50,6 +51,8 @@ export class ProposalComponent implements OnInit {
       this.proposalService.getProposalForConference(+params['conferenceID'], +params['proposalID'])))
       .subscribe(proposal => {this.proposal = proposal;
         if(this.user !== null) {
+          this.proposalService.getAuthorsForProposal(this.proposal.id)
+            .subscribe(authors => this.authorsForProposal = authors);
           this.proposalService.getReviewByUserAndProposal(this.user.id, this.proposal.id).subscribe(
             review => {
               this.review = review;

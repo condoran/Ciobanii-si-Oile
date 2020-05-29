@@ -236,4 +236,12 @@ public class ProposalServiceImpl implements ProposalService{
         this.proposalRepository.findById(proposalID).ifPresent(proposal -> proposal.setStatus("pending review"));
     }
 
+    @Override
+    public List<CMSUser> getAuthorsForProposal(Long proposalID) {
+        return proposalAuthorRepository.findAll().stream()
+                .filter(proposalAuthor -> proposalAuthor.getProposal().getId().equals(proposalID))
+                .map(ProposalAuthor::getUser)
+                .collect(Collectors.toList());
+    }
+
 }

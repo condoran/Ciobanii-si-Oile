@@ -2,11 +2,19 @@
   <h2> Proposal {{proposal.name}} DETAILS:</h2>
   <br>
   <hr>
-  <h4>Keywords:</h4><br>
+  <b>Keywords:</b><br>
   <p>{{proposal.keywords}}</p>
 
-  <h4>Topics:</h4><br>
+  <b>Topics:</b><br>
   <p>{{proposal.topics}}</p>
+  <hr>
+  <b>Authors:</b><br>
+  <ol *ngIf="user !== null && authorsForProposal !== null">
+    <li *ngFor="let author of authorsForProposal">
+      {{author.name}}
+    </li>
+  </ol>
+
   <hr>
 
   <button *ngIf="user !== null && (user.isChair || user.isCoChair) && currentDate > conference.biddingDeadline" (click)="showList()">
@@ -49,7 +57,7 @@
     </ul>
   </div>
 
-  <button *ngIf="user && authorCanSeeReviews()" (click)="authorToViewReviews = true">Want to se reviews</button>
+  <button *ngIf="user && authorCanSeeReviews()" (click)="authorToViewReviews = true">See reviews</button>
   <button (click)="goBack()">Go Back</button>
   <!--  See existent reviewers as chair  -->
 
