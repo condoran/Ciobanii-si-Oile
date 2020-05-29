@@ -21,14 +21,6 @@ public interface ConferenceService {
 
     Conference save(Conference conference);
 
-    void delete(Long conferenceId);
-
-    Optional<Conference> postponeBiddingDeadline(Long conferenceId, Date newBiddingDate);
-
-    Optional<Conference> postponeFullPaperDeadline(Long conferenceId, Date newFullPaperDate);
-
-    Optional<Conference> postponeAbstractPaperDeadline(Long conferenceId, Date newAbstractDate);
-
     Optional<Conference> postponeConference(Long conferenceId, Date newStartDate, Date newEndDate);
 
     Permission saveOrUpdatePermission(Permission permission);

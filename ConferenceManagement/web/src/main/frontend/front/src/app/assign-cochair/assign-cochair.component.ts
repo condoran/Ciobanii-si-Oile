@@ -9,20 +9,30 @@ import {User} from "../shared/user.model";
 })
 export class AssignCochairComponent implements OnInit {
 
-  usersToAssign: User[] = null;
-  SCMembers: User[] = null;
+  CoChairsCandidates: User[] = []
+  CoChairs: User[] = [];
+  user: User = JSON.parse(sessionStorage.getItem("user"))
+  received: boolean = null;
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.userService.getUsersWithoutChairs()
-      .subscribe(users => this.usersToAssign = users);
     this.userService.getSCMembers()
-      .subscribe( users => this.SCMembers = users);
+      .subscribe( users => {
+        users.forEach(user => {
+          if(user.isCoChair)
+            this.CoChairs.push(user);
+
+          if(!user.isChair && !user.isCoChair)
+            this.CoChairsCandidates.push(user);
+        })
+        this.received = true;
+      });
   }
 
   assignAsCoChair(user: User) {
     user.isCoChair = true;
-    user.isSCMember = true;
+    this.CoChairs.push(user);
+    this.CoChairsCandidates.splice(this.CoChairsCandidates.indexOf(user), 1);
     this.userService.updateUser(user).subscribe();
   }
 }

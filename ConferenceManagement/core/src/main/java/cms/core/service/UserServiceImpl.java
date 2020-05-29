@@ -92,8 +92,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<CMSUser> getSCMembers() {
         return userRepository.findAll().stream()
-                .filter(user -> (user.getIsSCMember().equals(true) && user.getIsChair().equals(true)) ||
-                        (user.getIsSCMember().equals(true) && user.getIsCoChair().equals(true)))
+               .filter(CMSUser::getIsSCMember)
                 .collect(Collectors.toList());
     }
 
