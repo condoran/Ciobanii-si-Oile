@@ -29,6 +29,11 @@
     <input #fileUpload accept="application/pdf, application/msword" id="fileUpload" multiple="multiple"
            name="fileUpload"
            style="display:none;" type="file"/>
+    <a [href]="abstractUrl" download="{{fileUpload}}">
+      <button class="abstract-button" (click)="seeAbstract()">
+        See uploaded abstract
+      </button>
+    </a>
   </div>
 
   <hr>

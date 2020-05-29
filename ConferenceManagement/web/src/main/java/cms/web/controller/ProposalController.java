@@ -9,6 +9,7 @@ import cms.web.dto.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.core.io.Resource;
@@ -175,12 +176,22 @@ public class ProposalController{
         return "OK";
     }
 
-    @RequestMapping(value = "/proposal/uploadAbstract", method = RequestMethod.PUT)
-    boolean uploadAbstract(@RequestParam("file") MultipartFile content) {
+    @RequestMapping(value = "/proposal/uploadAbstract/{id}", method = RequestMethod.PUT)
+    boolean uploadAbstract(@PathVariable Long id, @RequestParam("file") MultipartFile content) {
         logger.trace("in ProposalController, uploadAbstract");
-        String abstractUrl = FileHelper.storeFile(content, "D:\\Faculty\\Year_II_Sem_II\\ISS\\Files");
+        String abstractUrl = FileHelper.storeFile(content, "C:\\Users\\Cristi\\Desktop\\SaveTest\\", id);
         logger.trace("in ProposalController, uploadAbstract, abstractUrl = {}", abstractUrl);
         return true;
+    }
+
+    @RequestMapping(value = "/proposal/getAbstract/{id}", method = RequestMethod.GET)
+    ResponseEntity<Resource> getContent(@PathVariable Long id) {
+        String url = "C:\\Users\\Cristi\\Desktop\\SaveTest\\Abstract"+id+".pdf";
+        Resource file = FileHelper.loadFileAsResource(url);
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_PDF)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + file.getFilename() + "/")
+                .body(file);
     }
 
     @RequestMapping(value = "/proposal/getAuthorsForProposal", method = RequestMethod.POST)

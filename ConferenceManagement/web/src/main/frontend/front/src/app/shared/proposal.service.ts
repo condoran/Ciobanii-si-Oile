@@ -111,10 +111,10 @@ export class ProposalService{
     return this.httpClient.post<User[]>(this.proposalUrl + "/getAuthorsForProposal", proposalID);
   }
 
-  uploadAbstractProper(abstract: File): Observable<boolean> {
+  uploadAbstractProper(proposalID: number, abstract: File): Observable<boolean> {
     const formData = new FormData();
     formData.append('file', abstract);
-    return this.httpClient.put<boolean>(this.proposalUrl + '/uploadAbstract', formData)
+    return this.httpClient.put<boolean>(this.proposalUrl + '/uploadAbstract/'+ `${proposalID}`, formData)
       .pipe(
         map(result => Boolean(result))
       );

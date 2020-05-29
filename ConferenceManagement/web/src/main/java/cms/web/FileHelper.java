@@ -15,22 +15,30 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 public class FileHelper {
-    public static String storeFile(MultipartFile file, String location) {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        Path path = Paths.get(location.substring(1)).toAbsolutePath().normalize();
+    public static String storeFile(MultipartFile file, String location, Long id) {
+        File file1 = new File(location+"Abstract"+id+".pdf");
         try {
-            // Check if the file's name contains invalid characters
-            if (fileName.contains("!@#%^&*()")) {
-                throw new RuntimeException("Sorry! Filename contains invalid path sequence " + fileName);
-            }
-
-            // Copy file to the target location (Replacing existing file with the same name)
-            Path targetLocation = path.resolve(fileName);
-            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-            return targetLocation.toString();
+            Files.copy(file.getInputStream(), file1.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            return file1.toPath().toString();
         } catch (IOException ex) {
             System.out.println(ex);
-            throw new RuntimeException("Could not store file " + fileName + ". Please try again!", ex);
+
+        }
+        return null;
+    }
+
+    public static Resource loadFileAsResource(String path) {
+        try {
+            Path filePath = Paths.get(path).toAbsolutePath().normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+            if (resource.exists()) {
+                return resource;
+            } else {
+                throw new RuntimeException("File not found " + path);
+            }
+        } catch (MalformedURLException ex) {
+            throw new RuntimeException("File not found " + path, ex);
         }
     }
 }
+

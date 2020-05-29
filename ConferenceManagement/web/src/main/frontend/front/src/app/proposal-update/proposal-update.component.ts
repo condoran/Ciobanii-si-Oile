@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, Sanitizer, ViewChild} from '@angular/core';
 import {ProposalService} from "../shared/proposal.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {Proposal} from "../shared/proposal.model";
@@ -10,6 +10,8 @@ import {ProposalAuthor} from "../shared/proposalAuthor.model";
 import {Permission} from "../shared/permission.model";
 import {UserService} from "../shared/user.service";
 import {ConferenceService} from "../shared/conference.service";
+import {DomSanitizer} from "@angular/platform-browser";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-proposal-update',
@@ -27,13 +29,19 @@ export class ProposalUpdateComponent implements OnInit {
   conference : Conference = JSON.parse(sessionStorage.getItem("conference"));
   wantToAddAuthor :Boolean = false;
   formData: FormData;
+  abstractUrl = this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/proposal/getAbstract/' + this.proposal.id);
+  file2: File = null;
 
   constructor(private proposalService: ProposalService,
               private route: ActivatedRoute,
               private location: Location,
               private userService: UserService,
               private conferenceService: ConferenceService,
-              private router: Router) { }
+              private router: Router,
+              private sanitizer: DomSanitizer,
+              private httpClient: HttpClient) {
+    //this.httpClient.get('http://localhost:8080/proposal/getAbstract/'+this.proposal.id).subscribe( file => this.file2 = file);
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -57,7 +65,7 @@ export class ProposalUpdateComponent implements OnInit {
   }
 
   updateProposal(): void {
-    this.proposalService.uploadAbstractProper(this.file).subscribe(result => console.log(result))
+    this.proposalService.uploadAbstractProper(this.proposal.id, this.file).subscribe(result => console.log(result))
     this.proposalService.updateProposal(this.proposal).subscribe();
   }
 
@@ -80,4 +88,7 @@ export class ProposalUpdateComponent implements OnInit {
     });
   }
 
+  seeAbstract() {
+
+  }
 }
