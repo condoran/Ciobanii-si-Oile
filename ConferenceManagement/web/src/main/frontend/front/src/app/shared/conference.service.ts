@@ -32,21 +32,16 @@ export class ConferenceService {
   }
 
   updateConference(conference: Conference): Observable<Conference>{
-    sessionStorage.setItem("conference", JSON.stringify(conference));
     return this.httpClient.post<Conference>(this.conferenceUrl + '/updateConference', conference);
   }
 
-  setCurrentConference(conferenceID:number):void{
-    this.httpClient
-      .post<Conference>(this.conferenceUrl + "/getConferenceByID", conferenceID)
-      .subscribe(conference => {
-        sessionStorage.setItem("conference", JSON.stringify(conference));
-      });
+  setCurrentConference(conference:Conference):void{
+    sessionStorage.setItem("conference", JSON.stringify(conference));
 
     const user: User = JSON.parse(sessionStorage.getItem("user"));
 
     if(user != null)
-      this.userService.getPermissionForUserInConference(user.id, conferenceID).subscribe(permission => {
+      this.userService.getPermissionForUserInConference(user.id, conference.id).subscribe(permission => {
         sessionStorage.setItem("permission", JSON.stringify(permission));
       });
   }

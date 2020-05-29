@@ -32,18 +32,25 @@ export class SectionComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      if(+params["conferenceID"] != this.conference.id) {
+        this.router.navigate(["conference", this.conference.id, "sections", +params['sectionID']]);
+      }
+    });
     this.route.params.pipe(switchMap((params: Params) =>
       this.sectionService.getSectionByID(+params['sectionID'])))
-      .subscribe(section => {this.section = section;
-      this.sectionService.getUnassignedAndAcceptedProposals()
-        .subscribe( proposals => this.proposalsToBeAssigned = proposals);
-      if(this.user !== null)
-        this.sectionService.checkParticipantInSection(this.section.id, this.user.id)
-          .subscribe( participated => {this.alreadyParticipated = participated;
-          console.log(this.alreadyParticipated)});
-      this.proposalService.getProposalsForIDs(section.proposalIDs)
-        .subscribe(proposals => {this.proposalsToBePresented = proposals;
-        console.log(this.proposalsToBePresented)})});
+      .subscribe(section => {
+        this.section = section;
+        this.sectionService.getUnassignedAndAcceptedProposals()
+          .subscribe( proposals => this.proposalsToBeAssigned = proposals);
+        if(this.user !== null)
+          this.sectionService.checkParticipantInSection(this.section.id, this.user.id)
+            .subscribe( participated => {this.alreadyParticipated = participated;
+            console.log(this.alreadyParticipated)});
+        this.proposalService.getProposalsForIDs(section.proposalIDs)
+          .subscribe(proposals => {this.proposalsToBePresented = proposals;
+          console.log(this.proposalsToBePresented)})
+      });
   }
 
   goBack(): void{

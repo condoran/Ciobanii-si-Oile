@@ -23,6 +23,7 @@ export class ConferenceNewComponent implements OnInit {
       new Conference(null, name, +this.level, new Date(startDate), new Date(endDate), callForPapers, new Date(abstract), new Date(full), new Date(bidding), emptyList);
 
     this.conferenceService.saveConference(conference).subscribe();
+    this.router.navigate(["conference-list-page"]);
   }
 
   goBack() {

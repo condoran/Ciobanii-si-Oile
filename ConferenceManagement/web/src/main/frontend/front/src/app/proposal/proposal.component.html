@@ -38,6 +38,7 @@
 
   <!--  See existent reviewers  -->
   <div id = "showExistentReviewers" *ngIf="user !== null && reviewersForProposal !== null && wantToSeReviewers">
+    <h4>Reviewers</h4>
     <ul>
       <li *ngFor="let user of reviewersForProposal">
         {{user.name}}

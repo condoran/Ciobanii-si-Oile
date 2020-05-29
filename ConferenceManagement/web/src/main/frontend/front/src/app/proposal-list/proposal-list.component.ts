@@ -7,6 +7,7 @@ import {Permission} from "../shared/permission.model";
 import {UserService} from "../shared/user.service";
 import {Bidding} from "../shared/bidding.model";
 import {Location} from "@angular/common";
+import {Conference} from "../shared/conference.model";
 
 @Component({
   selector: 'app-proposal-list',
@@ -18,6 +19,7 @@ export class ProposalListComponent implements OnInit {
   private conferenceID: number;
   user : User = JSON.parse(sessionStorage.getItem("user"));
   writtenProposals :number[] = JSON.parse(sessionStorage.getItem("proposalsIDs"));
+  storedConference: Conference = JSON.parse(sessionStorage.getItem("conference"));
 
   constructor(private proposalService: ProposalService,
               private route: ActivatedRoute,
@@ -26,10 +28,14 @@ export class ProposalListComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
+      if(+params["conferenceID"] != this.storedConference.id) {
+        this.router.navigate(["conference", this.storedConference.id, "proposals"]);
+      }
       this.conferenceID = +params['conferenceID']
+      this.proposalService.getProposalsForConference(this.conferenceID)
+        .subscribe(proposals => this.proposals = proposals);
     });
-    this.proposalService.getProposalsForConference(this.conferenceID)
-      .subscribe(proposals => this.proposals = proposals);
+
   }
 
   goToUpdateProposal(id: number): void{

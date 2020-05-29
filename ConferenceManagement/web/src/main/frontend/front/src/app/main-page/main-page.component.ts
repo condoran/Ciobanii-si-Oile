@@ -8,13 +8,14 @@ import {User} from "../shared/user.model";
 })
 export class MainPageComponent implements OnInit {
 
+  isPCMemberInSomeConference: string = sessionStorage.getItem("isPCMemberInSomeConference")
+  user : User = JSON.parse(sessionStorage.getItem("user"));
   constructor() { }
 
   ngOnInit(): void {
-    if(sessionStorage.getItem("username") !== null){
-      console.log("hello " + sessionStorage.getItem("username"));
-      let user: User = JSON.parse(sessionStorage.getItem("user"));
-      console.log(user);
+    console.log(this.user)
+    if(this.user && this.user.affiliation == null && this.isPCMemberInSomeConference == "true"){
+      alert("You are PC Member. Please update you personal data!")
     }
   }
 

@@ -3,13 +3,18 @@ package cms.web.controller;
 import cms.core.domain.*;
 import cms.core.repo.ProposalRepository;
 import cms.core.service.ProposalService;
+import cms.web.FileHelper;
 import cms.web.converter.*;
 import cms.web.dto.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.aop.target.LazyInitTargetSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +22,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-public class ProposalController {
+public class ProposalController{
     public static final Logger logger = LoggerFactory.getLogger(ConferenceController.class);
 
     @Autowired
@@ -168,5 +173,13 @@ public class ProposalController {
 
         this.proposalService.resetReviewsForProposal(proposalID);
         return "OK";
+    }
+
+    @RequestMapping(value = "/proposal/uploadAbstract", method = RequestMethod.PUT)
+    boolean uploadAbstract(@RequestParam("file") MultipartFile content) {
+        logger.trace("in ProposalController, uploadAbstract");
+        String abstractUrl = FileHelper.storeFile(content, "D:\\Faculty\\Year_II_Sem_II\\ISS\\Files");
+        logger.trace("in ProposalController, uploadAbstract, abstractUrl = {}", abstractUrl);
+        return true;
     }
 }

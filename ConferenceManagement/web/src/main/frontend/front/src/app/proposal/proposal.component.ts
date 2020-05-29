@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Proposal} from "../shared/proposal.model";
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {switchMap} from "rxjs/operators";
 import {User} from "../shared/user.model";
 import {Conference} from "../shared/conference.model";
@@ -35,9 +35,15 @@ export class ProposalComponent implements OnInit {
 
   constructor(private route:ActivatedRoute,
               private proposalService: ProposalService,
-              private location: Location) { }
+              private location: Location,
+              private router: Router) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      if(+params["conferenceID"] != this.conference.id) {
+        this.router.navigate(["conference", this.conference.id, "proposals", +params['proposalID'], "details"]);
+      }
+    });
     this.route.params.pipe(switchMap((params: Params) =>
       this.proposalService.getProposalForConference(+params['conferenceID'], +params['proposalID'])))
       .subscribe(proposal => {this.proposal = proposal;

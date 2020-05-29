@@ -32,15 +32,6 @@ public class Conference implements Serializable {
     private Date biddingDeadline;
     private Integer level;
 
-//    @OneToOne
-//    private CMSUser chair;
-//
-//    @OneToOne
-//    private CMSUser firstCoChair;
-//
-//    @OneToOne
-//    private CMSUser secondCoChair;
-
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "conference")
     private List<Section> sections = new ArrayList<>();
 }

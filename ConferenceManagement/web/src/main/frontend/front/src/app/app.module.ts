@@ -23,6 +23,7 @@ import { SectionNewComponent } from './section-new/section-new.component';
 import { SectionListComponent } from './section-list/section-list.component';
 import {SectionService} from "./shared/section.service";
 import { SectionComponent } from './section/section.component';
+import { UserInfoComponent } from './user-info/user-info.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { SectionComponent } from './section/section.component';
     SectionNewComponent,
     SectionListComponent,
     SectionComponent,
+    UserInfoComponent,
   ],
   imports: [
     BrowserModule,

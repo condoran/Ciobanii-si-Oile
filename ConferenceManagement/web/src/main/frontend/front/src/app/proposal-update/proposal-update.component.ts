@@ -1,6 +1,6 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ProposalService} from "../shared/proposal.service";
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {Proposal} from "../shared/proposal.model";
 import {switchMap} from "rxjs/operators";
 import {Location} from "@angular/common";
@@ -32,24 +32,32 @@ export class ProposalUpdateComponent implements OnInit {
               private route: ActivatedRoute,
               private location: Location,
               private userService: UserService,
-              private conferenceService: ConferenceService) { }
+              private conferenceService: ConferenceService,
+              private router: Router) { }
 
   ngOnInit(): void {
-    this.route.params.pipe(switchMap((params: Params) => this.proposalService.getProposalForConference(+params['conferenceID'], +params['proposalID'])))
-      .subscribe(proposal => {this.proposal = proposal;});
+    this.route.params.subscribe(params => {
+      if(+params["conferenceID"] != this.conference.id) {
+        this.router.navigate(["conference", this.conference.id, "proposals", +params['proposalID']]);
+      }
+
+      this.proposalService.getProposalForConference(+params['conferenceID'], +params['proposalID'])
+        .subscribe(proposal => {this.proposal = proposal;})
+    });
   }
 
-  // uploadAbstractButtonPressed() {
-  //   const fileUpload = this.fileUpload.nativeElement;
-  //   fileUpload.onchange = () => {
-  //     this.file = fileUpload.files[0];
-  //     this.fileName = this.file.name;
-  //     this.fileUpload.nativeElement.value = '';
-  //   };
-  //   fileUpload.click();
-  // }
+  uploadAbstractButtonPressed() {
+    const fileUpload = this.fileUpload.nativeElement;
+    fileUpload.onchange = () => {
+      this.file = fileUpload.files[0];
+      this.fileName = this.file.name;
+      this.fileUpload.nativeElement.value = '';
+    };
+    fileUpload.click();
+  }
 
   updateProposal(): void {
+    this.proposalService.uploadAbstractProper(this.file).subscribe(result => console.log(result))
     this.proposalService.updateProposal(this.proposal).subscribe();
   }
 

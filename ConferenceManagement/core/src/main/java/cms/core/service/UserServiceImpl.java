@@ -78,28 +78,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(CMSUser);
     }
 
-    @Override
-    @Transactional
-    public CMSUser update(CMSUser newCMSUser) {
-        CMSUser cmsUser = userRepository.findById(newCMSUser.getId()).orElse(newCMSUser);
-
-        cmsUser.setAffiliation(cmsUser.getAffiliation());
-        cmsUser.setEmailAddress(newCMSUser.getEmailAddress());
-        cmsUser.setIsChair(newCMSUser.getIsChair());
-        cmsUser.setIsCoChair(newCMSUser.getIsCoChair());
-        cmsUser.setIsSCMember(newCMSUser.getIsSCMember());
-        cmsUser.setName(newCMSUser.getName());
-        cmsUser.setUsername(newCMSUser.getUsername());
-        cmsUser.setPassword(newCMSUser.getPassword());
-        cmsUser.setPersonalWebsite(newCMSUser.getPersonalWebsite());
-
-        return cmsUser;
-    }
-
-    @Override
-    public void delete(long userId) {
-        userRepository.deleteById(userId);
-    }
 
     @Override
     public Optional<CMSUser> getChair() {
@@ -108,7 +86,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<CMSUser> getCoChairs() {
-        return userRepository.findAll().stream().filter(user -> user.getIsCoChair() != null && user.getIsCoChair() == true).collect(Collectors.toList());
+        return userRepository.findAll().stream().filter(user -> user.getIsCoChair() != null && user.getIsCoChair()).collect(Collectors.toList());
     }
 
     @Override
@@ -157,6 +135,45 @@ public class UserServiceImpl implements UserService {
         return Stream.concat(SCMembers.stream(), PCMembers.stream())
                 .collect(Collectors.toList());
 
+    }
+
+    @Override
+    public boolean isPCMemberInAnyConference(Long userID) {
+        List<Long> PCMembersIDs = permissionRepository.findAll().stream()
+                .filter(permission -> permission.getCmsUser().getId().equals(userID))
+                .filter(Permission::getIsPCMember)
+                .map(permission -> permission.getCmsUser().getId())
+                .collect(Collectors.toList());
+
+        return PCMembersIDs.contains(userID);
+    }
+
+    @Override
+    @Transactional
+    public CMSUser updateUser(CMSUser user) {
+        Optional<CMSUser> cmsUserOptional = userRepository.findById(user.getId());
+        if(cmsUserOptional.isEmpty())
+            return null;
+
+        CMSUser cmsUser = cmsUserOptional.get();
+
+        if(user.getName() != null)
+            cmsUser.setName(user.getName());
+        if(user.getUsername() != null)
+            cmsUser.setUsername(user.getUsername());
+        if(user.getEmailAddress() != null)
+            cmsUser.setEmailAddress(user.getEmailAddress());
+        if(user.getAffiliation() != null)
+            cmsUser.setAffiliation(user.getAffiliation());
+        if(user.getPersonalWebsite() != null)
+            cmsUser.setPersonalWebsite(user.getPersonalWebsite());
+        if(user.getIsChair() != null)
+            cmsUser.setIsChair(user.getIsChair());
+        if(user.getIsCoChair() != null)
+            cmsUser.setIsCoChair(user.getIsCoChair());
+        if(user.getIsSCMember() != null)
+            cmsUser.setIsSCMember(user.getIsSCMember());
+        return cmsUser;
     }
 
 

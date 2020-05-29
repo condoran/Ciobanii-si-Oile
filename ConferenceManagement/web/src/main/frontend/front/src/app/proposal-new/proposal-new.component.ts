@@ -38,6 +38,7 @@ export class ProposalNewComponent implements OnInit {
     this.proposalService.addProposal(name, keywords, topics,
       this.conference)
       .subscribe(proposal => {
+        alert("Proposal " + proposal.name + " was successfully added!")
         this.proposal = proposal;
         this.proposalService.addAuthor(new ProposalAuthor(null, this.user, proposal));
         this.conferenceService.addPermission(new Permission(null, this.conference ,

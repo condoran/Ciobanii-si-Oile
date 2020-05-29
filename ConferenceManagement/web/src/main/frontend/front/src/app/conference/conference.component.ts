@@ -20,6 +20,7 @@ export class ConferenceComponent implements OnInit {
   @Input() conference: Conference;
   user: User = JSON.parse(sessionStorage.getItem("user"));
   users: User[] = null;
+  storedConference: Conference = JSON.parse(sessionStorage.getItem("conference"));
 
   constructor(private conferenceService: ConferenceService,
               private route: ActivatedRoute,
@@ -28,6 +29,11 @@ export class ConferenceComponent implements OnInit {
               private userService: UserService) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      if(+params["conferenceID"] != this.storedConference.id) {
+        this.router.navigate(["conference", this.storedConference.id]);
+      }
+    });
     this.route.params.pipe(switchMap((params: Params) => this.conferenceService.getConference(+params['conferenceID'])))
       .subscribe(conference => this.conference = conference);
   }
@@ -61,7 +67,11 @@ export class ConferenceComponent implements OnInit {
     this.conference.startDate = new Date(date1);
     this.conference.endDate = new Date(date2);
     this.conference.biddingDeadline = new Date(date3)
-    this.conferenceService.updateConference(this.conference).subscribe();
+    this.conferenceService.updateConference(this.conference).subscribe(
+      conference => {
+        sessionStorage.setItem("conference", JSON.stringify(conference));
+      }
+    );
   }
 
   getAllUsers(): void{

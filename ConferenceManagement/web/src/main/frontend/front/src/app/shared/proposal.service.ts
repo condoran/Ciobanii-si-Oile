@@ -107,6 +107,15 @@ export class ProposalService{
     return this.httpClient.post<Proposal[]>(this.proposalUrl + "/getProposalsForIDs", proposalIDs);
   }
 
+  uploadAbstractProper(abstract: File): Observable<boolean> {
+    const formData = new FormData();
+    formData.append('file', abstract);
+    return this.httpClient.put<boolean>(this.proposalUrl + '/uploadAbstract', formData)
+      .pipe(
+        map(result => Boolean(result))
+      );
+  }
+
   // uploadAbstract(authorId: number, paperName: string,
   //                paperKeywords: string, abstract: File): Observable<boolean> {
   //   console.log(authorId, paperName, paperKeywords, abstract);

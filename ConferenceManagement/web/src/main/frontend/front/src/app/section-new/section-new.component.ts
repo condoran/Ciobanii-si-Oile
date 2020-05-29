@@ -41,7 +41,7 @@ export class SectionNewComponent implements OnInit {
     let section: Section = new Section(null, sectionName, user, null, this.conference);
     this.sectionService.addSection(section).subscribe();
     this.conferenceService.addPermission(new Permission(null, this.conference, user, null, null, true)).subscribe();
-    this.router.navigate(["conference", this.conference.id, "sections"]);
+    this.router.navigate(["conference", this.conference.id]);
   }
 
   setAsSectionChair(user: User) {

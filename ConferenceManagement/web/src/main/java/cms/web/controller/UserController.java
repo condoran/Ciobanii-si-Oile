@@ -135,4 +135,20 @@ public class UserController {
         return proposalAuthor.isPresent();
     }
 
+    @RequestMapping(value = "user/checkIfIsPCMemberInAnyConference", method = RequestMethod.POST)
+    boolean checkIfIsPCMemberInAnyConference(@RequestBody Long userID){
+        logger.trace("in UserController, checkIfIsPCMemberInAnyConference, userID = {}", userID);
+        boolean status = userService.isPCMemberInAnyConference(userID);
+        logger.trace("in UserController, checkIfIsPCMemberInAnyConference, status = {}", status);
+        return status;
+    }
+
+    @RequestMapping(value = "user/updateUser", method = RequestMethod.POST)
+    UserDTO updateUser(@RequestBody UserDTO userDTO){
+        logger.trace("in UserController, updateUser, userDTO = {}", userDTO);
+        CMSUser user = userService.updateUser(userConverter.convertDtoToModel(userDTO));
+        logger.trace("in UserController, updateUser, updated user = {}", user);
+        return userConverter.convertModelToDto(user);
+    }
+
 }

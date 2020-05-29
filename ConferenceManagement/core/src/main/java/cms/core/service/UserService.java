@@ -25,10 +25,6 @@ public interface UserService {
 
     CMSUser save(CMSUser CMSUser);
 
-    CMSUser update(CMSUser newCMSUser);
-
-    void delete(long userId);
-
     Optional<CMSUser> getChair();
 
     List<CMSUser> getCoChairs();
@@ -42,5 +38,9 @@ public interface UserService {
     Optional<ProposalAuthor> getUserCanBeAuthorInProposal(long userID, long proposalID);
 
     List<CMSUser> getCandidatesForSectionChair(Long conferenceID);
+
+    boolean isPCMemberInAnyConference(Long userID);
+
+    CMSUser updateUser(CMSUser user);
 
 }

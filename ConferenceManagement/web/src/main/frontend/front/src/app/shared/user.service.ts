@@ -5,7 +5,6 @@ import {User} from './user.model';
 import {Observable} from 'rxjs';
 import {Conference} from './conference.model';
 import {Permission} from "./permission.model";
-import {ProposalAuthor} from "./proposalAuthor.model";
 
 
 @Injectable()
@@ -50,6 +49,16 @@ export class UserService {
 
   getAllNonSCUsersAndNonPCMembers(conferenceID: number): Observable<User[]>{
     return this.httpClient.post<User[]>(this.userUrl + "/getNonSCMembersAndNonPCMembers", conferenceID);
+  }
+
+  checkIfIsPCMemberInAnyConference(userID:number): Observable<boolean>{
+    return this.httpClient
+      .post<boolean>(this.userUrl + "/checkIfIsPCMemberInAnyConference", userID);
+  }
+
+  updateUser(user: User): Observable<User>{
+    return this.httpClient
+      .post<User>(this.userUrl + "/updateUser",user);
   }
 
 

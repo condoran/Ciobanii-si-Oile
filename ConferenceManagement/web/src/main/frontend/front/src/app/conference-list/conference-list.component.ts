@@ -19,9 +19,9 @@ export class ConferenceListComponent implements OnInit {
       .subscribe(conferences => this.conferences = conferences);
   }
 
-  goToConferenceDetails(conferenceID: number): void{
-    this.conferenceService.setCurrentConference(conferenceID);
-    this.router.navigate(["conference/", conferenceID]);
+  goToConferenceDetails(conference: Conference): void{
+    this.conferenceService.setCurrentConference(conference);
+    this.router.navigate(["conference/", conference.id]);
   }
 
 }
