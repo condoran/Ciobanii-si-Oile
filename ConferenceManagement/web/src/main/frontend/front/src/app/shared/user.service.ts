@@ -61,5 +61,11 @@ export class UserService {
       .post<User>(this.userUrl + "/updateUser",user);
   }
 
+  getUsersWithoutChairs(): Observable<User[]>{
+    return this.httpClient.get<User[]>(this.userUrl + "/getUsersWithoutChairs");
+  }
 
+  getSCMembers(): Observable<User[]>{
+    return this.httpClient.get<User[]>(this.userUrl + "/getSCMembers");
+  }
 }

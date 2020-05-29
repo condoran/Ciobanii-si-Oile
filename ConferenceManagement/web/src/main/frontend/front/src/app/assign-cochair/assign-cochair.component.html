@@ -1,0 +1,9 @@
+<h2>Assign CoChairs</h2>
+
+<ul *ngIf="SCMembers.length < 3">
+  <li *ngFor="let user of usersToAssign">
+    <b>Name: </b> {{user.name}}
+    <button (click)="assignAsCoChair(user)">Assign</button>
+  </li>
+</ul>
+<p *ngIf="SCMembers.length >= 3"><b>There are already 2 CoChairs</b></p>

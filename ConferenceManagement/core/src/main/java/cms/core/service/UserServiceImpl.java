@@ -91,7 +91,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<CMSUser> getSCMembers() {
-        return userRepository.findAll().stream().filter(CMSUser::getIsSCMember).collect(Collectors.toList());
+        return userRepository.findAll().stream()
+                .filter(user -> (user.getIsSCMember().equals(true) && user.getIsChair().equals(true)) ||
+                        (user.getIsSCMember().equals(true) && user.getIsCoChair().equals(true)))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -174,6 +177,14 @@ public class UserServiceImpl implements UserService {
         if(user.getIsSCMember() != null)
             cmsUser.setIsSCMember(user.getIsSCMember());
         return cmsUser;
+    }
+
+    @Override
+    public List<CMSUser> getUsersWithoutChairs() {
+        return userRepository.findAll().stream()
+                .filter(user ->!user.getIsChair().equals(true) && !user.getIsCoChair().equals(true)
+                && !user.getIsSCMember().equals(true))
+                .collect(Collectors.toList());
     }
 
 

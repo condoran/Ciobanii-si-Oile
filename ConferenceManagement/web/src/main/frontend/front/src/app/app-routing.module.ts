@@ -14,6 +14,7 @@ import {SectionListComponent} from "./section-list/section-list.component";
 import {SectionNewComponent} from "./section-new/section-new.component";
 import {SectionComponent} from "./section/section.component";
 import {UserInfoComponent} from "./user-info/user-info.component";
+import {AssignCochairComponent} from "./assign-cochair/assign-cochair.component";
 
 
 const routes: Routes = [
@@ -31,6 +32,7 @@ const routes: Routes = [
   {path: 'conference/:conferenceID/sections/:sectionID', component: SectionComponent},
   {path: 'conference/:conferenceID/newSection', component: SectionNewComponent},
   {path: 'user-info', component: UserInfoComponent},
+  {path: 'assign-cochair', component: AssignCochairComponent}
 ];
 
 @NgModule({

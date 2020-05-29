@@ -43,4 +43,6 @@ public interface UserService {
 
     CMSUser updateUser(CMSUser user);
 
+    List<CMSUser> getUsersWithoutChairs();
+
 }

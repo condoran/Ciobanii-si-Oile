@@ -63,6 +63,12 @@ public class UserController {
         return new ArrayList<>(userConverter.convertModelsToDtos(result));
     }
 
+    @RequestMapping(value = "/user/getSCMembers", method = RequestMethod.GET)
+    List<UserDTO> getSCMembers(){
+        List<CMSUser> users = userService.getSCMembers();
+        return new ArrayList<>(userConverter.convertModelsToDtos(users));
+    }
+
     @RequestMapping(value = "/user/getUsersByIDs", method = RequestMethod.POST)
     List<UserDTO> getUsersByIDs(@RequestBody List<Long> usersIDs){
         List<CMSUser> users = userService.getUsersByIDs(usersIDs);
@@ -149,6 +155,12 @@ public class UserController {
         CMSUser user = userService.updateUser(userConverter.convertDtoToModel(userDTO));
         logger.trace("in UserController, updateUser, updated user = {}", user);
         return userConverter.convertModelToDto(user);
+    }
+
+    @RequestMapping(value = "user/getUsersWithoutChairs", method = RequestMethod.GET)
+    List<UserDTO> getUsersWithoutChairs(){
+        List<CMSUser> users = userService.getUsersWithoutChairs();
+        return new ArrayList<>(userConverter.convertModelsToDtos(users));
     }
 
 }
