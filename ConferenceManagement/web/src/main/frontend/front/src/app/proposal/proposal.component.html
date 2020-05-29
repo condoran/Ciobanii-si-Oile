@@ -49,10 +49,11 @@
     </ul>
   </div>
 
+  <button *ngIf="user && authorCanSeeReviews()" (click)="authorToViewReviews = true">Want to se reviews</button>
   <button (click)="goBack()">Go Back</button>
   <!--  See existent reviewers as chair  -->
 
-  <div *ngIf="user !== null &&  reviewsByAllUsers && chairToViewReviews">
+  <div *ngIf="user !== null &&  (reviewsByAllUsers && chairToViewReviews) || authorToViewReviews">
     <ul class="review-list">
       <li  *ngFor="let reviewOthers of reviewsByAllUsers" style="list-style-type: none">
         <div class="review" >

@@ -32,6 +32,7 @@ export class ProposalComponent implements OnInit {
   reviewersForProposal : User[] = null;
   wantToSeReviewers: boolean = false;
   chairToViewReviews: boolean = false;
+  authorToViewReviews: boolean = false;
 
   constructor(private route:ActivatedRoute,
               private proposalService: ProposalService,
@@ -39,6 +40,7 @@ export class ProposalComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
+
     this.route.params.subscribe(params => {
       if(+params["conferenceID"] != this.conference.id) {
         this.router.navigate(["conference", this.conference.id, "proposals", +params['proposalID'], "details"]);
@@ -144,5 +146,9 @@ export class ProposalComponent implements OnInit {
     this.proposal.status = "pending review";
     this.reviewsByAllUsers = null;
     this.proposalService.resetReviewsForProposal(this.proposal.id).subscribe();
+  }
+
+  authorCanSeeReviews() {
+    return this.proposal.status === 'Accepted' && this.writtenProposals.indexOf(this.proposal.id) !== -1
   }
 }
