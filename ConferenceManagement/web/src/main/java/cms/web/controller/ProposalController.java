@@ -176,21 +176,39 @@ public class ProposalController{
         return "OK";
     }
 
-    @RequestMapping(value = "/proposal/uploadAbstract/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/proposal/uploadAbstractPaper/{id}", method = RequestMethod.PUT)
     boolean uploadAbstract(@PathVariable Long id, @RequestParam("file") MultipartFile content) {
         logger.trace("in ProposalController, uploadAbstract");
-        String abstractUrl = FileHelper.storeFile(content, "C:\\Users\\Cristi\\Desktop\\SaveTest\\", id);
+        String abstractUrl = FileHelper.storeFile(content, "D:\\Faculty\\Year_II_Sem_II\\ISS\\Files\\" + "Abstract"+id+".pdf");
         logger.trace("in ProposalController, uploadAbstract, abstractUrl = {}", abstractUrl);
         return true;
     }
 
-    @RequestMapping(value = "/proposal/getAbstract/{id}", method = RequestMethod.GET)
-    ResponseEntity<Resource> getContent(@PathVariable Long id) {
-        String url = "C:\\Users\\Cristi\\Desktop\\SaveTest\\Abstract"+id+".pdf";
+    @RequestMapping(value = "/proposal/getAbstractPaper/{id}", method = RequestMethod.GET)
+    ResponseEntity<Resource> getAbstract(@PathVariable Long id) {
+        String url = "D:\\Faculty\\Year_II_Sem_II\\ISS\\Files\\Abstract"+id+".pdf";
         Resource file = FileHelper.loadFileAsResource(url);
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_PDF)
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + file.getFilename() + "/")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + file.getFilename())
+                .body(file);
+    }
+
+    @RequestMapping(value = "/proposal/uploadFullPaper/{id}", method = RequestMethod.PUT)
+    boolean uploadFullPaper(@PathVariable Long id, @RequestParam("file") MultipartFile content) {
+        logger.trace("in ProposalController, uploadFullPaper");
+        String url = FileHelper.storeFile(content, "D:\\Faculty\\Year_II_Sem_II\\ISS\\Files\\" + "FullPaper"+id+".pdf");
+        logger.trace("in ProposalController, uploadFullPaper, abstractUrl = {}", url);
+        return true;
+    }
+
+    @RequestMapping(value = "/proposal/getFullPaper/{id}", method = RequestMethod.GET)
+    ResponseEntity<Resource> getFullPaper(@PathVariable Long id) {
+        String url = "D:\\Faculty\\Year_II_Sem_II\\ISS\\Files\\FullPaper"+id+".pdf";
+        Resource file = FileHelper.loadFileAsResource(url);
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_PDF)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + file.getFilename())
                 .body(file);
     }
 

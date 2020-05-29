@@ -1,5 +1,3 @@
-import {User} from './user.model';
-import {Section} from './section.model';
 
 export class Conference {
   id: number;
@@ -11,9 +9,6 @@ export class Conference {
   abstractPaperDeadline: Date;
   fullPaperDeadline: Date;
   biddingDeadline: Date;
-  // chair: User;
-  // firstCoChair: User;
-  // secondCoChair: User;
   sections: number[];
 
   constructor(id, name, level, startDate, endDate, callForPapers, abstractPaperDeadline, fullPaperDeadline, biddingDeadline, sections) {
@@ -26,9 +21,6 @@ export class Conference {
     this.abstractPaperDeadline = abstractPaperDeadline;
     this.fullPaperDeadline = fullPaperDeadline;
     this.biddingDeadline = biddingDeadline;
-    // this.chair = chair;
-    // this.firstCoChair = firstCoChair;
-    // this.secondCoChair = secondCoChair;
     this.sections = sections;
   }
 }

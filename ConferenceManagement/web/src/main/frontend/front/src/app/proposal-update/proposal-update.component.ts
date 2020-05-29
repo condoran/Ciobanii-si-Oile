@@ -12,6 +12,7 @@ import {UserService} from "../shared/user.service";
 import {ConferenceService} from "../shared/conference.service";
 import {DomSanitizer} from "@angular/platform-browser";
 import {HttpClient} from "@angular/common/http";
+import {URL} from "url";
 
 @Component({
   selector: 'app-proposal-update',
@@ -20,17 +21,20 @@ import {HttpClient} from "@angular/common/http";
 })
 export class ProposalUpdateComponent implements OnInit {
 
-  @ViewChild('fileUpload', {static: false}) fileUpload: ElementRef;
-  file: File = null;
-  fileName: string;
+  @ViewChild('abstractPaperUpload', {static: false}) abstractPaperUpload: ElementRef;
+  abstractFile: File = null;
+  abstractFileName: string;
+
+  @ViewChild('fullPaperUpload', {static: false}) fullPaperUpload: ElementRef;
+  fullFile: File = null;
+  fullFileName: string;
 
   @Input() proposal: Proposal;
   user : User = JSON.parse(sessionStorage.getItem("user"));
   conference : Conference = JSON.parse(sessionStorage.getItem("conference"));
   wantToAddAuthor :Boolean = false;
-  formData: FormData;
-  abstractUrl = this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/proposal/getAbstract/' + this.proposal.id);
-  file2: File = null;
+
+  currentDate = new Date();
 
   constructor(private proposalService: ProposalService,
               private route: ActivatedRoute,
@@ -38,10 +42,7 @@ export class ProposalUpdateComponent implements OnInit {
               private userService: UserService,
               private conferenceService: ConferenceService,
               private router: Router,
-              private sanitizer: DomSanitizer,
-              private httpClient: HttpClient) {
-    //this.httpClient.get('http://localhost:8080/proposal/getAbstract/'+this.proposal.id).subscribe( file => this.file2 = file);
-  }
+              private sanitizer: DomSanitizer,) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -50,22 +51,37 @@ export class ProposalUpdateComponent implements OnInit {
       }
 
       this.proposalService.getProposalForConference(+params['conferenceID'], +params['proposalID'])
-        .subscribe(proposal => {this.proposal = proposal;})
+        .subscribe(proposal => {
+          this.proposal = proposal;
+        })
     });
   }
 
   uploadAbstractButtonPressed() {
-    const fileUpload = this.fileUpload.nativeElement;
+    const fileUpload = this.abstractPaperUpload.nativeElement;
+      fileUpload.onchange = () => {
+      this.abstractFile = fileUpload.files[0];
+      this.abstractFileName = this.abstractFile.name;
+      this.abstractPaperUpload.nativeElement.value = '';
+    };
+    fileUpload.click();
+  }
+
+  uploadFullButtonPressed() {
+    const fileUpload = this.fullPaperUpload.nativeElement;
     fileUpload.onchange = () => {
-      this.file = fileUpload.files[0];
-      this.fileName = this.file.name;
-      this.fileUpload.nativeElement.value = '';
+      this.fullFile = fileUpload.files[0];
+      this.fullFileName = this.fullFile.name;
+      this.fullPaperUpload.nativeElement.value = '';
     };
     fileUpload.click();
   }
 
   updateProposal(): void {
-    this.proposalService.uploadAbstractProper(this.proposal.id, this.file).subscribe(result => console.log(result))
+    this.proposal.abstractPaperURL = "Abstract" + String(this.proposal.id) + ".pdf";
+    this.proposal.fullPaperURL = "FullPaper" + String(this.proposal.id) + ".pdf";
+    this.proposalService.uploadAbstract(this.proposal.id, this.abstractFile).subscribe(result => console.log(result))
+    this.proposalService.uploadFull(this.proposal.id, this.fullFile).subscribe(result => console.log(result))
     this.proposalService.updateProposal(this.proposal).subscribe();
   }
 
@@ -88,7 +104,5 @@ export class ProposalUpdateComponent implements OnInit {
     });
   }
 
-  seeAbstract() {
 
-  }
 }

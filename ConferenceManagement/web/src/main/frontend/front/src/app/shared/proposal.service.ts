@@ -28,7 +28,7 @@ export class ProposalService{
 
   addProposal(name: string, keywords:string, topics: string, conference:Conference):
     Observable<Proposal>{
-    let proposal : Proposal = new Proposal(null, name, keywords, topics, null, null, "pending review", conference);
+    let proposal : Proposal = new Proposal(null, name, keywords, topics, "", "", "pending review", conference);
     return this.httpClient
       .post<Proposal>(this.proposalUrl + "/saveProposal", proposal);
   }
@@ -111,10 +111,19 @@ export class ProposalService{
     return this.httpClient.post<User[]>(this.proposalUrl + "/getAuthorsForProposal", proposalID);
   }
 
-  uploadAbstractProper(proposalID: number, abstract: File): Observable<boolean> {
+  uploadAbstract(proposalID: number, abstract: File): Observable<boolean> {
     const formData = new FormData();
     formData.append('file', abstract);
-    return this.httpClient.put<boolean>(this.proposalUrl + '/uploadAbstract/'+ `${proposalID}`, formData)
+    return this.httpClient.put<boolean>(this.proposalUrl + '/uploadAbstractPaper/'+ `${proposalID}`, formData)
+      .pipe(
+        map(result => Boolean(result))
+      );
+  }
+
+  uploadFull(proposalID: number, full: File): Observable<boolean> {
+    const formData = new FormData();
+    formData.append('file', full);
+    return this.httpClient.put<boolean>(this.proposalUrl + '/uploadFullPaper/'+ `${proposalID}`, formData)
       .pipe(
         map(result => Boolean(result))
       );

@@ -18,13 +18,13 @@ export class RegisterPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  register(name:string, username: string, password: string, email: string) {
-    if (username === '' || password === '' || name === '' || email === '') {
+  register(name:string, username: string, password: string, email: string, affiliation: string) {
+    if (username === '' || password === '' || name === '' || email === '' || affiliation === '') {
       alert('All fields must be filled!');
       return;
     }
 
-    this.userService.register(name, username, password, email).subscribe(user => this.user = user);
+    this.userService.register(name, username, password, email, affiliation).subscribe(user => this.user = user);
 
     if(this.user === null){
       alert("Username and email must be unique!");

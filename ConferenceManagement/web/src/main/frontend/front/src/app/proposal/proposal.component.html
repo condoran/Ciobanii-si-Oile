@@ -9,7 +9,7 @@
   <p>{{proposal.topics}}</p>
   <hr>
   <b>Authors:</b><br>
-  <ol *ngIf="user !== null && authorsForProposal !== null">
+  <ol *ngIf="authorsForProposal !== null">
     <li *ngFor="let author of authorsForProposal">
       {{author.name}}
     </li>
@@ -32,6 +32,23 @@
   <button *ngIf="user && authorCanSeeReviews()" (click)="authorToViewReviews = true">See reviews</button>
   <button *ngIf="user !== null && reviewersForProposal !== null && userInReviewers(user.id) === true" (click)="showForReview = true">Review</button>
   <button (click)="goBack()">Go Back</button>
+  <br>
+  <div class="DownloadButtons" *ngIf="user !== null">
+    <div *ngIf="proposal.abstractPaperURL !== ''">
+      <a [href]="abstractUrl" download="Go">
+        <button class="abstract-button">
+          Download abstract paper
+        </button>
+      </a>
+    </div>
+    <div *ngIf="proposal.fullPaperURL !== ''">
+      <a [href]="fullUrl" download="Go">
+        <button class="abstract-button">
+          Download full paper
+        </button>
+      </a>
+    </div>
+  </div>
   </div>
   <!--  Assign reviewers  -->
   <div id = "assignReviewers" *ngIf="user !== null && usersToReview !== null && reviewersForProposal !== null">
@@ -109,4 +126,6 @@
       </li>
     </ul>
   </div>
+  <br>
+
 </div>

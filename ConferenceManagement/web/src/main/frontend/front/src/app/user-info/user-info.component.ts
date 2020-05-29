@@ -18,8 +18,8 @@ export class UserInfoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  updateInfoForPCMember(affiliation: string, personalWebsite: string) {
-    this.userService.updateUser(new User(this.user.id, null, null, null, affiliation, null, personalWebsite, null, null, null))
+  updateInfoForPCMember(personalWebsite: string) {
+    this.userService.updateUser(new User(this.user.id, null, null, null, null, null, personalWebsite, null, null, null))
       .subscribe(user => {
         sessionStorage.setItem('user', JSON.stringify(user))
         this.user = user;

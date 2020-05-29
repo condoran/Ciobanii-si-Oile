@@ -19,8 +19,8 @@ export class UserService {
       .post<User>(this.userUrl + '/checkUser', [username, password]);
   }
 
-  register(name: string, username: string, password: string, email: string): Observable<User>{
-    let user: User = new User(null, username, name, email, null, password, null, false, false, false);
+  register(name: string, username: string, password: string, email: string, affiliation: string): Observable<User>{
+    let user: User = new User(null, username, name, email, affiliation, password, null, false, false, false);
 
     return this.httpClient
       .post<User>(this.userUrl + '/saveUser', user);

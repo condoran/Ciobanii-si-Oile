@@ -15,8 +15,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 public class FileHelper {
-    public static String storeFile(MultipartFile file, String location, Long id) {
-        File file1 = new File(location+"Abstract"+id+".pdf");
+    public static String storeFile(MultipartFile file, String location) {
+        File file1 = new File(location);
         try {
             Files.copy(file.getInputStream(), file1.toPath(), StandardCopyOption.REPLACE_EXISTING);
             return file1.toPath().toString();

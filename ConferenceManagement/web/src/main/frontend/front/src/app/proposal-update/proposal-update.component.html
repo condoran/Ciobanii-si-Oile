@@ -20,20 +20,31 @@
     </div>
   </div>
 
-  <!-- Upload file -->
-  <div>
-    <button (click)="uploadAbstractButtonPressed()" class="abstract-button" color="primary">
-      Upload
-    </button>
-    <label>{{fileName}}</label>
-    <input #fileUpload accept="application/pdf, application/msword" id="fileUpload" multiple="multiple"
-           name="fileUpload"
-           style="display:none;" type="file"/>
-    <a [href]="abstractUrl" download="{{fileUpload}}">
-      <button class="abstract-button" (click)="seeAbstract()">
-        See uploaded abstract
+  <!-- Upload abstract file -->
+  <div *ngIf="user !== null">
+    <div *ngIf="currentDate < conference.abstractPaperDeadline">
+      <button (click)="uploadAbstractButtonPressed()" class="abstract-button" color="primary">
+        Upload Abstract
       </button>
-    </a>
+      <label>{{abstractFileName}}</label>
+      <input #abstractPaperUpload accept="application/pdf, application/msword" id="abstractPaperUpload" multiple="multiple"
+             name="abstractPaperUpload"
+             style="display:none;" type="file"/>
+    </div>
+
+  </div>
+
+  <!-- Upload full file -->
+  <div *ngIf="user !== null">
+    <div *ngIf="currentDate < conference.fullPaperDeadline">
+      <button (click)="uploadFullButtonPressed()" class="abstract-button" color="primary">
+        Upload Full Paper
+      </button>
+      <label>{{fullFileName}}</label>
+      <input #fullPaperUpload accept="application/pdf, application/msword" id="fullPaperUpload" multiple="multiple"
+             name="fullPaperUpload"
+             style="display:none;" type="file"/>
+    </div>
   </div>
 
   <hr>

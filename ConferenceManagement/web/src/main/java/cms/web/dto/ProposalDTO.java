@@ -18,8 +18,8 @@ public class ProposalDTO implements Serializable {
     private String name;
     private String keywords;
     private String topics;
-    private File abstractPaper;
-    private File fullPaper;
+    private String abstractPaperURL;
+    private String fullPaperURL;
     private String status;
     private ConferenceDTO conference;
 }

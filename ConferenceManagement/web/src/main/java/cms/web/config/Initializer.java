@@ -11,7 +11,7 @@ import javax.servlet.ServletRegistration;
 
 public class Initializer implements WebApplicationInitializer {
 
-    private String TMP_FOLDER = "C:\\Users\\Cristi\\Desktop\\SaveTest\\";
+    private String TMP_FOLDER = "D:\\Faculty\\Year_II_Sem_II\\ISS\\Files\\";
     private int MAX_UPLOAD_SIZE = 5 * 1024 * 1024;
 
     public void onStartup(ServletContext container)

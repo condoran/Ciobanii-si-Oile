@@ -27,8 +27,8 @@ public class Proposal implements Serializable {
     private String keywords;
     @Column(length = 1000)
     private String topics;
-    private File abstractPaper;
-    private File fullPaper;
+    private String abstractPaperURL;
+    private String fullPaperURL;
     private String status;
 
     @ManyToOne

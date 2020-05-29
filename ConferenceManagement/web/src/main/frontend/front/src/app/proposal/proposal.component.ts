@@ -9,6 +9,8 @@ import {Bidding} from "../shared/bidding.model";
 import {Permission} from "../shared/permission.model";
 import {Review} from "../shared/review.model";
 import {Location} from "@angular/common";
+import {URL} from "url";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-proposal',
@@ -17,7 +19,7 @@ import {Location} from "@angular/common";
 })
 export class ProposalComponent implements OnInit {
 
-  @Input() proposal: Proposal;
+  @Input() proposal: Proposal = null;
   user : User = JSON.parse(sessionStorage.getItem("user"));
   conference : Conference = JSON.parse(sessionStorage.getItem("conference"))
   currentDate = new Date();
@@ -34,11 +36,14 @@ export class ProposalComponent implements OnInit {
   chairToViewReviews: boolean = false;
   authorToViewReviews: boolean = false;
   authorsForProposal: User[] = null;
+  abstractUrl : URL;
+  fullUrl : URL;
 
   constructor(private route:ActivatedRoute,
               private proposalService: ProposalService,
               private location: Location,
-              private router: Router) { }
+              private router: Router,
+              private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
 
@@ -50,9 +55,20 @@ export class ProposalComponent implements OnInit {
     this.route.params.pipe(switchMap((params: Params) =>
       this.proposalService.getProposalForConference(+params['conferenceID'], +params['proposalID'])))
       .subscribe(proposal => {this.proposal = proposal;
+
+        if(this.proposal.abstractPaperURL !== "") {
+          this.abstractUrl =
+            this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/proposal/getAbstractPaper/' + this.proposal.id);
+
+        }
+        if(this.proposal.fullPaperURL !== "")
+          this.fullUrl =
+            this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/proposal/getFullPaper/' + this.proposal.id);
+
+        this.proposalService.getAuthorsForProposal(this.proposal.id)
+          .subscribe(authors => this.authorsForProposal = authors);
+
         if(this.user !== null) {
-          this.proposalService.getAuthorsForProposal(this.proposal.id)
-            .subscribe(authors => this.authorsForProposal = authors);
           this.proposalService.getReviewByUserAndProposal(this.user.id, this.proposal.id).subscribe(
             review => {
               this.review = review;

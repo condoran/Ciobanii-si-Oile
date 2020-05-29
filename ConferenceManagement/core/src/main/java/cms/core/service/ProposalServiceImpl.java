@@ -87,8 +87,8 @@ public class ProposalServiceImpl implements ProposalService{
         proposal.setKeywords(newProposal.getKeywords());
         proposal.setName(newProposal.getName());
         proposal.setTopics(newProposal.getTopics());
-        proposal.setAbstractPaper(newProposal.getAbstractPaper());
-        proposal.setFullPaper(newProposal.getFullPaper());
+        proposal.setAbstractPaperURL(newProposal.getAbstractPaperURL());
+        proposal.setFullPaperURL(newProposal.getFullPaperURL());
         proposal.setStatus(newProposal.getStatus());
         proposal.setConference(newProposal.getConference());
 

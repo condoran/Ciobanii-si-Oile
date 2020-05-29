@@ -5,18 +5,18 @@ export class Proposal {
   name:string;
   keywords:string;
   topics:string;
-  abstractPaper: File;
-  fullPaper: File;
+  abstractPaperURL:string;
+  fullPaperURL: string;
   status: string;
   conference:Conference;
 
-  constructor(id, name, keywords, topics, abstractPaper, fullPaper, status, conference) {
+  constructor(id, name, keywords, topics, abstractPaperURL, fullPaperURL, status, conference) {
     this.id = id;
     this.name = name;
     this.keywords = keywords;
     this.topics = topics;
-    this.abstractPaper = abstractPaper;
-    this.fullPaper = fullPaper;
+    this.abstractPaperURL = abstractPaperURL;
+    this.fullPaperURL = fullPaperURL;
     this.status = status;
     this.conference = conference;
   }
