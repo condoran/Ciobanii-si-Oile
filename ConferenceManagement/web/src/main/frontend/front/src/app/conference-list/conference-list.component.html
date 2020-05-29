@@ -6,7 +6,7 @@
 
     <div class="conference" *ngFor="let conference of conferences ">
         <div class="conferenceName">
-          {{conference.name}}
+          <h5 class="conferenceNameH">{{conference.name}}</h5>
         </div>
         <p>Starting date:</p>
         {{conference.startDate | date:'dd-MM-yyyy'}}

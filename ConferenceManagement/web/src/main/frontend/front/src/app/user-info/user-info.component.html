@@ -13,10 +13,11 @@
   <h4>Personal website:</h4> {{user.personalWebsite}}
 </div>
 <div *ngIf="user.affiliation === null && isPCMemberInSomeConference && isPCMemberInSomeConference === 'true'">
-  <h5>Affiliation:</h5>
-  <input type="text" #affiliation>
-  <h5>Personal website:</h5>
-  <input type="text" #personalWebsite>
+  <br>
+  <input type="text" placeholder="Affiliation" #affiliation>
+  <br><br>
+  <input type="text" placeholder="Personal website" #personalWebsite>
+  <br>
   <br>
   <button (click)="updateInfoForPCMember(affiliation.value, personalWebsite.value)">Update Data</button>
 </div>

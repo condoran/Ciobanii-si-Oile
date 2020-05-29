@@ -1,7 +1,7 @@
 <h2>Add A Section</h2>
 
 <div class="container">
-  Name:<br/><input type="text" #name/>
+  <br/><input type="text" placeholder="Name" #name/>
   <br/>
   <br/>
   <button *ngIf="wantsToAddSectionChair === false" (click)="wantsToAddSectionChair = true">Assign Section Chair</button>
@@ -15,7 +15,7 @@
         <button (click)="setAsSectionChair(user)">Assign As Section Chair</button>
       </li>
     </ul>
-    <input *ngIf="selectedCandidate !== null" type="text" [(ngModel)]="selectedCandidate.name" readonly><br/>
+    <input *ngIf="selectedCandidate !== null" type="text" [(ngModel)]="selectedCandidate.name" readonly><br/><br>
     <button (click)="assignSectionSection(name.value, selectedCandidate)">Save Section</button>
   </div>
   <button (click)="goBack()">Back</button>

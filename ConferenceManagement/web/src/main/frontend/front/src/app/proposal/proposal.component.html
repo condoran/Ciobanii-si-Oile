@@ -1,6 +1,6 @@
 <div *ngIf="proposal">
+  <div class="proposal">
   <h2> Proposal {{proposal.name}} DETAILS:</h2>
-  <br>
   <hr>
   <b>Keywords:</b><br>
   <p>{{proposal.keywords}}</p>
@@ -29,7 +29,10 @@
 
   <button *ngIf="user != null && canDoBidding(proposal.id)" (click)="bidProposal(proposal, true)">Accept Proposal</button>
   <button *ngIf="user != null && canDoBidding(proposal.id)" (click)="bidProposal(proposal, false)">Refuse Proposal</button>
-
+  <button *ngIf="user && authorCanSeeReviews()" (click)="authorToViewReviews = true">See reviews</button>
+  <button *ngIf="user !== null && reviewersForProposal !== null && userInReviewers(user.id) === true" (click)="showForReview = true">Review</button>
+  <button (click)="goBack()">Go Back</button>
+  </div>
   <!--  Assign reviewers  -->
   <div id = "assignReviewers" *ngIf="user !== null && usersToReview !== null && reviewersForProposal !== null">
     <p> You have to select {{conference.level - reviewersForProposal.length}} more reviewers!</p>
@@ -57,8 +60,8 @@
     </ul>
   </div>
 
-  <button *ngIf="user && authorCanSeeReviews()" (click)="authorToViewReviews = true">See reviews</button>
-  <button (click)="goBack()">Go Back</button>
+  <!--<button *ngIf="user && authorCanSeeReviews()" (click)="authorToViewReviews = true">See reviews</button>
+  <button (click)="goBack()">Go Back</button>-->
   <!--  See existent reviewers as chair  -->
 
   <div *ngIf="user !== null &&  (reviewsByAllUsers && chairToViewReviews) || authorToViewReviews">
@@ -76,7 +79,7 @@
     <button *ngIf="proposal.status === 'Undecided'" (click)="resetProposalReviews()">Rediscuss Papers</button>
   </div>
 
-  <button *ngIf="user !== null && reviewersForProposal !== null && userInReviewers(user.id) === true" (click)="showForReview = true">Review</button>
+ <!-- <button *ngIf="user !== null && reviewersForProposal !== null && userInReviewers(user.id) === true" (click)="showForReview = true">Review</button>-->
   <div *ngIf="showForReview">
     <div *ngIf="review !== null && review.qualifier === ''">
       <label><b>Qualifier:</b>
@@ -101,7 +104,7 @@
           <h4 *ngIf="reviewOthers.user.id !== user.id">-Review Of {{reviewOthers.user.name}}:</h4>
           <h4 *ngIf="reviewOthers.user.id === user.id">-My Review:</h4><br/>
           <b>Qualifier: </b><br/>{{reviewOthers.qualifier}}<br/><br/>
-          <b>Recommendation: </b><br/>{{reviewOthers.recommendation}}<br/>
+          <b>Recommendation: </b><br/><p>{{reviewOthers.recommendation}}<p><br/>
         </div>
       </li>
     </ul>
