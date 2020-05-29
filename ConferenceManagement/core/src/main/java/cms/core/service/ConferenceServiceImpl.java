@@ -43,12 +43,6 @@ public class ConferenceServiceImpl implements ConferenceService {
     }
 
     @Override
-    public List<Section> getSectionsForConference(Long conferenceId) {
-        return conferenceRepository.findAll().stream().filter(conference -> conference.getId().equals(conferenceId))
-                .map(Conference::getSections).findFirst().orElse(null);
-    }
-
-    @Override
     public Conference save(Conference conference) {
         return conferenceRepository.save(conference);
     }

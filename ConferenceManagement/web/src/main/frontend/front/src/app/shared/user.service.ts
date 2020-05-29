@@ -26,25 +26,12 @@ export class UserService {
       .post<User>(this.userUrl + '/saveUser', user);
   }
 
-  getConferencesForPCMember(username: string): Observable<Conference[]>{
-    return this.httpClient
-      .post<Conference[]>(this.userUrl + '/getConferencesForPCMember', username);
-  }
-
-  getUserByUsername(username: string): Observable<User>{
-    return this.httpClient.post<User>(this.userUrl + '/getUserByUsername', username);
-  }
-
   getUserByEmailAddress(emailAddress: string): Observable<User>{
     return this.httpClient.post<User>(this.userUrl + '/getUserByEmail', emailAddress);
   }
 
   getPermissionForUserInConference(userID: number, conferenceID: number): Observable<Permission>{
     return this.httpClient.post<Permission>(this.userUrl + '/getPermissionForUserInConference', [userID, conferenceID]);
-  }
-
-  getUserCanBeAuthorInProposal(userID: number, proposalID: number): Observable<boolean>{
-    return this.httpClient.post<boolean>(this.userUrl + "/getUserCanBeAuthorInProposal", [userID, proposalID]);
   }
 
   getAllNonSCUsersAndNonPCMembers(conferenceID: number): Observable<User[]>{
@@ -59,10 +46,6 @@ export class UserService {
   updateUser(user: User): Observable<User>{
     return this.httpClient
       .post<User>(this.userUrl + "/updateUser",user);
-  }
-
-  getUsersWithoutChairs(): Observable<User[]>{
-    return this.httpClient.get<User[]>(this.userUrl + "/getUsersWithoutChairs");
   }
 
   getSCMembers(): Observable<User[]>{

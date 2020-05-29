@@ -45,11 +45,9 @@ export class SectionComponent implements OnInit {
           .subscribe( proposals => this.proposalsToBeAssigned = proposals);
         if(this.user !== null)
           this.sectionService.checkParticipantInSection(this.section.id, this.user.id)
-            .subscribe( participated => {this.alreadyParticipated = participated;
-            console.log(this.alreadyParticipated)});
+            .subscribe( participated => {this.alreadyParticipated = participated;});
         this.proposalService.getProposalsForIDs(section.proposalIDs)
-          .subscribe(proposals => {this.proposalsToBePresented = proposals;
-          console.log(this.proposalsToBePresented)})
+          .subscribe(proposals => {this.proposalsToBePresented = proposals;})
       });
   }
 

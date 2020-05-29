@@ -40,11 +40,6 @@ public class SectionServiceImpl implements SectionService{
     }
 
     @Override
-    public List<Section> getAll() {
-        return sectionRepository.findAll();
-    }
-
-    @Override
     public List<Section> getAllByConferenceId(Long conferenceId) {
         return sectionRepository.findAll().stream().filter(section -> section.getConference().getId() == conferenceId)
                 .collect(Collectors.toList());
@@ -54,11 +49,6 @@ public class SectionServiceImpl implements SectionService{
     public Section save(Section section) {
         section.setParticipants(new ArrayList<>());
         return sectionRepository.save(section);
-    }
-
-    @Override
-    public void delete(Long sectionId) {
-        sectionRepository.deleteById(sectionId);
     }
 
     @Override

@@ -33,9 +33,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private ProposalAuthorRepository proposalAuthorRepository;
 
-    @Autowired
-    private SectionRepository sectionRepository;
-
     @Override
     public Optional<CMSUser> getUserByUsername(String username) {
         return userRepository.findAll().stream().filter(user -> user.getUsername().equals(username)).findFirst();
@@ -44,11 +41,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<CMSUser> getUserByEmailAddress(String emailAddress) {
         return userRepository.findAll().stream().filter(user -> user.getEmailAddress().equals(emailAddress)).findFirst();
-    }
-
-    @Override
-    public Optional<CMSUser> getUserById(Long userId) {
-        return userRepository.findAll().stream().filter(user -> user.getId().equals(userId)).findFirst();
     }
 
     @Override
@@ -82,11 +74,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<CMSUser> getChair() {
         return userRepository.findAll().stream().filter(CMSUser::getIsChair).findFirst();
-    }
-
-    @Override
-    public List<CMSUser> getCoChairs() {
-        return userRepository.findAll().stream().filter(user -> user.getIsCoChair() != null && user.getIsCoChair()).collect(Collectors.toList());
     }
 
     @Override

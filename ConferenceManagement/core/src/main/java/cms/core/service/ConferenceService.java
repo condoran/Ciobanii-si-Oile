@@ -17,8 +17,6 @@ public interface ConferenceService {
 
     List<CMSUser> getPCMembersForConference(Long conferenceId);
 
-    List<Section> getSectionsForConference(Long conferenceId);
-
     Conference save(Conference conference);
 
     Optional<Conference> postponeConference(Long conferenceId, Date newStartDate, Date newEndDate);

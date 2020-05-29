@@ -13,13 +13,10 @@ public interface SectionService {
 
     List<Section> getSectionsByIDs(List<Long> sectionsIDs);
 
-    List<Section> getAll();
-
     List<Section> getAllByConferenceId(Long conferenceId);
 
     Section save(Section section);
 
-    void delete(Long sectionId);
 
     Optional<Section> updateSectionChair(Long sectionID, CMSUser futureChair);
 

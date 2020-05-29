@@ -13,13 +13,7 @@ import java.util.stream.Collectors;
 @Component
 public class ProposalConverter extends BaseConverter<Proposal, ProposalDTO>{
     @Autowired
-    private UserConverter userConverter;
-
-    @Autowired
     private ConferenceConverter conferenceConverter;
-
-    @Autowired
-    private UserService userService;
 
     @Override
     public Proposal convertDtoToModel(ProposalDTO proposalDTO) {

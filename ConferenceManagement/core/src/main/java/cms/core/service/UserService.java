@@ -15,8 +15,6 @@ public interface UserService {
 
     Optional<CMSUser> getUserByEmailAddress(String emailAddress);
 
-    Optional<CMSUser> getUserById(Long userId);
-
     List<CMSUser> getUsersByIDs(List<Long> usersIDs);
 
     List<Conference> getConferencesForPCMember(String username);
@@ -27,11 +25,9 @@ public interface UserService {
 
     Optional<CMSUser> getChair();
 
-    List<CMSUser> getCoChairs();
-
     List<CMSUser> getSCMembers();
 
-    public List<CMSUser> getNonSCMembers();
+    List<CMSUser> getNonSCMembers();
 
     Optional<Permission> getPermissionForUserInConference(long userID, long conferenceID);
 

@@ -69,10 +69,6 @@ export class ProposalService{
 
   }
 
-  getReviewersIDsForProposal(proposalID: number): Observable<number[]>{
-    return this.httpClient.post<number[]>(this.proposalUrl + "/getReviewersIDsForProposal", proposalID);
-  }
-
   getReviewersForProposal(proposalID: number): Observable<User[]>{
     return this.httpClient.post<User[]>(this.proposalUrl + "/getReviewersForProposal", proposalID);
   }
@@ -88,10 +84,6 @@ export class ProposalService{
 
   getReviewsForProposal(proposalID: number): Observable<Review[]>{
     return this.httpClient.post<Review[]>(this.proposalUrl + "/getReviewsForProposal", proposalID);
-  }
-
-  checkAuthorWroteAProposal(proposalID: number, userID: number): Observable<boolean>{
-    return this.httpClient.post<boolean>(this.proposalUrl+ "/checkAuthorWroteAProposal", [proposalID, userID]);
   }
 
   checkProposalStatus(proposalID: number, conferenceLevel: number) : Observable<string>{
@@ -128,33 +120,4 @@ export class ProposalService{
         map(result => Boolean(result))
       );
   }
-
-  // uploadAbstract(authorId: number, paperName: string,
-  //                paperKeywords: string, abstract: File): Observable<boolean> {
-  //   console.log(authorId, paperName, paperKeywords, abstract);
-  //   var success = true;
-  //
-  //   this.uploadAbstractProper(abstract)
-  //     .subscribe(abstractResult => {
-  //       console.log(abstractResult);
-  //       success = abstractResult;
-  //     });
-  //
-  //   return of(success);
-  // }
-
-  // uploadAbstractProper(abstract: File): Observable<boolean> {
-  //   const formData = new FormData();
-  //   formData.append('file', abstract);
-  //   return this.httpClient.put<boolean>(this.proposalUrl + '/upload-abstract/abstract', formData)
-  //     .pipe(
-  //       map(result => Boolean(result['message']))
-  //     );
-  // }
-  //
-  // private handleError<T>(uploadAbstractProper: string) {
-  //   return function (p1: any, p2: Observable<boolean>) {
-  //     return false;
-  //   };
-  // }
 }

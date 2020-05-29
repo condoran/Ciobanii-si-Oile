@@ -33,9 +33,6 @@ public class ConferenceConverter extends BaseConverter<Conference, ConferenceDTO
                 .fullPaperDeadline(conferenceDTO.getFullPaperDeadline())
                 .biddingDeadline(conferenceDTO.getBiddingDeadline())
                 .level(conferenceDTO.getLevel())
-//                .chair((conferenceDTO.getChair() == null) ? null : userConverter.convertDtoToModel(conferenceDTO.getChair()))
-//                .firstCoChair((conferenceDTO.getFirstCoChair() == null) ? null : userConverter.convertDtoToModel(conferenceDTO.getFirstCoChair()))
-//                .secondCoChair((conferenceDTO.getSecondCoChair() == null) ? null : userConverter.convertDtoToModel(conferenceDTO.getSecondCoChair()))
                 .sections((conferenceDTO.getSectionsIDs() == null) ? null : sectionService.getSectionsByIDs(conferenceDTO.getSectionsIDs()))
                 .build();
     }
@@ -54,9 +51,6 @@ public class ConferenceConverter extends BaseConverter<Conference, ConferenceDTO
                 .fullPaperDeadline(conference.getFullPaperDeadline())
                 .biddingDeadline(conference.getBiddingDeadline())
                 .level(conference.getLevel())
-//                .chair((conference.getChair() == null) ? null : userConverter.convertModelToDto(conference.getChair()))
-//                .firstCoChair((conference.getFirstCoChair() == null) ? null : userConverter.convertModelToDto(conference.getFirstCoChair()))
-//                .secondCoChair((conference.getSecondCoChair() == null) ? null : userConverter.convertModelToDto(conference.getSecondCoChair()))
                 .sectionsIDs((conference.getSections() == null) ? null : sectionConverter.convertModelsToIDs(conference.getSections()))
                 .build();
     }

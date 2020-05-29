@@ -28,11 +28,6 @@ public class ProposalServiceImpl implements ProposalService{
     private UserRepository userRepository;
 
     @Override
-    public Optional<Proposal> getProposalById(Long proposalId) {
-        return proposalRepository.findById(proposalId);
-    }
-
-    @Override
     public List<Proposal> getProposalsByIDs(List<Long> proposalIDs) {
         return proposalRepository.findAllById(proposalIDs);
     }
@@ -74,10 +69,6 @@ public class ProposalServiceImpl implements ProposalService{
         return proposalRepository.save(proposal);
     }
 
-    @Override
-    public void delete(Long proposalId) {
-        proposalRepository.deleteById(proposalId);
-    }
 
     @Override
     @Transactional

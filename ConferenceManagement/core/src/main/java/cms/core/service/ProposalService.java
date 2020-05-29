@@ -7,7 +7,6 @@ import java.util.Optional;
 
 public interface ProposalService {
 
-    Optional<Proposal> getProposalById(Long proposalId);
 
     List<Proposal> getProposalsByIDs(List<Long> proposalIDs);
 
@@ -21,7 +20,6 @@ public interface ProposalService {
 
     Proposal save(Proposal proposal);
 
-    void delete(Long proposalId);
 
     Proposal update(Proposal newProposal);
 

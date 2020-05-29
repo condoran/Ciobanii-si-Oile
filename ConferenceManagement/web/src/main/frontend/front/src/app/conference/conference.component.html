@@ -16,6 +16,10 @@
     <label>
       <input type="date" *ngIf="user !== null && isChairOrCoChair()" value="{{conference.biddingDeadline | date:'yyyy-MM-dd'}}" id="biddingDeadline">
     </label><br/>
+    <label>Abstract Paper Deadline: </label>{{conference.abstractPaperDeadline | date:'MM/dd/yyyy'}}
+    <input type="date" *ngIf="user !== null && isChairOrCoChair()" value="{{conference.abstractPaperDeadline | date:'yyyy-MM-dd'}}" id="abstractDeadline"><br/>
+    <label>Full Paper Deadline: </label>{{conference.fullPaperDeadline | date:'MM/dd/yyyy'}}
+    <input type="date" *ngIf="user !== null && isChairOrCoChair()" value="{{conference.fullPaperDeadline | date:'yyyy-MM-dd'}}" id="fullDeadline"><br/>
   </div>
   <hr>
   <button (click)="goBack()">Back</button>

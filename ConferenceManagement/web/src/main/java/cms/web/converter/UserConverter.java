@@ -47,9 +47,4 @@ public class UserConverter extends BaseConverter<CMSUser, UserDTO> {
                 .build();
     }
 
-    public List<Long> convertModelsToIDs(List<CMSUser> models) {
-        return models.stream()
-                .map(CMSUser::getId)
-                .collect(Collectors.toList());
-    }
 }

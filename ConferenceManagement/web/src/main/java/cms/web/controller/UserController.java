@@ -42,9 +42,6 @@ public class UserController {
     @Autowired
     private PermissionConverter permissionConverter;
 
-    @Autowired
-    private ProposalAuthorConverter proposalAuthorConverter;
-
     @RequestMapping(value = "/user/getUsers", method = RequestMethod.GET)
     List<UserDTO> getUsers(){
         List<CMSUser> users = userService.getAllUsers();
