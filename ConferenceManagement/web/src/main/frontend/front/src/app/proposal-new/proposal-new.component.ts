@@ -35,6 +35,10 @@ export class ProposalNewComponent implements OnInit {
   }
 
   addProposal(name: string, keywords: string, topics: string) {
+    if(name === '' || keywords === '' || topics === ''){
+      alert("Please enter the name, keywords and topics");
+      return;
+    }
     this.proposalService.addProposal(name, keywords, topics,
       this.conference)
       .subscribe(proposal => {

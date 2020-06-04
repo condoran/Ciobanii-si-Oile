@@ -36,7 +36,11 @@ export class SectionNewComponent implements OnInit {
       .subscribe( users => this.candidatesForSectionChair = users);
   }
 
-  assignSectionSection(sectionName: string, user: User) {
+  saveSection(sectionName: string, user: User) {
+    if(sectionName === '' || this.selectedCandidate === null){
+      alert("Please enter a section name and assign a section chair!");
+      return;
+    }
     this.wantsToAddSectionChair = false;
     let section: Section = new Section(null, sectionName, user, null, this.conference);
     this.sectionService.addSection(section).subscribe();

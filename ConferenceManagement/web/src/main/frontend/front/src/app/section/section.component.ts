@@ -75,6 +75,7 @@ export class SectionComponent implements OnInit {
   }
 
   participateInSection() {
+    this.alreadyParticipated = true;
     this.sectionService.addParticipantInSection(this.section.id, this.user.id).subscribe();
   }
 }

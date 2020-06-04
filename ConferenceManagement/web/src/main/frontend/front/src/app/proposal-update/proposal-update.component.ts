@@ -23,15 +23,15 @@ export class ProposalUpdateComponent implements OnInit {
 
   @ViewChild('abstractPaperUpload', {static: false}) abstractPaperUpload: ElementRef;
   abstractFile: File = null;
-  abstractFileName: string;
+  abstractFileName: string = null;
 
   @ViewChild('fullPaperUpload', {static: false}) fullPaperUpload: ElementRef;
   fullFile: File = null;
-  fullFileName: string;
+  fullFileName: string = null;
 
   @ViewChild('presentationUpload', {static: false}) presentationUpload: ElementRef;
   presentationFile: File = null;
-  presentationFileName: string;
+  presentationFileName: string = null;
 
   @Input() proposal: Proposal;
   user : User = JSON.parse(sessionStorage.getItem("user"));
@@ -46,7 +46,7 @@ export class ProposalUpdateComponent implements OnInit {
               private userService: UserService,
               private conferenceService: ConferenceService,
               private router: Router,
-              private sanitizer: DomSanitizer,) {}
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -92,9 +92,13 @@ export class ProposalUpdateComponent implements OnInit {
   }
 
   updateProposal(): void {
-    this.proposal.abstractPaperURL = "Abstract" + String(this.proposal.id) + ".pdf";
-    this.proposal.fullPaperURL = "FullPaper" + String(this.proposal.id) + ".pdf";
-    this.proposal.presentationURL = "Presentation" + String(this.proposal.id) + ".pdf";
+    if(this.abstractFileName !== null )
+      this.proposal.abstractPaperURL = "Abstract" + String(this.proposal.id) + ".pdf";
+    if(this.fullFileName !== null)
+      this.proposal.fullPaperURL = "FullPaper" + String(this.proposal.id) + ".pdf";
+    if(this.presentationFileName !== null)
+      this.proposal.presentationURL = "Presentation" + String(this.proposal.id) + ".pdf";
+
     this.proposalService.uploadAbstract(this.proposal.id, this.abstractFile).subscribe(result => console.log(result))
     this.proposalService.uploadFull(this.proposal.id, this.fullFile).subscribe(result => console.log(result))
     this.proposalService.uploadPresentation(this.proposal.id, this.presentationFile).subscribe(result => console.log(result))

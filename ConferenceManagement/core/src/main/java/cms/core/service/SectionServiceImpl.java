@@ -95,6 +95,7 @@ public class SectionServiceImpl implements SectionService{
     public void addParticipantInSection(Long sectionID, Long userID) {
         userRepository.findById(userID).ifPresent(user -> {
             sectionRepository.findById(sectionID).ifPresent(section -> {
+                Hibernate.initialize(section.getParticipants());
                 List<CMSUser> participants = section.getParticipants();
                 participants.add(user);
                 section.setParticipants(participants);
@@ -114,12 +115,12 @@ public class SectionServiceImpl implements SectionService{
         List<CMSUser> users = section1.getParticipants();
         if(users == null || users.size() == 0)
             return false;
-        List<Long> userdIDs = users.stream()
+        List<Long> userIDs = users.stream()
                 .filter(user -> user.getId().equals(userID))
                 .map(CMSUser::getId)
                 .collect(Collectors.toList());
 
-        return userdIDs.size() > 0;
+        return userIDs.size() > 0;
     }
 
 

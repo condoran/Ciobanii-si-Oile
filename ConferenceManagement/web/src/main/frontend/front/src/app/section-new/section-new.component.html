@@ -16,7 +16,7 @@
       </li>
     </ul>
     <input *ngIf="selectedCandidate !== null" type="text" [(ngModel)]="selectedCandidate.name" readonly><br/><br>
-    <button (click)="assignSectionSection(name.value, selectedCandidate)">Save Section</button>
+    <button (click)="saveSection(name.value, selectedCandidate)">Save Section</button>
   </div>
   <button (click)="goBack()">Back</button>
 </div>

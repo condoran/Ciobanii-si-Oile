@@ -2,6 +2,8 @@
   <div class="proposal">
   <h2> Proposal {{proposal.name}} DETAILS:</h2>
   <hr>
+  <b>Status:</b><br/>
+  <p>{{proposal.status}}</p>
   <b>Keywords:</b><br>
   <p>{{proposal.keywords}}</p>
 
@@ -48,7 +50,7 @@
         </button>
       </a>
     </div>
-    <div *ngIf="(user.isCoChair || user.isChair) && proposal.presentationURL !== ''">
+    <div *ngIf="proposal.presentationURL !== ''">
       <a [href]="presentationURL" download="Go">
         <button class="abstract-button">
           Download presentation
