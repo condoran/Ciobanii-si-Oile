@@ -6,6 +6,7 @@
 
   <div class="menuItems">
     <p *ngIf="user"> Logged as {{user.name}}</p>
+    <a *ngIf="user === null" routerLink="help">Help</a>
     <a routerLink="user-info" *ngIf="user">Your info</a>
     <a routerLink="assign-cochair" *ngIf="user !== null && (user.isChair || user.isCoChair)">Assign CoChairs</a>
     <a routerLink="conference-new" *ngIf="user !== null && (user.isChair || user.isCoChair)">Add Conference</a>

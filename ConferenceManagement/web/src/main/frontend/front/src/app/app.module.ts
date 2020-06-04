@@ -25,6 +25,7 @@ import {SectionService} from "./shared/section.service";
 import { SectionComponent } from './section/section.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { AssignCochairComponent } from './assign-cochair/assign-cochair.component';
+import { HelpComponent } from './help/help.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { AssignCochairComponent } from './assign-cochair/assign-cochair.componen
     SectionComponent,
     UserInfoComponent,
     AssignCochairComponent,
+    HelpComponent,
   ],
   imports: [
     BrowserModule,
