@@ -29,6 +29,7 @@ public class Proposal implements Serializable {
     private String topics;
     private String abstractPaperURL;
     private String fullPaperURL;
+    private String presentationURL;
     private String status;
 
     @ManyToOne

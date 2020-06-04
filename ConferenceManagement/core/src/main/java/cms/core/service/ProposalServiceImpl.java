@@ -80,6 +80,7 @@ public class ProposalServiceImpl implements ProposalService{
         proposal.setTopics(newProposal.getTopics());
         proposal.setAbstractPaperURL(newProposal.getAbstractPaperURL());
         proposal.setFullPaperURL(newProposal.getFullPaperURL());
+        proposal.setPresentationURL(newProposal.getPresentationURL());
         proposal.setStatus(newProposal.getStatus());
         proposal.setConference(newProposal.getConference());
 

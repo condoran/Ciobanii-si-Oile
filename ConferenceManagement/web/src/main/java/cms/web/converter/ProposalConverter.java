@@ -26,6 +26,7 @@ public class ProposalConverter extends BaseConverter<Proposal, ProposalDTO>{
                 .keywords(proposalDTO.getKeywords())
                 .abstractPaperURL(proposalDTO.getAbstractPaperURL())
                 .fullPaperURL(proposalDTO.getFullPaperURL())
+                .presentationURL(proposalDTO.getPresentationURL())
                 .status(proposalDTO.getStatus())
                 .conference((proposalDTO.getConference() == null)? null : conferenceConverter.convertDtoToModel(proposalDTO.getConference()))
                 .build();
@@ -42,6 +43,7 @@ public class ProposalConverter extends BaseConverter<Proposal, ProposalDTO>{
                 .keywords(proposal.getKeywords())
                 .abstractPaperURL(proposal.getAbstractPaperURL())
                 .fullPaperURL(proposal.getFullPaperURL())
+                .presentationURL(proposal.getPresentationURL())
                 .status(proposal.getStatus())
                 .conference((proposal.getConference() == null)? null : conferenceConverter.convertModelToDto(proposal.getConference()))
                 .build();

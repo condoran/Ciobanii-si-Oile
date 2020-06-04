@@ -28,7 +28,7 @@ export class ProposalService{
 
   addProposal(name: string, keywords:string, topics: string, conference:Conference):
     Observable<Proposal>{
-    let proposal : Proposal = new Proposal(null, name, keywords, topics, "", "", "pending review", conference);
+    let proposal : Proposal = new Proposal(null, name, keywords, topics, "", "", "", "pending review", conference);
     return this.httpClient
       .post<Proposal>(this.proposalUrl + "/saveProposal", proposal);
   }
@@ -116,6 +116,15 @@ export class ProposalService{
     const formData = new FormData();
     formData.append('file', full);
     return this.httpClient.put<boolean>(this.proposalUrl + '/uploadFullPaper/'+ `${proposalID}`, formData)
+      .pipe(
+        map(result => Boolean(result))
+      );
+  }
+
+  uploadPresentation(proposalID: number, presentationFile: File): Observable<boolean> {
+    const formData = new FormData();
+    formData.append('file', presentationFile);
+    return this.httpClient.put<boolean>(this.proposalUrl + '/uploadPresentation/'+ `${proposalID}`, formData)
       .pipe(
         map(result => Boolean(result))
       );

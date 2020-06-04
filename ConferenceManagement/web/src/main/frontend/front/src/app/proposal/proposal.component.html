@@ -48,6 +48,13 @@
         </button>
       </a>
     </div>
+    <div *ngIf="(user.isCoChair || user.isChair) && proposal.presentationURL !== ''">
+      <a [href]="presentationURL" download="Go">
+        <button class="abstract-button">
+          Download presentation
+        </button>
+      </a>
+    </div>
   </div>
   </div>
   <!--  Assign reviewers  -->

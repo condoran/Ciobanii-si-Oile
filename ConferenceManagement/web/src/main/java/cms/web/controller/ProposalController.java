@@ -212,6 +212,24 @@ public class ProposalController{
                 .body(file);
     }
 
+    @RequestMapping(value = "/proposal/uploadPresentation/{id}", method = RequestMethod.PUT)
+    boolean uploadPresentation(@PathVariable Long id, @RequestParam("file") MultipartFile content) {
+        logger.trace("in ProposalController, uploadPresentation");
+        String url = FileHelper.storeFile(content, "D:\\Faculty\\Year_II_Sem_II\\ISS\\Files\\" + "Presentation"+id+".pdf");
+        logger.trace("in ProposalController, uploadPresentation, abstractUrl = {}", url);
+        return true;
+    }
+
+    @RequestMapping(value = "/proposal/getPresentation/{id}", method = RequestMethod.GET)
+    ResponseEntity<Resource> getPresentation(@PathVariable Long id) {
+        String url = "D:\\Faculty\\Year_II_Sem_II\\ISS\\Files\\Presentation"+id+".pdf";
+        Resource file = FileHelper.loadFileAsResource(url);
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_PDF)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + file.getFilename())
+                .body(file);
+    }
+
     @RequestMapping(value = "/proposal/getAuthorsForProposal", method = RequestMethod.POST)
     List<UserDTO> getAuthorsForProposal(@RequestBody Long proposalID){
         List<CMSUser> authors = proposalService.getAuthorsForProposal(proposalID);

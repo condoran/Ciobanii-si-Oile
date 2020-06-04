@@ -29,6 +29,10 @@ export class ProposalUpdateComponent implements OnInit {
   fullFile: File = null;
   fullFileName: string;
 
+  @ViewChild('presentationUpload', {static: false}) presentationUpload: ElementRef;
+  presentationFile: File = null;
+  presentationFileName: string;
+
   @Input() proposal: Proposal;
   user : User = JSON.parse(sessionStorage.getItem("user"));
   conference : Conference = JSON.parse(sessionStorage.getItem("conference"));
@@ -77,11 +81,23 @@ export class ProposalUpdateComponent implements OnInit {
     fileUpload.click();
   }
 
+  uploadPresentationButtonPressed() {
+    const fileUpload = this.presentationUpload.nativeElement;
+    fileUpload.onchange = () => {
+      this.presentationFile = fileUpload.files[0];
+      this.presentationFileName = this.presentationFile.name;
+      this.presentationUpload.nativeElement.value = '';
+    };
+    fileUpload.click();
+  }
+
   updateProposal(): void {
     this.proposal.abstractPaperURL = "Abstract" + String(this.proposal.id) + ".pdf";
     this.proposal.fullPaperURL = "FullPaper" + String(this.proposal.id) + ".pdf";
+    this.proposal.presentationURL = "Presentation" + String(this.proposal.id) + ".pdf";
     this.proposalService.uploadAbstract(this.proposal.id, this.abstractFile).subscribe(result => console.log(result))
     this.proposalService.uploadFull(this.proposal.id, this.fullFile).subscribe(result => console.log(result))
+    this.proposalService.uploadPresentation(this.proposal.id, this.presentationFile).subscribe(result => console.log(result))
     this.proposalService.updateProposal(this.proposal).subscribe();
   }
 
@@ -103,6 +119,7 @@ export class ProposalUpdateComponent implements OnInit {
       }
     });
   }
+
 
 
 }

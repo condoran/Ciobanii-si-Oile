@@ -38,6 +38,7 @@ export class ProposalComponent implements OnInit {
   authorsForProposal: User[] = null;
   abstractUrl : URL;
   fullUrl : URL;
+  presentationURL: URL;
 
   constructor(private route:ActivatedRoute,
               private proposalService: ProposalService,
@@ -64,6 +65,10 @@ export class ProposalComponent implements OnInit {
         if(this.proposal.fullPaperURL !== "")
           this.fullUrl =
             this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/proposal/getFullPaper/' + this.proposal.id);
+
+        if(this.proposal.presentationURL !== "")
+          this.presentationURL =
+            this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:8080/proposal/getPresentation/' + this.proposal.id);
 
         this.proposalService.getAuthorsForProposal(this.proposal.id)
           .subscribe(authors => this.authorsForProposal = authors);
